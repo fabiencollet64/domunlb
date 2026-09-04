@@ -523,9 +523,11 @@ legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-i
   min-height: var(--cible-min);
   text-decoration: underline; text-underline-offset: 0.2em;
 }
-.pied__logo { background: var(--blanc); border-radius: var(--rayon-m);
-  padding: var(--esp-3); display: inline-block; }
-.pied__logo img { height: 52px; width: auto; }
+/* Plus de pastille blanche : le logo est en trait blanc, il se pose
+   directement sur le navy du pied de page. Sur un fond blanc, il aurait
+   disparu. */
+.pied__logo { display: inline-block; }
+.pied__logo img { height: 62px; width: auto; }
 .pied__bas {
   margin-top: var(--esp-6); padding-top: var(--esp-4);
   border-top: 2px solid var(--separateur-pied);
@@ -796,10 +798,10 @@ legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-i
 /* Bouton d'appel à l'action de l'en-tête. Blanc plein plutôt que rose : il est
    présent sur toutes les pages, et le rose doit rester rare pour garder sa
    valeur de signal. Sur le violet, le blanc lit comme une action principale. */
-.entete__cta { flex: none; padding-inline: var(--esp-4); }
+/* Un seul libellé, à toutes les largeurs. La bascule précédente entre un
+   libellé long et un libellé court reposait sur deux éléments dont le CSS
+   masquait l'un : avec une feuille de style obsolète ou absente, les deux
+   s'affichaient côte à côte. « Contactez-nous » tient jusqu'à 320 px — le
+   logo absorbe la contrainte — donc la bascule n'avait pas lieu d'être. */
+.entete__cta { flex: none; padding-inline: var(--esp-4); white-space: nowrap; }
 .entete__cta[aria-current="page"] { border-color: var(--jaune); }
-.entete__cta-court { display: none; }
-@media (max-width: 619px) {
-  .entete__cta-long { display: none; }
-  .entete__cta-court { display: inline; }
-}

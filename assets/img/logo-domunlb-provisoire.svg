@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  RECONSTITUTION PROVISOIRE du logo Domun LB.
+
+  Ce fichier n'est PAS le logo original : il a été redessiné d'après une
+  capture d'écran, l'original n'ayant pas pu être récupéré. Le dessin, les
+  proportions et la typographie sont approchés, pas exacts.
+
+  La composition est horizontale — marque à gauche, texte à droite — parce
+  que l'en-tête tient sur une seule ligne de 72 px : un logo empilé y
+  tomberait à 7 px de hauteur de texte, illisible.
+
+  À remplacer par le fichier authentique dès que possible : le déposer dans
+  assets/img/ et faire pointer la constante LOGO de outils/gabarits.py
+  dessus. Aucune autre modification n'est nécessaire.
+
+  Tracé en blanc sur fond transparent : il se pose aussi bien sur le violet
+  de l'en-tête que sur le navy du pied de page, sans rectangle.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 90" role="img"
+     aria-label="Domun LB, aide à domicile">
+  <g transform="translate(-40 11) scale(0.5)"
+     fill="none" stroke="#ffffff" stroke-width="7"
+     stroke-linecap="round" stroke-linejoin="round">
+    <!-- Cœur -->
+    <path d="M160 118 C 112 86 88 66 88 46 C 88 29 101 18 117 18
+             C 134 18 151 30 160 46 C 169 30 186 18 203 18
+             C 219 18 232 29 232 46 C 232 66 208 86 160 118 Z"/>
+    <!-- Toit -->
+    <path d="M122 88 L160 52 L198 88"/>
+    <!-- Cheminée -->
+    <path d="M186 60 L186 44 L194 44 L194 68"/>
+    <!-- Murs -->
+    <path d="M134 80 L134 106 M186 80 L186 106"/>
+    <!-- Fenêtre -->
+    <path d="M160 74 L170 84 L160 94 L150 84 Z"/>
+  </g>
+  <text x="96" y="47" fill="#ffffff"
+        font-family="Georgia, 'Times New Roman', serif" font-size="30"
+        letter-spacing="2.5">DOMUN LB</text>
+  <text x="97" y="70" fill="#ffffff"
+        font-family="Arial, Helvetica, sans-serif" font-size="12"
+        letter-spacing="4.4">AIDE À DOMICILE</text>
+</svg>

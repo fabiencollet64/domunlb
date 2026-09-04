@@ -9,7 +9,7 @@ et que la navigation ne dérive pas d'une page à l'autre.
 # Pour héberger le logo avec le site : déposer le fichier dans assets/img/ et
 # écrire ici un chemin relatif (« assets/img/logo-domunlb.png »). Un chemin
 # relatif est automatiquement préfixé selon la profondeur de la page.
-LOGO = "https://www.domunlb.com/wp-content/uploads/2023/01/logo-domunlb.png"
+LOGO = "assets/img/logo-domunlb-provisoire.svg"
 
 
 def url_logo(prof=0):
@@ -111,7 +111,7 @@ def entete(page_active, prof=0):
 <header class="entete" data-entete>
   <div class="conteneur">
     <a class="entete__logo" href="{p}index.html">
-      <img src="{url_logo(prof)}" alt="Domun LB, accueil" width="200" height="56">
+      <img src="{url_logo(prof)}" alt="Domun LB, accueil" width="330" height="90">
     </a>
     <nav class="entete__nav" id="navigation-principale" data-nav
          aria-label="Navigation principale">
@@ -121,10 +121,8 @@ def entete(page_active, prof=0):
     </nav>
     <div class="entete__actions">
       <a class="bouton bouton--inverse entete__cta" href="{p}contact.html"
-         aria-label="Contactez-nous"
          {'aria-current="page"' if page_active == "contact.html" else ""}>
-        <span class="entete__cta-long">Contactez-nous</span>
-        <span class="entete__cta-court">Contact</span>
+        Contactez-nous
       </a>
       <button class="bouton-menu" type="button" data-bouton-menu hidden
               aria-label="Menu" aria-expanded="false"
@@ -178,7 +176,7 @@ def pied(prof=0):
   <div class="conteneur">
     <div class="grille grille--4">
       <div>
-        <span class="pied__logo"><img src="{LOGO}" alt="Domun LB" width="185" height="52"></span>
+        <span class="pied__logo"><img src="{LOGO}" alt="Domun LB" width="330" height="90"></span>
         <p>Services d'aide et d'accompagnement à domicile.</p>
       </div>
       <div>

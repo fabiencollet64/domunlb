@@ -176,12 +176,26 @@ intégration continue.
 
 ## Points d'attention avant mise en ligne
 
-**Le logo est appelé à son URL d'origine**
-(`https://www.domunlb.com/wp-content/uploads/2023/01/logo-domunlb.png`), comme
-indiqué dans la charte. Il n'a pas pu être téléchargé depuis l'environnement de
-développement. Avant mise en ligne, il est préférable de l'héberger avec le
-site, dans `assets/img/`, et de mettre à jour la constante `LOGO` de
-`outils/gabarits.py`.
+**Le logo en place est une reconstitution provisoire, à remplacer.**
+`assets/img/logo-domunlb-provisoire.svg` a été redessiné d'après une capture
+d'écran : le fichier authentique n'a pas pu être récupéré depuis
+l'environnement de développement, et une image transmise en conversation ne
+peut pas être enregistrée sur disque. **Le dessin, les proportions et la
+typographie sont approchés, pas exacts** — ce fichier ne doit pas être
+considéré comme l'identité de Domun LB.
+
+Pour le remplacer : déposer le fichier authentique dans `assets/img/` et faire
+pointer la constante `LOGO` de `outils/gabarits.py` dessus. Un chemin relatif
+est préfixé automatiquement selon la profondeur de la page ; aucune autre
+modification n'est nécessaire.
+
+La composition est **horizontale** — marque à gauche, texte à droite — parce
+que l'en-tête tient sur une seule ligne de 72 px : un logo empilé y tomberait
+à 7 px de hauteur de texte, illisible. Si le logo authentique est empilé, il
+faudra soit une version horizontale pour l'en-tête, soit accepter un en-tête
+plus haut. Le tracé est en blanc sur fond transparent, ce qui lui permet de se
+poser sur le violet de l'en-tête comme sur le navy du pied de page sans former
+de rectangle.
 
 **Le contenu rédactionnel est un contenu d'amorçage.** Les textes, les tarifs
 du tableau, l'exemple de calcul du crédit d'impôt, les témoignages et les
