@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Charte graphique et système de design | Domun LB</title>
+<meta name="description" content="Référence du système de design Domun LB : palette, contrastes, typographie, composants et règles d'accessibilité.">
+<link rel="stylesheet" href="assets/css/domun.css">
+</head>
+<body>
+<a class="lien-evitement" href="#contenu">Aller au contenu principal</a>
+
+<div class="bandeau-contact">
+  <div class="conteneur">
+    <p class="bandeau-contact__mention">Une question&nbsp;? Nous répondons du lundi au samedi, 8h–19h.</p>
+    <a class="tel" href="tel:+33182642033"><svg class="tel__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .58 3.6 1 1 0 0 1-.25 1z"/></svg><span class="visuellement-cache">Appeler Domun LB au </span><span class="tel__numero">01 82 64 20 33</span></a>
+  </div>
+</div>
+
+<header class="entete">
+  <div class="conteneur">
+    <a class="entete__logo" href="index.html">
+      <img src="https://www.domunlb.com/wp-content/uploads/2023/01/logo-domunlb.png" alt="Domun LB, accueil" width="200" height="56">
+    </a>
+    <div class="entete__actions">
+      <a class="tel" href="tel:+33182642033"><svg class="tel__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .58 3.6 1 1 0 0 1-.25 1z"/></svg><span class="visuellement-cache">Appeler Domun LB au </span><span class="tel__numero">01 82 64 20 33</span></a>
+      <button class="bouton-menu" type="button" data-bouton-menu hidden
+              aria-expanded="false" aria-controls="navigation-principale">
+        <span class="bouton-menu__barres" aria-hidden="true"></span>
+        Menu
+      </button>
+    </div>
+    <nav class="entete__nav" id="navigation-principale" data-nav
+         aria-label="Navigation principale">
+      <ul class="nav-liste">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="services/auxiliaire-de-vie.html">Auxiliaire de vie</a></li>
+          <li><a href="services/aide-soignante.html">Aide-soignante</a></li>
+          <li><a href="services/aide-menagere.html">Aide ménagère</a></li>
+          <li><a href="services/mandataire.html">Mandataire</a></li>
+          <li><a href="tarifs.html">Tarifs</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="candidature.html">Candidature</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="contenu">
+<nav class="fil-ariane" aria-label="Fil d'Ariane"><div class="conteneur"><ol><li><a href="index.html">Accueil</a></li><li><span aria-current="page">Charte graphique</span></li></ol></div></nav>
+
+<section class="section section--serree">
+  <div class="conteneur entete-page">
+    <h1>Charte graphique Domun LB</h1>
+    <p class="chapo">Référence du système de design&nbsp;: palette, typographie,
+      composants et règles d'accessibilité. Toute page du site doit pouvoir se
+      construire avec les seuls éléments présentés ici.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <h2>Palette</h2>
+    <p>Six couleurs, aucune autre. Elles sont déclarées une seule fois, dans
+      <code>assets/css/tokens.css</code>, et ne sont jamais écrites en dur
+      ailleurs.</p>
+    <div class="grille grille--4"><article class="carte">
+      <span style="display:block;height:5rem;border-radius:var(--rayon-s);
+                   border:2px solid var(--navy);background:#0a1557"></span>
+      <h3><code>--navy</code></h3>
+      <p><strong>#0a1557</strong></p>
+      <p>Texte principal, titres, pied de page</p>
+    </article><article class="carte">
+      <span style="display:block;height:5rem;border-radius:var(--rayon-s);
+                   border:2px solid var(--navy);background:#4c1472"></span>
+      <h3><code>--violet</code></h3>
+      <p><strong>#4c1472</strong></p>
+      <p>Couleur de marque, aplats de section, icônes</p>
+    </article><article class="carte">
+      <span style="display:block;height:5rem;border-radius:var(--rayon-s);
+                   border:2px solid var(--navy);background:#d12686"></span>
+      <h3><code>--rose</code></h3>
+      <p><strong>#d12686</strong></p>
+      <p>Boutons d'action et accents, jamais en texte courant</p>
+    </article><article class="carte">
+      <span style="display:block;height:5rem;border-radius:var(--rayon-s);
+                   border:2px solid var(--navy);background:#b9d1f4"></span>
+      <h3><code>--bleu</code></h3>
+      <p><strong>#b9d1f4</strong></p>
+      <p>Fonds de section clairs, cartes, encadrés</p>
+    </article><article class="carte">
+      <span style="display:block;height:5rem;border-radius:var(--rayon-s);
+                   border:2px solid var(--navy);background:#fdd377"></span>
+      <h3><code>--jaune</code></h3>
+      <p><strong>#fdd377</strong></p>
+      <p>Badges, puces, surlignage, étoiles d'avis</p>
+    </article><article class="carte">
+      <span style="display:block;height:5rem;border-radius:var(--rayon-s);
+                   border:2px solid var(--navy);background:#ffffff"></span>
+      <h3><code>--blanc</code></h3>
+      <p><strong>#ffffff</strong></p>
+      <p>Fond de page</p>
+    </article></div>
+  </div>
+</section>
+
+<section class="section section--clair">
+  <div class="conteneur">
+    <h2>Contrastes vérifiés</h2>
+    <p>Toutes les associations utilisées sur le site dépassent le seuil de
+      4,5:1. La vérification est rejouable&nbsp;:
+      <code>python3 outils/verifier-contrastes.py</code>.</p>
+    <div class="tableau-enveloppe">
+      <table class="tableau">
+        <caption>Rapports de contraste des associations autorisées</caption>
+        <thead><tr>
+          <th scope="col">Association</th>
+          <th scope="col">Rapport</th>
+          <th scope="col">Usage</th>
+        </tr></thead>
+        <tbody><tr><th scope="row">Navy sur blanc</th><td class="tarif">16,70:1</td><td>Texte courant, titres</td></tr><tr><th scope="row">Navy sur bleu clair</th><td class="tarif">10,72:1</td><td>Texte sur section claire, cartes</td></tr><tr><th scope="row">Blanc sur violet</th><td class="tarif">12,72:1</td><td>Aplats de section et en-têtes</td></tr><tr><th scope="row">Blanc sur navy</th><td class="tarif">16,70:1</td><td>Pied de page, bas du dégradé</td></tr><tr><th scope="row">Blanc sur rose</th><td class="tarif">4,85:1</td><td>Libellé du bouton principal</td></tr><tr><th scope="row">Violet sur blanc</th><td class="tarif">12,72:1</td><td>Libellé du bouton secondaire</td></tr><tr><th scope="row">Navy sur jaune</th><td class="tarif">11,74:1</td><td>Badges et surlignage uniquement</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <h2>Typographie</h2>
+    <div class="duo">
+      <div>
+        <p>Le corps de texte est à <strong>18&nbsp;px minimum</strong>, porté à
+          <strong>20&nbsp;px sur les pages services</strong>. L'interlignage est
+          de <strong>1,6</strong> partout.</p>
+        <p>Aucune taille n'est écrite en pixels dans le CSS&nbsp;: tout est en
+          <code>rem</code>, pour que le réglage «&nbsp;taille du texte&nbsp;» du
+          navigateur reste opérant. La longueur de ligne est plafonnée à 68
+          caractères.</p>
+      </div>
+      <div class="carte">
+        <p style="font-size:var(--texte-3xl);font-weight:700;line-height:1.2;margin:0">Titre h1</p>
+        <p style="font-size:var(--texte-2xl);font-weight:700;line-height:1.2;margin:0">Titre h2</p>
+        <p style="font-size:var(--texte-xl);font-weight:700;line-height:1.2;margin:0">Titre h3</p>
+        <p style="font-size:var(--texte-m);margin:0">Corps 20&nbsp;px — pages services</p>
+        <p style="font-size:var(--texte-s);margin:0">Corps 18&nbsp;px — plancher général</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--clair">
+  <div class="conteneur">
+    <h2>Boutons</h2>
+    <div class="grille">
+      <div class="carte">
+        <h3>Principal</h3>
+        <p>Rose plein, libellé blanc gras. Un seul par écran visible&nbsp;: le
+          rose garde sa valeur de signal.</p>
+        <p><a class="bouton bouton--principal" href="#contenu">Demander un devis</a></p>
+      </div>
+      <div class="carte">
+        <h3>Secondaire</h3>
+        <p>Contour violet sur fond blanc. Pour toutes les actions de second
+          rang.</p>
+        <p><a class="bouton bouton--secondaire" href="#contenu">En savoir plus</a></p>
+      </div>
+      <div class="carte carte--marque">
+        <h3>Sur aplat de marque</h3>
+        <p>Sur violet ou sur le dégradé, le bouton passe en blanc plein.</p>
+        <p><a class="bouton bouton--inverse" href="#contenu">Nous contacter</a></p>
+      </div>
+    </div>
+    <p>Tous les boutons font au minimum 48&nbsp;px de haut et 18&nbsp;px de
+      libellé.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <h2>Réassurance en jaune</h2>
+    <p>Le jaune ne sert qu'aux micro-éléments&nbsp;: badges, puces, surlignage et
+      étoiles d'avis. Il ne porte jamais d'information à lui seul, et reçoit
+      toujours un contour navy — sans quoi il serait invisible sur blanc
+      (1,42:1).</p>
+    <div class="grille">
+      <div class="carte">
+        <h3>Badge</h3>
+        <p><span class="badge">Intervenants formés</span></p>
+      </div>
+      <div class="carte">
+        <h3>Puces</h3>
+        <ul class="liste-puces"><li>Devis gratuit</li><li>Sans engagement</li></ul>
+      </div>
+      <div class="carte">
+        <h3>Surlignage</h3>
+        <p>Un crédit d'impôt de <span class="surligne">50&nbsp;%</span>.</p>
+      </div>
+      <div class="carte">
+        <h3>Étoiles d'avis</h3>
+        <p class="note"><span class="note__etoiles" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3L7 14.2l-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3L7 14.2l-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3L7 14.2l-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3L7 14.2l-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3L7 14.2l-5-4.9 6.9-1z"/></svg></span><span><strong>5 sur 5</strong> — avis des familles</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--degrade">
+  <div class="conteneur">
+    <h2>Dégradé</h2>
+    <p>Cette section est le seul dégradé autorisé&nbsp;: violet vers navy. Le
+      texte blanc reste conforme aux deux extrémités (12,72:1 sur violet,
+      16,70:1 sur navy). Le dégradé violet vers rose est interdit.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <h2>Champs de formulaire</h2>
+    <p>Le libellé est toujours visible <strong>au-dessus</strong> du champ. Le
+      texte indicatif ne remplace jamais le libellé. Les erreurs associent une
+      icône et un texte&nbsp;: jamais la couleur seule.</p>
+    <form class="formulaire" action="#" onsubmit="return false">
+      <div class="champ">
+        <label class="champ__libelle" for="demo-nom">Nom et prénom</label>
+        <input type="text" id="demo-nom" name="demo-nom" autocomplete="name">
+      </div>
+      <div class="champ champ--erreur">
+        <label class="champ__libelle" for="demo-tel">Téléphone</label>
+        <span class="champ__aide" id="demo-aide">Exemple&nbsp;: 06 12 34 56 78</span>
+        <input type="tel" id="demo-tel" name="demo-tel"
+               aria-describedby="demo-aide demo-erreur" aria-invalid="true" value="06 12">
+        <p class="champ__erreur" id="demo-erreur">
+          Ce numéro est incomplet. Saisissez les 10 chiffres.
+        </p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="section section--clair">
+  <div class="conteneur">
+    <h2>Ce qui est interdit</h2>
+    <ul class="liste-puces"><li>Du texte posé sur le jaune en couleur claire — le jaune ne porte que du navy.</li><li>Du texte clair sur le bleu clair — le bleu clair ne reçoit que du navy.</li><li>Du rose en texte courant, en titre ou en lien de paragraphe.</li><li>Un dégradé du violet vers le rose — seul violet vers navy est autorisé.</li><li>Une septième couleur, y compris un gris de remplissage ou un rouge d'erreur.</li><li>Un libellé de champ affiché uniquement en texte indicatif (placeholder).</li><li>Une zone cliquable de moins de 48 px, ou un texte de corps sous 18 px.</li></ul>
+  </div>
+</section>
+</main>
+<footer class="pied">
+  <div class="conteneur">
+    <div class="grille grille--4">
+      <div>
+        <span class="pied__logo"><img src="https://www.domunlb.com/wp-content/uploads/2023/01/logo-domunlb.png" alt="Domun LB" width="185" height="52"></span>
+        <p>Services d'aide et d'accompagnement à domicile.</p>
+      </div>
+      <div>
+        <h2>Nous appeler</h2>
+        <a class="tel" href="tel:+33182642033"><svg class="tel__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .58 3.6 1 1 0 0 1-.25 1z"/></svg><span class="visuellement-cache">Appeler Domun LB au </span><span class="tel__numero">01 82 64 20 33</span></a>
+        <p>Du lundi au samedi, 8h–19h.</p>
+      </div>
+      <div>
+        <h2>Nos services</h2>
+        <ul><li><a href="services/auxiliaire-de-vie.html">Auxiliaire de vie</a></li><li><a href="services/aide-soignante.html">Aide-soignante</a></li><li><a href="services/aide-menagere.html">Aide ménagère</a></li><li><a href="services/mandataire.html">Mandataire</a></li></ul>
+      </div>
+      <div>
+        <h2>Informations</h2>
+        <ul>
+          <li><a href="tarifs.html">Tarifs</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="candidature.html">Candidature</a></li>
+          <li><a href="charte.html">Charte graphique</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pied__bas">
+      <p>© 2026 Domun LB. Tous droits réservés.</p>
+      <a class="tel" href="tel:+33182642033"><svg class="tel__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .58 3.6 1 1 0 0 1-.25 1z"/></svg><span class="visuellement-cache">Appeler Domun LB au </span><span class="tel__numero">01 82 64 20 33</span></a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/navigation.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+/* ==========================================================================
+   Domun LB — Mise en page : conteneurs, sections, grilles
+   ========================================================================== */
+
+.conteneur {
+  width: 100%;
+  max-width: var(--largeur-page);
+  margin-inline: auto;
+  padding-inline: var(--esp-5);
+}
+
+/* ---- Sections ----------------------------------------------------------- */
+.section { padding-block: var(--esp-8); }
+.section--serree { padding-block: var(--esp-7); }
+
+/* Fond blanc (défaut) */
+.section--blanc  { background: var(--fond-page); }
+
+/* Aplat clair : texte navy sur bleu clair — 10,72:1 */
+.section--clair  { background: var(--fond-section-clair); color: var(--texte-sur-clair); }
+
+/* Grand aplat de marque : texte blanc sur violet — 12,72:1 */
+.section--marque { background: var(--fond-section-marque); color: var(--texte-sur-marque); }
+
+/* Dégradé autorisé : violet → navy. Le texte blanc reste conforme aux deux
+   extrémités (12,72:1 sur violet, 16,70:1 sur navy). */
+.section--degrade {
+  background: var(--degrade-marque);
+  color: var(--texte-sur-marque);
+}
+.section--degrade h1, .section--degrade h2, .section--degrade h3,
+.section--degrade p,  .section--degrade li { color: var(--texte-sur-marque); }
+
+/* ---- Grilles ------------------------------------------------------------ */
+.grille {
+  display: grid;
+  gap: var(--esp-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+.grille--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+.grille--4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+
+/* Deux colonnes texte + média, empilées sur mobile */
+.duo {
+  display: grid;
+  gap: var(--esp-6);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+@media (min-width: 900px) { .duo { grid-template-columns: 1fr 1fr; } }
+
+/* ---- En-tête de page ---------------------------------------------------- */
+.entete-page { padding-block: var(--esp-7) var(--esp-6); }
+.entete-page .chapo {
+  font-size: var(--texte-m);
+  max-width: var(--largeur-lecture);
+}
+.section--degrade .entete-page__intro { color: var(--texte-sur-marque); }
+
+/* ---- Fil d'Ariane ------------------------------------------------------- */
+.fil-ariane { padding-block: var(--esp-4); font-size: var(--texte-s); }
+.fil-ariane ol {
+  list-style: none; display: flex; flex-wrap: wrap;
+  gap: var(--esp-2); margin: 0; padding: 0;
+}
+.fil-ariane li { max-width: none; display: flex; align-items: center; gap: var(--esp-2); }
+.fil-ariane li + li::before { content: "›"; font-weight: var(--graisse-forte); }
+.fil-ariane a { display: inline-flex; align-items: center; min-height: var(--cible-min); }
+.fil-ariane [aria-current="page"] { font-weight: var(--graisse-forte); }
+
+/* ---- Pile verticale ----------------------------------------------------- */
+.pile > * + * { margin-top: var(--esp-4); }
+.pile-large > * + * { margin-top: var(--esp-6); }
+.centre { text-align: center; }
+.centre p, .centre li { margin-inline: auto; }

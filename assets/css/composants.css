@@ -1,0 +1,453 @@
+/* ==========================================================================
+   Domun LB — Composants
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   BOUTONS
+   Principal   : rose plein, libellé blanc gras, 18 px mini, cible 48 px mini.
+   Secondaire  : contour violet sur fond blanc.
+   Le rose reste rare : un seul bouton principal par écran visible.
+   ------------------------------------------------------------------------ */
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-3);
+  min-height: var(--cible-min);          /* 48 px */
+  padding: var(--esp-3) var(--esp-6);
+  font-family: inherit;
+  font-size: var(--texte-s);             /* 18 px plancher */
+  font-weight: var(--graisse-forte);
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  border: 3px solid transparent;
+  border-radius: var(--rayon-plein);
+  cursor: pointer;
+  transition: background-color .18s ease, color .18s ease, transform .18s ease;
+}
+.bouton:hover { transform: translateY(-2px); }
+.bouton:active { transform: translateY(0); }
+
+/* Principal — blanc sur rose = 4,85:1 (conforme AA) */
+.bouton--principal {
+  background: var(--action-fond);
+  color: var(--action-texte);
+  border-color: var(--action-fond);
+  box-shadow: var(--ombre-carte);
+}
+.bouton--principal:hover  { background: var(--rose-fonce); border-color: var(--rose-fonce); }
+.bouton--principal:visited { color: var(--action-texte); }
+
+/* Secondaire — contour violet sur blanc, libellé violet = 12,72:1 */
+.bouton--secondaire {
+  background: var(--blanc);
+  color: var(--action-contour);
+  border-color: var(--action-contour);
+}
+.bouton--secondaire:hover { background: var(--action-contour); color: var(--blanc); }
+.bouton--secondaire:visited { color: var(--action-contour); }
+.bouton--secondaire:hover:visited { color: var(--blanc); }
+
+/* Variante posée sur un aplat violet ou un dégradé : blanc plein */
+.bouton--inverse {
+  background: var(--blanc);
+  color: var(--violet);
+  border-color: var(--blanc);
+}
+.bouton--inverse:hover { background: var(--bleu); color: var(--navy); }
+.bouton--inverse:visited { color: var(--violet); }
+
+.bouton--large { width: 100%; }
+@media (min-width: 600px) { .bouton--large { width: auto; } }
+
+.groupe-boutons {
+  display: flex; flex-wrap: wrap; gap: var(--esp-4);
+  align-items: center;
+}
+.centre .groupe-boutons { justify-content: center; }
+
+/* --------------------------------------------------------------------------
+   TÉLÉPHONE — visible en permanence, cliquable, en en-tête et en pied
+   ------------------------------------------------------------------------ */
+.tel {
+  display: inline-flex; align-items: center; gap: var(--esp-3);
+  min-height: var(--cible-min);
+  font-size: var(--texte-m);
+  font-weight: var(--graisse-forte);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.tel__icone { flex: none; width: 24px; height: 24px; fill: currentColor; }
+.tel__numero { text-decoration: underline; text-underline-offset: 0.2em; }
+
+/* Téléphone en bouton d'appel (mobile, bandeaux d'action) */
+.tel--bouton {
+  background: var(--action-fond); color: var(--action-texte);
+  border-radius: var(--rayon-plein);
+  padding: var(--esp-3) var(--esp-5);
+}
+.tel--bouton .tel__numero { text-decoration: none; }
+.tel--bouton:hover { background: var(--rose-fonce); }
+
+/* --------------------------------------------------------------------------
+   EN-TÊTE
+   ------------------------------------------------------------------------ */
+.bandeau-contact {
+  background: var(--navy);
+  color: var(--blanc);
+  font-size: var(--texte-s);
+}
+.bandeau-contact .conteneur {
+  display: flex; flex-wrap: wrap; gap: var(--esp-4);
+  align-items: center; justify-content: space-between;
+  padding-block: var(--esp-2);
+}
+.bandeau-contact a { color: var(--blanc); }
+.bandeau-contact .tel { color: var(--blanc); }
+.bandeau-contact__mention {
+  display: inline-flex; align-items: center; gap: var(--esp-2);
+  margin: 0; max-width: none;
+}
+
+.entete { background: var(--blanc); border-bottom: 2px solid var(--bordure); }
+.entete .conteneur {
+  display: flex; flex-wrap: wrap; gap: var(--esp-4);
+  align-items: center; justify-content: space-between;
+  padding-block: var(--esp-4);
+}
+.entete__logo { display: inline-flex; align-items: center; min-height: var(--cible-min); }
+.entete__logo img { width: auto; height: 56px; }
+.entete__actions { display: flex; align-items: center; gap: var(--esp-4); flex-wrap: wrap; }
+.entete .tel { color: var(--navy); }
+
+/* Navigation */
+.entete__nav { width: 100%; }
+.nav-liste {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: var(--esp-1);
+}
+.nav-liste li { max-width: none; }
+.nav-liste a {
+  display: flex; align-items: center;
+  min-height: var(--cible-min);
+  padding: var(--esp-2) var(--esp-4);
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-medium);
+  text-decoration: none;
+  border-radius: var(--rayon-s);
+  border-bottom: 4px solid transparent;
+}
+.nav-liste a:hover { background: var(--bleu); }
+.nav-liste a[aria-current="page"] {
+  font-weight: var(--graisse-forte);
+  border-bottom-color: var(--violet);
+}
+
+/* Bouton menu (mobile) */
+.bouton-menu {
+  display: none;
+  align-items: center; gap: var(--esp-3);
+  min-height: var(--cible-min); padding: var(--esp-2) var(--esp-4);
+  background: var(--blanc); color: var(--navy);
+  border: 3px solid var(--violet); border-radius: var(--rayon-s);
+  font-family: inherit; font-size: var(--texte-s);
+  font-weight: var(--graisse-forte); cursor: pointer;
+}
+.bouton-menu__barres { display: block; width: 24px; height: 3px; background: currentColor;
+  position: relative; }
+.bouton-menu__barres::before, .bouton-menu__barres::after {
+  content: ""; position: absolute; left: 0; width: 24px; height: 3px; background: currentColor; }
+.bouton-menu__barres::before { top: -8px; }
+.bouton-menu__barres::after  { top: 8px; }
+
+@media (max-width: 899px) {
+  .bouton-menu { display: inline-flex; }
+  .entete__nav[data-ouvert="false"] { display: none; }
+  .nav-liste { flex-direction: column; gap: 0; padding-block: var(--esp-3); }
+  .nav-liste li + li { border-top: 2px solid var(--bordure); }
+  .nav-liste a { border-bottom: none; border-left: 5px solid transparent; }
+  .nav-liste a[aria-current="page"] { border-left-color: var(--violet); }
+}
+
+/* --------------------------------------------------------------------------
+   CARTES
+   ------------------------------------------------------------------------ */
+.carte {
+  background: var(--fond-carte);
+  color: var(--texte);
+  border: 2px solid var(--bordure);
+  border-radius: var(--rayon-m);
+  padding: var(--esp-5);
+  box-shadow: var(--ombre-carte);
+  display: flex; flex-direction: column; gap: var(--esp-3);
+}
+.carte > :last-child { margin-bottom: 0; }
+.carte h3 { margin-top: 0; }
+.carte p, .carte li { max-width: none; }
+
+.carte--clair { background: var(--fond-carte-clair); border-color: var(--violet); }
+.carte--marque { background: var(--violet); border-color: var(--violet); color: var(--blanc); }
+.carte--marque h3, .carte--marque p, .carte--marque li { color: var(--blanc); }
+
+/* Carte cliquable : toute la carte est la cible, le lien reste le point focus */
+.carte--lien { position: relative; transition: transform .18s ease, box-shadow .18s ease; }
+.carte--lien:hover { transform: translateY(-4px); box-shadow: var(--ombre-relief); }
+.carte--lien .carte__lien::after { content: ""; position: absolute; inset: 0; }
+.carte__lien { font-weight: var(--graisse-forte); font-size: var(--texte-m); }
+
+/* Icône de carte : rond violet, glyphe blanc */
+.carte__icone {
+  flex: none;
+  display: grid; place-items: center;
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--violet); color: var(--blanc);
+}
+.carte__icone svg { width: 32px; height: 32px; fill: currentColor; }
+.carte--marque .carte__icone { background: var(--blanc); color: var(--violet); }
+
+/* --------------------------------------------------------------------------
+   RÉASSURANCE EN JAUNE
+   Le jaune ne porte jamais de texte ni d'information seule, et reçoit
+   toujours un contour navy — sans quoi il disparaîtrait sur blanc (1,42:1).
+   ------------------------------------------------------------------------ */
+.badge {
+  display: inline-flex; align-items: center; gap: var(--esp-2);
+  padding: var(--esp-2) var(--esp-4);
+  background: var(--reassurance);
+  color: var(--navy);                              /* navy/jaune = 11,74:1 */
+  border: 2px solid var(--reassurance-contour);
+  border-radius: var(--rayon-plein);
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-forte);
+  line-height: 1.3;
+}
+.badge--discret { background: var(--blanc); }
+
+/* Liste à puces jaunes */
+.liste-puces { list-style: none; margin: 0; padding: 0; }
+.liste-puces li {
+  position: relative;
+  padding-left: 2.5rem;
+  margin-bottom: var(--esp-3);
+}
+.liste-puces li::before {
+  content: "";
+  position: absolute; left: 0; top: 0.35em;
+  width: 1.4rem; height: 1.4rem;
+  background: var(--reassurance);
+  border: 2px solid var(--reassurance-contour);
+  border-radius: 50%;
+}
+/* Sur fond de marque, le contour de puce passe en blanc */
+.section--marque .liste-puces li::before,
+.section--degrade .liste-puces li::before,
+.carte--marque .liste-puces li::before { border-color: var(--blanc); }
+
+/* Surlignage jaune sur du texte navy — 11,74:1 */
+.surligne {
+  background: var(--reassurance);
+  color: var(--navy);
+  padding: 0 var(--esp-2);
+  border-radius: var(--rayon-s);
+  box-decoration-break: clone;
+}
+
+/* Étoiles d'avis — jaune contourné navy + équivalent textuel obligatoire */
+.note { display: inline-flex; align-items: center; gap: var(--esp-2); }
+.note__etoiles { display: inline-flex; gap: 2px; }
+.note__etoiles svg {
+  width: 24px; height: 24px;
+  fill: var(--reassurance);
+  stroke: var(--reassurance-contour); stroke-width: 1.5;
+}
+.section--marque .note__etoiles svg, .section--degrade .note__etoiles svg { stroke: var(--blanc); }
+
+/* --------------------------------------------------------------------------
+   FORMULAIRES
+   Libellé visible AU-DESSUS du champ, jamais en placeholder seul.
+   ------------------------------------------------------------------------ */
+.formulaire { max-width: 40rem; }
+.champ { margin-bottom: var(--esp-5); }
+
+.champ__libelle {
+  display: block;
+  margin-bottom: var(--esp-2);
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-forte);
+  color: var(--texte);
+}
+.champ__obligatoire { color: var(--navy); font-weight: var(--graisse-forte); }
+.champ__aide {
+  display: block;
+  margin: 0 0 var(--esp-2);
+  font-size: var(--texte-s);
+  max-width: none;
+}
+
+.champ input, .champ select, .champ textarea {
+  display: block; width: 100%;
+  min-height: var(--cible-min);
+  padding: var(--esp-3) var(--esp-4);
+  font-family: inherit;
+  font-size: var(--texte-s);
+  line-height: var(--interligne);
+  color: var(--texte);
+  background: var(--blanc);
+  border: 2px solid var(--navy);
+  border-radius: var(--rayon-s);
+}
+.champ textarea { min-height: 10rem; resize: vertical; }
+.champ input:hover, .champ select:hover, .champ textarea:hover { border-color: var(--violet); }
+
+/* Le placeholder est décoratif : il ne remplace jamais le libellé. */
+.champ ::placeholder { color: var(--navy-doux); opacity: 1; }
+
+/* Cases à cocher et boutons radio : cible de 48 px sur tout le libellé */
+.choix { display: flex; align-items: flex-start; gap: var(--esp-3); }
+.choix + .choix { margin-top: var(--esp-2); }
+.choix input { width: 28px; height: 28px; min-height: 28px; margin: 10px 0 0; flex: none; }
+.choix label { min-height: var(--cible-min); display: flex; align-items: center; }
+
+/* Erreurs : couleur + icône + texte, jamais la couleur seule */
+.champ--erreur input, .champ--erreur select, .champ--erreur textarea {
+  border-color: var(--violet); border-width: 3px;
+}
+.champ__erreur {
+  display: flex; align-items: center; gap: var(--esp-2);
+  margin-top: var(--esp-2);
+  font-weight: var(--graisse-forte);
+  color: var(--navy);
+}
+.champ__erreur::before {
+  content: "!";
+  display: grid; place-items: center;
+  flex: none; width: 1.5rem; height: 1.5rem;
+  background: var(--violet); color: var(--blanc);
+  border-radius: 50%; font-size: var(--texte-s);
+}
+
+fieldset { border: 2px solid var(--bordure); border-radius: var(--rayon-m);
+  padding: var(--esp-4) var(--esp-5); margin: 0 0 var(--esp-5); }
+legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-inline: var(--esp-2); }
+
+/* --------------------------------------------------------------------------
+   TABLEAU DE TARIFS
+   ------------------------------------------------------------------------ */
+.tableau-enveloppe { overflow-x: auto; }
+.tableau {
+  width: 100%; border-collapse: collapse;
+  font-size: var(--texte-s);
+  min-width: 34rem;
+}
+.tableau caption {
+  text-align: left; font-weight: var(--graisse-forte);
+  font-size: var(--texte-m); padding-bottom: var(--esp-3);
+}
+.tableau th, .tableau td {
+  padding: var(--esp-4);
+  text-align: left;
+  border-bottom: 2px solid var(--bordure);
+  vertical-align: top;
+}
+.tableau thead th { background: var(--violet); color: var(--blanc); }
+.tableau thead th:first-child { border-top-left-radius: var(--rayon-s); }
+.tableau thead th:last-child  { border-top-right-radius: var(--rayon-s); }
+.tableau tbody tr:nth-child(even) { background: var(--bleu-voile); }
+.tableau th[scope="row"] { font-weight: var(--graisse-forte); }
+.tableau .tarif { font-size: var(--texte-m); font-weight: var(--graisse-forte); white-space: nowrap; }
+
+/* --------------------------------------------------------------------------
+   ENCADRÉS ET DIVERS
+   ------------------------------------------------------------------------ */
+.encadre {
+  background: var(--fond-section-clair);
+  color: var(--texte-sur-clair);
+  border-left: 8px solid var(--violet);
+  border-radius: var(--rayon-m);
+  padding: var(--esp-5);
+}
+.encadre h3 { margin-top: 0; }
+.encadre p, .encadre li { max-width: none; }
+
+/* Étapes numérotées */
+.etapes { list-style: none; margin: 0; padding: 0; counter-reset: etape; }
+.etapes li {
+  counter-increment: etape;
+  position: relative;
+  padding-left: 4.25rem;
+  margin-bottom: var(--esp-5);
+  max-width: var(--largeur-lecture);
+}
+.etapes li::before {
+  content: counter(etape);
+  position: absolute; left: 0; top: 0;
+  display: grid; place-items: center;
+  width: 3rem; height: 3rem;
+  background: var(--violet); color: var(--blanc);
+  border-radius: 50%;
+  font-size: var(--texte-l); font-weight: var(--graisse-forte);
+  line-height: 1;
+}
+.section--marque .etapes li::before, .section--degrade .etapes li::before {
+  background: var(--blanc); color: var(--violet);
+}
+
+/* Questions fréquentes */
+.faq details {
+  border: 2px solid var(--bordure);
+  border-radius: var(--rayon-m);
+  margin-bottom: var(--esp-4);
+  background: var(--blanc);
+}
+.faq summary {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--esp-4);
+  min-height: var(--cible-min);
+  padding: var(--esp-4) var(--esp-5);
+  font-size: var(--texte-m);
+  font-weight: var(--graisse-forte);
+  cursor: pointer;
+  list-style: none;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: var(--texte-l); flex: none; }
+.faq details[open] summary::after { content: "–"; }
+.faq details[open] summary { border-bottom: 2px solid var(--bordure); }
+.faq details > :not(summary) { padding-inline: var(--esp-5); }
+.faq details > :last-child { padding-bottom: var(--esp-4); }
+
+/* Article de blog en liste */
+.article-liste { display: flex; flex-direction: column; gap: var(--esp-3); }
+.article-liste__meta { font-size: var(--texte-s); margin: 0; }
+.article-liste h3 { margin: 0; }
+
+/* Bandeau d'appel à l'action */
+.rappel-action { text-align: center; }
+.rappel-action p { margin-inline: auto; font-size: var(--texte-m); }
+
+/* --------------------------------------------------------------------------
+   PIED DE PAGE
+   ------------------------------------------------------------------------ */
+.pied { background: var(--fond-pied); color: var(--texte-sur-pied); padding-block: var(--esp-7) var(--esp-5); }
+.pied a { color: var(--texte-sur-pied); }
+.pied h2, .pied h3 { color: var(--texte-sur-pied); margin-top: 0; font-size: var(--texte-l); }
+.pied .tel { color: var(--texte-sur-pied); }
+.pied ul { list-style: none; margin: 0; padding: 0; }
+.pied li { max-width: none; }
+.pied li a {
+  display: inline-flex; align-items: center;
+  min-height: var(--cible-min);
+  text-decoration: underline; text-underline-offset: 0.2em;
+}
+.pied__logo { background: var(--blanc); border-radius: var(--rayon-m);
+  padding: var(--esp-3); display: inline-block; }
+.pied__logo img { height: 52px; width: auto; }
+.pied__bas {
+  margin-top: var(--esp-6); padding-top: var(--esp-4);
+  border-top: 2px solid var(--separateur-pied);
+  display: flex; flex-wrap: wrap; gap: var(--esp-4);
+  align-items: center; justify-content: space-between;
+  font-size: var(--texte-s);
+}
+.pied__bas p { margin: 0; max-width: none; }

@@ -1,0 +1,119 @@
+/* ==========================================================================
+   Domun LB — Jetons de design (design tokens)
+   Source unique de vérité pour la charte graphique.
+   Aucune couleur ne doit être écrite en dur ailleurs que dans ce fichier.
+   ========================================================================== */
+
+:root {
+  /* ---- Palette de marque — les 6 seules couleurs autorisées -------------- */
+  --navy:   #0a1557;  /* texte principal, titres, pied de page                */
+  --violet: #4c1472;  /* couleur de marque, aplats de section, icônes         */
+  --rose:   #d12686;  /* boutons d'action et accents — jamais en texte courant */
+  --bleu:   #b9d1f4;  /* fonds de section clairs, cartes, encadrés            */
+  --jaune:  #fdd377;  /* badges, puces, surlignage, étoiles d'avis            */
+  --blanc:  #ffffff;  /* fond de page                                         */
+
+  /* ---- Rôles sémantiques -------------------------------------------------
+     On ne consomme JAMAIS --navy/--rose… directement dans les composants :
+     on passe par un rôle. Cela rend les règles de la charte lisibles dans
+     le code et empêche les usages interdits (texte rose, texte sur jaune…). */
+
+  /* Fonds */
+  --fond-page:            var(--blanc);
+  --fond-section-clair:   var(--bleu);
+  --fond-section-marque:  var(--violet);
+  --fond-carte:           var(--blanc);
+  --fond-carte-clair:     var(--bleu);
+  --fond-pied:            var(--navy);
+
+  /* Textes — uniquement navy sur clair, blanc sur foncé. Contrastes vérifiés
+     par outils/verifier-contrastes.py (navy/blanc 16,70:1 — navy/bleu 10,72:1
+     — blanc/violet 12,72:1 — blanc/navy 16,70:1). */
+  --texte:                var(--navy);
+  --texte-sur-clair:      var(--navy);
+  --texte-sur-marque:     var(--blanc);
+  --texte-sur-pied:       var(--blanc);
+
+  /* Actions */
+  --action-fond:          var(--rose);   /* bouton principal, aplat plein     */
+  --action-texte:         var(--blanc);  /* blanc/rose = 4,85:1 — conforme AA */
+  --action-contour:       var(--violet); /* bouton secondaire                 */
+
+  /* Réassurance — le jaune ne porte jamais de texte ni d'information seule.
+     Contraste jaune/blanc = 1,42:1 : tout élément jaune reçoit donc un
+     contour navy pour rester perceptible (cf. CHARTE.md §Écarts traités). */
+  --reassurance:          var(--jaune);
+  --reassurance-contour:  var(--navy);
+
+  /* Bordures et séparateurs */
+  --bordure:              var(--bleu);
+  --bordure-forte:        var(--violet);
+
+  /* Dégradé — violet vers navy uniquement, jamais violet vers rose. */
+  --degrade-marque: linear-gradient(135deg, var(--violet) 0%, var(--navy) 100%);
+
+  /* ---- Typographie -------------------------------------------------------
+     Aucune taille n'est exprimée en px : tout est en rem pour que le réglage
+     « taille du texte » du navigateur de l'utilisateur reste opérant. */
+  --police: "Segoe UI", Roboto, "Helvetica Neue", Arial, system-ui, sans-serif;
+
+  --texte-xs:  1rem;      /* 16 px — mentions légales uniquement, jamais du corps */
+  --texte-s:   1.125rem;  /* 18 px — corps de texte, plancher absolu             */
+  --texte-m:   1.25rem;   /* 20 px — corps des pages services, chapô             */
+  --texte-l:   1.5rem;    /* 24 px                                               */
+  --texte-xl:  clamp(1.5rem,   1.2rem + 1.4vw, 1.875rem);  /* 24 → 30 px  h3 */
+  --texte-2xl: clamp(1.75rem,  1.3rem + 2.2vw, 2.25rem);   /* 28 → 36 px  h2 */
+  --texte-3xl: clamp(2rem,     1.4rem + 3vw,   2.75rem);   /* 32 → 44 px  h1 */
+
+  --interligne:        1.6;   /* non négociable sur tout le texte courant */
+  --interligne-titre:  1.2;
+
+  --graisse-normale: 400;
+  --graisse-medium:  600;
+  --graisse-forte:   700;
+
+  /* ---- Espacements — échelle de 4 px ------------------------------------- */
+  --esp-1: 0.25rem;  --esp-2: 0.5rem;   --esp-3: 0.75rem;  --esp-4: 1rem;
+  --esp-5: 1.5rem;   --esp-6: 2rem;     --esp-7: 3rem;     --esp-8: 4rem;
+  --esp-9: 6rem;
+
+  /* ---- Zones cliquables — plancher non négociable ------------------------ */
+  --cible-min: 48px;
+
+  /* ---- Formes et ombres -------------------------------------------------- */
+  --rayon-s: 6px;  --rayon-m: 12px;  --rayon-l: 20px;  --rayon-plein: 999px;
+  /* Blanc à 35 % — séparateur du pied de page sur navy. */
+  --separateur-pied: rgba(255, 255, 255, 0.35);
+
+  --ombre-carte:  0 2px 8px rgba(10, 21, 87, 0.10);
+  --ombre-relief: 0 6px 20px rgba(10, 21, 87, 0.16);
+
+  /* ---- Focus — visible partout, jamais supprimé ------------------------- */
+  --focus-epaisseur: 3px;
+  --focus-couleur:   var(--navy);
+  --focus-decalage:  3px;
+
+  /* ---- Largeurs de lecture ---------------------------------------------- */
+  --largeur-page:    1200px;
+  --largeur-lecture: 68ch;  /* longueur de ligne confortable */
+  /* ---- Teintes dérivées -------------------------------------------------
+     La charte n'autorise aucune AUTRE couleur : ces trois valeurs ne sont
+     donc pas de nouvelles couleurs, mais des mélanges de deux couleurs de la
+     palette (color-mix), réservés aux états d'interface — survol, zébrage,
+     texte indicatif. Aucune ne sert d'aplat ni de couleur de marque.
+     Les valeurs en dur servent de repli aux navigateurs sans color-mix. */
+  --rose-fonce: #ad237e;  /* rose 82 % + navy — survol du bouton principal,
+                             blanc dessus = 6,33:1                          */
+  --bleu-voile: #e6effb;  /* bleu 35 % + blanc — zébrage de tableau,
+                             navy dessus = 14,39:1                          */
+  --navy-doux:  #40487c;  /* navy 78 % + blanc — texte indicatif de champ,
+                             sur blanc = 8,62:1                             */
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  :root {
+    --rose-fonce: color-mix(in srgb, var(--rose)   82%, var(--navy));
+    --bleu-voile: color-mix(in srgb, var(--bleu)   35%, var(--blanc));
+    --navy-doux:  color-mix(in srgb, var(--navy)   78%, var(--blanc));
+  }
+}
