@@ -29,7 +29,7 @@ services/
   aide-menagere.html                }
   mandataire.html                   }
 assets/css/
-  domun.css                         Point d'entrée unique (importe les 4 suivants)
+  domun.css                         GÉNÉRÉ — concaténation des 4 suivants
   tokens.css                        Jetons — SEULE source des couleurs
   base.css                          Socle : reset, typographie, focus
   mise-en-page.css                  Conteneurs, sections, grilles
@@ -54,8 +54,12 @@ que le téléphone reste présent partout et que la navigation ne dérive pas d'
 page à l'autre.
 
 ```bash
-python3 outils/generer.py          # régénère les 9 pages
+python3 outils/generer.py          # régénère les 10 pages et la feuille de style
 ```
+
+`assets/css/domun.css` est **généré** : c'est la concaténation de `tokens.css`,
+`base.css`, `mise-en-page.css` et `composants.css`. Ne le modifiez pas à la
+main — éditez l'une des quatre sources, puis relancez la génération.
 
 - **Changer une couleur** : uniquement dans `assets/css/tokens.css`. Aucune
   couleur n'est écrite en dur ailleurs, les deux vérificateurs le contrôlent.
@@ -151,6 +155,20 @@ Ce qui est tenu à chaque étape :
 - l'état d'une option sélectionnée est signalé par la bordure, le fond **et**
   la case cochée — jamais par la couleur seule ;
 - un seul bouton rose est visible à la fois, conformément à la charte.
+
+## Cache des ressources
+
+Les URL du CSS et des scripts portent une empreinte du contenu
+(`domun.css?v=c7c0f2ed…`), recalculée à chaque génération. Sans elle, un
+navigateur qui a gardé l'ancien CSS l'applique au nouveau HTML : la page
+s'affiche cassée, sans que rien ne le signale, et il faut penser à vider le
+cache à chaque mise en ligne.
+
+Les quatre feuilles étaient auparavant assemblées par des `@import` dans
+`domun.css`. Une empreinte sur ce seul fichier n'aurait rien réglé : chaque
+fichier importé est mis en cache séparément. Elles sont donc concaténées à la
+génération — ce qui supprime aussi la cascade de requêtes qui retardait le
+premier rendu. La page ne charge plus qu'une feuille au lieu de cinq.
 
 ## Vérifications
 

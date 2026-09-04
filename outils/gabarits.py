@@ -9,6 +9,12 @@ et que la navigation ne dérive pas d'une page à l'autre.
 # Pour héberger le logo avec le site : déposer le fichier dans assets/img/ et
 # écrire ici un chemin relatif (« assets/img/logo-domunlb.png »). Un chemin
 # relatif est automatiquement préfixé selon la profondeur de la page.
+# Empreinte des feuilles de style et des scripts, injectée par generer.py et
+# ajoutée aux URL des ressources. Sans elle, un navigateur qui a gardé
+# l'ancien CSS en cache l'applique au nouveau HTML, et la page s'affiche
+# cassée sans que rien ne le signale.
+VERSION = "0"
+
 LOGO = "assets/img/logo-domunlb-provisoire.svg"
 
 
@@ -253,7 +259,8 @@ def page(titre, description, corps, page_active, prof=0, classe_body="",
     p = prefixe(prof)
     cls = f' class="{classe_body}"' if classe_body else ""
     scripts_html = "".join(
-        f'\n<script src="{p}assets/js/{nom}" defer></script>' for nom in scripts)
+        f'\n<script src="{p}assets/js/{nom}?v={VERSION}" defer></script>'
+        for nom in scripts)
     return f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -261,7 +268,7 @@ def page(titre, description, corps, page_active, prof=0, classe_body="",
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{titre} | Domun LB</title>
 <meta name="description" content="{description}">
-<link rel="stylesheet" href="{p}assets/css/domun.css">
+<link rel="stylesheet" href="{p}assets/css/domun.css?v={VERSION}">
 </head>
 <body{cls}>
 {entete(page_active, prof)}
@@ -270,8 +277,8 @@ def page(titre, description, corps, page_active, prof=0, classe_body="",
 </main>
 {pied(prof)}
 {chat(prof)}
-<script src="{p}assets/js/navigation.js" defer></script>
-<script src="{p}assets/js/chat.js" defer></script>{scripts_html}
+<script src="{p}assets/js/navigation.js?v={VERSION}" defer></script>
+<script src="{p}assets/js/chat.js?v={VERSION}" defer></script>{scripts_html}
 </body>
 </html>
 """

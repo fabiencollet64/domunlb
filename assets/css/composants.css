@@ -337,7 +337,7 @@
    au lieu de trois cartouches pleins qui se bousculaient sur deux rangées. */
 .reassurance {
   display: flex; flex-wrap: wrap;
-  gap: var(--esp-2) var(--esp-5);
+  gap: var(--esp-3) var(--esp-6);
   margin: 0; padding: 0;
   list-style: none;
   font-size: var(--texte-s);
@@ -687,9 +687,9 @@ legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-i
   /* La carte du formulaire est étroite : en ligne, les trois mentions
      retombaient « deux puis une ». En colonne, elles restent lisibles. */
   flex-direction: column;
-  gap: var(--esp-2);
-  margin: var(--esp-5) 0 0;
-  padding-top: var(--esp-4);
+  gap: var(--esp-4);
+  margin: var(--esp-6) 0 0;
+  padding-top: var(--esp-5);
   border-top: 2px solid var(--bordure);
 }
 

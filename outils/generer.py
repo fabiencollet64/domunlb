@@ -6,6 +6,7 @@
 Le contenu rédactionnel (chiffres, tarifs, témoignages) est un contenu
 d'amorçage à faire valider par Domun LB — voir README.md § Contenu.
 """
+import hashlib
 import os
 import sys
 
@@ -35,6 +36,50 @@ def icone(nom):
     return (f'<span class="carte__icone" aria-hidden="true">'
             f'<svg viewBox="0 0 24 24">{ICONES[nom]}</svg></span>')
 
+
+
+# ---------------------------------------------------------------------------
+# Feuille de style et empreinte de version
+# ---------------------------------------------------------------------------
+FEUILLES = ("tokens.css", "base.css", "mise-en-page.css", "composants.css")
+SCRIPTS = ("navigation.js", "qualification.js", "chat.js")
+
+
+def construire_css():
+    """Concatène les feuilles en un seul fichier et calcule l'empreinte.
+
+    Les quatre feuilles étaient auparavant assemblées par des @import dans
+    domun.css. Deux inconvénients : le navigateur devait charger domun.css,
+    l'analyser, puis aller chercher quatre fichiers de plus — une cascade qui
+    retarde le premier rendu ; et surtout chacun de ces quatre fichiers était
+    mis en cache séparément, donc ajouter un numéro de version à domun.css
+    n'aurait pas suffi à les rafraîchir. Un navigateur gardant l'ancien CSS
+    l'appliquait alors au nouveau HTML, et la page s'affichait cassée sans que
+    rien ne le signale.
+    """
+    css = "\n".join(
+        open(os.path.join(RACINE, "assets", "css", f), encoding="utf-8").read()
+        for f in FEUILLES
+    )
+    entete = (
+        "/* FICHIER GÉNÉRÉ — ne pas modifier à la main.\n"
+        "   Produit par outils/generer.py à partir de : "
+        + ", ".join(FEUILLES) + ".\n"
+        "   Modifier l'un de ces fichiers, puis relancer la génération. */\n\n"
+    )
+    chemin = os.path.join(RACINE, "assets", "css", "domun.css")
+    with open(chemin, "w", encoding="utf-8") as f:
+        f.write(entete + css)
+
+    empreinte = hashlib.sha256(css.encode("utf-8"))
+    for nom in SCRIPTS:
+        with open(os.path.join(RACINE, "assets", "js", nom), "rb") as f:
+            empreinte.update(f.read())
+    return empreinte.hexdigest()[:10]
+
+
+g.VERSION = construire_css()
+print("css    assets/css/domun.css (version %s)" % g.VERSION)
 
 # ---------------------------------------------------------------------------
 # Les quatre services

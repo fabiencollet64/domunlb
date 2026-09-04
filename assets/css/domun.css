@@ -1,9 +1,1172 @@
+/* FICHIER GÉNÉRÉ — ne pas modifier à la main.
+   Produit par outils/generer.py à partir de : tokens.css, base.css, mise-en-page.css, composants.css.
+   Modifier l'un de ces fichiers, puis relancer la génération. */
+
 /* ==========================================================================
-   Domun LB — Feuille de style unique
-   Ordre d'import volontaire : jetons → socle → mise en page → composants.
-   C'est le seul fichier à appeler dans les pages.
+   Domun LB — Jetons de design (design tokens)
+   Source unique de vérité pour la charte graphique.
+   Aucune couleur ne doit être écrite en dur ailleurs que dans ce fichier.
    ========================================================================== */
-@import url("tokens.css");
-@import url("base.css");
-@import url("mise-en-page.css");
-@import url("composants.css");
+
+:root {
+  /* ---- Palette de marque — les 6 seules couleurs autorisées -------------- */
+  --navy:   #0a1557;  /* texte principal, titres, pied de page                */
+  --violet: #4c1472;  /* couleur de marque, aplats de section, icônes         */
+  --rose:   #d12686;  /* boutons d'action et accents — jamais en texte courant */
+  --bleu:   #b9d1f4;  /* fonds de section clairs, cartes, encadrés            */
+  --jaune:  #fdd377;  /* badges, puces, surlignage, étoiles d'avis            */
+  --blanc:  #ffffff;  /* fond de page                                         */
+
+  /* ---- Rôles sémantiques -------------------------------------------------
+     On ne consomme JAMAIS --navy/--rose… directement dans les composants :
+     on passe par un rôle. Cela rend les règles de la charte lisibles dans
+     le code et empêche les usages interdits (texte rose, texte sur jaune…). */
+
+  /* Fonds */
+  --fond-page:            var(--blanc);
+  --fond-section-clair:   var(--bleu);
+  --fond-section-marque:  var(--violet);
+  --fond-carte:           var(--blanc);
+  --fond-carte-clair:     var(--bleu);
+  --fond-pied:            var(--navy);
+
+  /* Textes — uniquement navy sur clair, blanc sur foncé. Contrastes vérifiés
+     par outils/verifier-contrastes.py (navy/blanc 16,70:1 — navy/bleu 10,72:1
+     — blanc/violet 12,72:1 — blanc/navy 16,70:1). */
+  --texte:                var(--navy);
+  --texte-sur-clair:      var(--navy);
+  --texte-sur-marque:     var(--blanc);
+  --texte-sur-pied:       var(--blanc);
+
+  /* Actions */
+  --action-fond:          var(--rose);   /* bouton principal, aplat plein     */
+  --action-texte:         var(--blanc);  /* blanc/rose = 4,85:1 — conforme AA */
+  --action-contour:       var(--violet); /* bouton secondaire                 */
+
+  /* Réassurance — le jaune ne porte jamais de texte ni d'information seule.
+     Contraste jaune/blanc = 1,42:1 : tout élément jaune reçoit donc un
+     contour navy pour rester perceptible (cf. CHARTE.md §Écarts traités). */
+  --reassurance:          var(--jaune);
+  --reassurance-contour:  var(--navy);
+
+  /* Bordures et séparateurs */
+  --bordure:              var(--bleu);
+  --bordure-forte:        var(--violet);
+
+  /* Dégradé — violet vers navy uniquement, jamais violet vers rose. */
+  --degrade-marque: linear-gradient(135deg, var(--violet) 0%, var(--navy) 100%);
+
+  /* ---- Typographie -------------------------------------------------------
+     Aucune taille n'est exprimée en px : tout est en rem pour que le réglage
+     « taille du texte » du navigateur de l'utilisateur reste opérant. */
+  --police: "Segoe UI", Roboto, "Helvetica Neue", Arial, system-ui, sans-serif;
+
+  --texte-xs:  1rem;      /* 16 px — mentions légales uniquement, jamais du corps */
+  --texte-s:   1.125rem;  /* 18 px — corps de texte, plancher absolu             */
+  --texte-m:   1.25rem;   /* 20 px — corps des pages services, chapô             */
+  --texte-l:   1.5rem;    /* 24 px                                               */
+  --texte-xl:  clamp(1.5rem,   1.2rem + 1.4vw, 1.875rem);  /* 24 → 30 px  h3 */
+  --texte-2xl: clamp(1.75rem,  1.3rem + 2.2vw, 2.25rem);   /* 28 → 36 px  h2 */
+  --texte-3xl: clamp(2rem,     1.4rem + 3vw,   2.75rem);   /* 32 → 44 px  h1 */
+
+  --interligne:        1.6;   /* non négociable sur tout le texte courant */
+  --interligne-titre:  1.2;
+
+  --graisse-normale: 400;
+  --graisse-medium:  600;
+  --graisse-forte:   700;
+
+  /* ---- Espacements — échelle de 4 px ------------------------------------- */
+  --esp-1: 0.25rem;  --esp-2: 0.5rem;   --esp-3: 0.75rem;  --esp-4: 1rem;
+  --esp-5: 1.5rem;   --esp-6: 2rem;     --esp-7: 3rem;     --esp-8: 4rem;
+  --esp-9: 6rem;
+
+  /* ---- Zones cliquables — plancher non négociable ------------------------ */
+  --cible-min: 48px;
+
+  /* ---- Formes et ombres -------------------------------------------------- */
+  --rayon-s: 6px;  --rayon-m: 12px;  --rayon-l: 20px;  --rayon-plein: 999px;
+  /* Blanc à 35 % — séparateur du pied de page sur navy. */
+  --separateur-pied: rgba(255, 255, 255, 0.35);
+
+  --ombre-carte:  0 2px 8px rgba(10, 21, 87, 0.10);
+  --ombre-relief: 0 6px 20px rgba(10, 21, 87, 0.16);
+
+  /* ---- Focus — visible partout, jamais supprimé ------------------------- */
+  --focus-epaisseur: 3px;
+  --focus-couleur:   var(--navy);
+  --focus-decalage:  3px;
+
+  /* ---- Largeurs de lecture ---------------------------------------------- */
+  --largeur-page:    1200px;
+  --largeur-lecture: 68ch;  /* longueur de ligne confortable */
+  /* ---- Teintes dérivées -------------------------------------------------
+     La charte n'autorise aucune AUTRE couleur : ces trois valeurs ne sont
+     donc pas de nouvelles couleurs, mais des mélanges de deux couleurs de la
+     palette (color-mix), réservés aux états d'interface — survol, zébrage,
+     texte indicatif. Aucune ne sert d'aplat ni de couleur de marque.
+     Les valeurs en dur servent de repli aux navigateurs sans color-mix. */
+  --rose-fonce: #ad237e;  /* rose 82 % + navy — survol du bouton principal,
+                             blanc dessus = 6,33:1                          */
+  --bleu-voile: #e6effb;  /* bleu 35 % + blanc — zébrage de tableau,
+                             navy dessus = 14,39:1                          */
+  --navy-doux:  #40487c;  /* navy 78 % + blanc — texte indicatif de champ,
+                             sur blanc = 8,62:1                             */
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  :root {
+    --rose-fonce: color-mix(in srgb, var(--rose)   82%, var(--navy));
+    --bleu-voile: color-mix(in srgb, var(--bleu)   35%, var(--blanc));
+    --navy-doux:  color-mix(in srgb, var(--navy)   78%, var(--blanc));
+  }
+}
+
+/* ==========================================================================
+   Domun LB — Socle : remise à zéro, typographie, accessibilité de base
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* On ne touche PAS à la taille de police de :root — l'utilisateur doit
+   pouvoir agrandir le texte depuis son navigateur. */
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* L'en-tête est collant : sans cette réserve, une ancre viendrait se
+     placer dessous. La valeur est réajustée par navigation.js sur la
+     hauteur réelle de l'en-tête. */
+  scroll-padding-top: calc(var(--hauteur-entete, 9rem) + var(--esp-4));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--fond-page);
+  color: var(--texte);
+  font-family: var(--police);
+  font-size: var(--texte-s);        /* 18 px — plancher */
+  line-height: var(--interligne);   /* 1,6 */
+  font-weight: var(--graisse-normale);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Pages services : corps à 20 px, imposé par la charte. */
+body.page-service { font-size: var(--texte-m); }
+
+/* ---- Titres ------------------------------------------------------------- */
+h1, h2, h3, h4 {
+  margin: 0 0 var(--esp-4);
+  color: var(--texte);
+  line-height: var(--interligne-titre);
+  font-weight: var(--graisse-forte);
+  text-wrap: balance;
+}
+h1 { font-size: var(--texte-3xl); }
+h2 { font-size: var(--texte-2xl); margin-top: var(--esp-7); }
+h3 { font-size: var(--texte-xl);  margin-top: var(--esp-6); }
+h4 { font-size: var(--texte-l); }
+
+/* Sur les aplats de marque, les titres passent en blanc. */
+.section--marque h1, .section--marque h2, .section--marque h3,
+.section--marque h4, .section--marque p, .section--marque li,
+.pied h2, .pied h3, .pied p, .pied li { color: var(--texte-sur-marque); }
+
+p, li { max-width: var(--largeur-lecture); }
+p { margin: 0 0 var(--esp-4); }
+
+/* ---- Liens -------------------------------------------------------------- */
+a { color: var(--texte); text-underline-offset: 0.2em; text-decoration-thickness: 2px; }
+a:hover { text-decoration-thickness: 3px; }
+/* Le dégradé est aussi un fond foncé : sans lui, un lien y resterait en
+   navy (1,31:1 sur le violet), donc illisible. */
+.section--marque a, .section--degrade a, .pied a { color: var(--texte-sur-marque); }
+
+/* ---- Focus : visible partout, sur toutes les couleurs de fond ----------- */
+:focus-visible {
+  outline: var(--focus-epaisseur) solid var(--focus-couleur);
+  outline-offset: var(--focus-decalage);
+  border-radius: var(--rayon-s);
+}
+/* Sur fond foncé, l'anneau navy serait invisible : on le passe en blanc. */
+.section--marque :focus-visible,
+.section--degrade :focus-visible,
+.entete :focus-visible,
+.pied :focus-visible { outline-color: var(--blanc); }
+
+/* ---- Lien d'évitement --------------------------------------------------- */
+.lien-evitement {
+  position: absolute; left: var(--esp-4); top: var(--esp-4);
+  transform: translateY(-200%);
+  z-index: 100;
+  background: var(--blanc); color: var(--texte);
+  border: 3px solid var(--navy); border-radius: var(--rayon-s);
+  padding: var(--esp-3) var(--esp-5);
+  font-weight: var(--graisse-forte); text-decoration: none;
+}
+.lien-evitement:focus { transform: translateY(0); }
+
+/* ---- Utilitaires -------------------------------------------------------- */
+
+/* L'attribut hidden ne pose qu'un display:none de faible priorité, que la
+   moindre classe posant un display (.bouton { display: inline-flex }) écrase
+   silencieusement. On le rend inconditionnel : sans cela, les éléments
+   masqués par le script resteraient visibles. */
+[hidden] { display: none !important; }
+.visuellement-cache {
+  position: absolute !important; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+hr { border: 0; border-top: 2px solid var(--bordure); margin: var(--esp-7) 0; }
+
+/* ---- Impression --------------------------------------------------------- */
+@media print {
+  .entete__nav, .lien-evitement, .bouton { display: none; }
+  body { font-size: 12pt; color: var(--navy); }
+}
+
+/* ==========================================================================
+   Domun LB — Mise en page : conteneurs, sections, grilles
+   ========================================================================== */
+
+.conteneur {
+  width: 100%;
+  max-width: var(--largeur-page);
+  margin-inline: auto;
+  padding-inline: var(--esp-5);
+}
+
+/* ---- Sections ----------------------------------------------------------- */
+.section { padding-block: var(--esp-8); }
+.section--serree { padding-block: var(--esp-7); }
+
+/* Fond blanc (défaut) */
+.section--blanc  { background: var(--fond-page); }
+
+/* Aplat clair : texte navy sur bleu clair — 10,72:1 */
+.section--clair  { background: var(--fond-section-clair); color: var(--texte-sur-clair); }
+
+/* Grand aplat de marque : texte blanc sur violet — 12,72:1 */
+.section--marque { background: var(--fond-section-marque); color: var(--texte-sur-marque); }
+
+/* Dégradé autorisé : violet → navy. Le texte blanc reste conforme aux deux
+   extrémités (12,72:1 sur violet, 16,70:1 sur navy). */
+.section--degrade {
+  background: var(--degrade-marque);
+  color: var(--texte-sur-marque);
+}
+.section--degrade h1, .section--degrade h2, .section--degrade h3,
+.section--degrade p,  .section--degrade li { color: var(--texte-sur-marque); }
+
+/* ---- Grilles ------------------------------------------------------------ */
+.grille {
+  display: grid;
+  gap: var(--esp-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+.grille--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+.grille--4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+
+/* Deux colonnes texte + média, empilées sur mobile */
+.duo {
+  display: grid;
+  gap: var(--esp-6);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+@media (min-width: 900px) { .duo { grid-template-columns: 1fr 1fr; } }
+
+/* ---- En-tête de page ---------------------------------------------------- */
+.entete-page { padding-block: var(--esp-7) var(--esp-6); }
+.entete-page .chapo {
+  font-size: var(--texte-m);
+  max-width: var(--largeur-lecture);
+}
+.section--degrade .entete-page__intro { color: var(--texte-sur-marque); }
+
+/* ---- Fil d'Ariane ------------------------------------------------------- */
+.fil-ariane { padding-block: var(--esp-4); font-size: var(--texte-s); }
+.fil-ariane ol {
+  list-style: none; display: flex; flex-wrap: wrap;
+  gap: var(--esp-2); margin: 0; padding: 0;
+}
+.fil-ariane li { max-width: none; display: flex; align-items: center; gap: var(--esp-2); }
+.fil-ariane li + li::before { content: "›"; font-weight: var(--graisse-forte); }
+.fil-ariane a { display: inline-flex; align-items: center; min-height: var(--cible-min); }
+.fil-ariane [aria-current="page"] { font-weight: var(--graisse-forte); }
+
+/* ---- Pile verticale ----------------------------------------------------- */
+.pile > * + * { margin-top: var(--esp-4); }
+.pile-large > * + * { margin-top: var(--esp-6); }
+.centre { text-align: center; }
+.centre p, .centre li { margin-inline: auto; }
+
+/* ==========================================================================
+   Domun LB — Composants
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   BOUTONS
+   Principal   : rose plein, libellé blanc gras, 18 px mini, cible 48 px mini.
+   Secondaire  : contour violet sur fond blanc.
+   Le rose reste rare : un seul bouton principal par écran visible.
+   ------------------------------------------------------------------------ */
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-3);
+  min-height: var(--cible-min);          /* 48 px */
+  padding: var(--esp-3) var(--esp-6);
+  font-family: inherit;
+  font-size: var(--texte-s);             /* 18 px plancher */
+  font-weight: var(--graisse-forte);
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  border: 3px solid transparent;
+  border-radius: var(--rayon-plein);
+  cursor: pointer;
+  transition: background-color .18s ease, color .18s ease, transform .18s ease;
+}
+.bouton:hover { transform: translateY(-2px); }
+.bouton:active { transform: translateY(0); }
+
+/* Principal — blanc sur rose = 4,85:1 (conforme AA) */
+.bouton--principal {
+  background: var(--action-fond);
+  color: var(--action-texte);
+  border-color: var(--action-fond);
+  box-shadow: var(--ombre-carte);
+}
+.bouton--principal:hover  { background: var(--rose-fonce); border-color: var(--rose-fonce); }
+.bouton--principal:visited { color: var(--action-texte); }
+
+/* Secondaire — contour violet sur blanc, libellé violet = 12,72:1 */
+.bouton--secondaire {
+  background: var(--blanc);
+  color: var(--action-contour);
+  border-color: var(--action-contour);
+}
+.bouton--secondaire:hover { background: var(--action-contour); color: var(--blanc); }
+.bouton--secondaire:visited { color: var(--action-contour); }
+.bouton--secondaire:hover:visited { color: var(--blanc); }
+
+/* Variante posée sur un aplat violet ou un dégradé : blanc plein */
+.bouton--inverse {
+  background: var(--blanc);
+  color: var(--violet);
+  border-color: var(--blanc);
+}
+.bouton--inverse:hover { background: var(--bleu); color: var(--navy); }
+.bouton--inverse:visited { color: var(--violet); }
+
+.bouton--large { width: 100%; }
+@media (min-width: 600px) { .bouton--large { width: auto; } }
+
+.groupe-boutons {
+  display: flex; flex-wrap: wrap; gap: var(--esp-4);
+  align-items: center;
+}
+.centre .groupe-boutons { justify-content: center; }
+
+/* --------------------------------------------------------------------------
+   TÉLÉPHONE — visible en permanence, cliquable, en en-tête et en pied
+   ------------------------------------------------------------------------ */
+.tel {
+  display: inline-flex; align-items: center; gap: var(--esp-3);
+  min-height: var(--cible-min);
+  font-size: var(--texte-m);
+  font-weight: var(--graisse-forte);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.tel__icone { flex: none; width: 24px; height: 24px; fill: currentColor; }
+.tel__numero { text-decoration: underline; text-underline-offset: 0.2em; }
+
+/* Téléphone en bouton d'appel (mobile, bandeaux d'action) */
+.tel--bouton {
+  background: var(--action-fond); color: var(--action-texte);
+  border-radius: var(--rayon-plein);
+  padding: var(--esp-3) var(--esp-5);
+}
+.tel--bouton .tel__numero { text-decoration: none; }
+.tel--bouton:hover { background: var(--rose-fonce); }
+
+/* --------------------------------------------------------------------------
+   EN-TÊTE
+   ------------------------------------------------------------------------ */
+/* --------------------------------------------------------------------------
+   EN-TÊTE — une seule ligne : logo | navigation | téléphone
+   Posé sur le violet de la marque, pour que le fond du logo s'y fonde.
+   Texte blanc : 12,72:1.
+   ------------------------------------------------------------------------ */
+.entete {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--fond-section-marque);
+  color: var(--texte-sur-marque);
+}
+.entete--defile { box-shadow: var(--ombre-relief); }
+.entete .conteneur {
+  display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: space-between;
+  gap: var(--esp-4);
+  padding-block: var(--esp-3);
+}
+.entete__logo {
+  display: inline-flex; align-items: center; min-height: var(--cible-min);
+  /* Le logo absorbe la contrainte en très petit écran : sans cela, il
+     pousserait la ligne au débordement plutôt que de se réduire. */
+  flex: 0 1 auto; min-width: 0;
+  /* Si l'image ne se charge pas, son texte de remplacement doit rester
+     lisible sur le violet — en navy il serait à 1,31:1. */
+  color: var(--texte-sur-marque);
+}
+.entete__logo img {
+  height: 48px; width: auto; max-width: 100%; object-fit: contain;
+  transition: height .18s ease;
+}
+.entete--defile .entete__logo img { height: 38px; }
+
+.entete__actions { display: flex; align-items: center; gap: var(--esp-3); flex: none; }
+/* Les horaires ne figurent plus ici : empilées sous le numéro, elles
+   formaient la seconde ligne de l'en-tête. Elles restent dans le pied de
+   page et dans l'assistant de discussion. */
+.entete .tel { color: var(--texte-sur-marque); white-space: nowrap; }
+
+/* ---- Navigation --------------------------------------------------------- */
+.entete__nav { flex: 0 1 auto; min-width: 0; }
+.nav-liste {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: nowrap; gap: var(--esp-1);
+}
+.nav-liste li { max-width: none; }
+.nav-liste a, .nav-groupe__bouton {
+  display: flex; align-items: center; gap: var(--esp-2);
+  min-height: var(--cible-min);
+  padding: var(--esp-2) var(--esp-3);
+  font-family: inherit;
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-medium);
+  color: var(--texte-sur-marque);
+  text-decoration: none;
+  white-space: nowrap;
+  background: transparent;
+  border: 0;
+  border-bottom: 4px solid transparent;
+  border-radius: var(--rayon-s);
+  cursor: pointer;
+}
+/* Au survol, texte navy sur bleu clair : 10,72:1. */
+.nav-liste a:hover, .nav-groupe__bouton:hover { background: var(--bleu); color: var(--navy); }
+/* La page ou la section courante est signalée par la graisse ET un trait
+   jaune (8,94:1 sur le violet) : jamais par la couleur seule. */
+.nav-liste a[aria-current="page"],
+.nav-groupe__bouton[data-section-courante="true"] {
+  font-weight: var(--graisse-forte);
+  border-bottom-color: var(--jaune);
+}
+
+/* Sous-menu des services — ouverture au clic, jamais au survol : un menu qui
+   se déplie au passage de la souris est difficile à viser. */
+.nav-groupe { position: relative; }
+.nav-groupe__chevron {
+  width: 0; height: 0; flex: none;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid currentColor;
+}
+.nav-groupe__bouton[aria-expanded="true"] .nav-groupe__chevron {
+  border-top: 0; border-bottom: 7px solid currentColor;
+}
+.nav-groupe__liste {
+  position: absolute; top: calc(100% + var(--esp-2)); left: 0;
+  min-width: 17rem;
+  margin: 0; padding: var(--esp-2);
+  list-style: none;
+  background: var(--violet);
+  border: 3px solid var(--blanc);
+  border-radius: var(--rayon-m);
+  box-shadow: var(--ombre-relief);
+}
+.nav-groupe__liste a {
+  border-bottom: 0; border-left: 5px solid transparent;
+  padding: var(--esp-2) var(--esp-4);
+}
+.nav-groupe__liste a[aria-current="page"] { border-left-color: var(--jaune); }
+
+/* Bouton menu (petit écran) */
+.bouton-menu {
+  display: none;
+  align-items: center; gap: var(--esp-3);
+  min-height: var(--cible-min); padding: var(--esp-2) var(--esp-4);
+  background: var(--blanc); color: var(--violet);
+  border: 3px solid var(--blanc); border-radius: var(--rayon-s);
+  font-family: inherit; font-size: var(--texte-s);
+  font-weight: var(--graisse-forte); cursor: pointer;
+}
+.bouton-menu__barres { display: block; width: 24px; height: 3px; background: currentColor;
+  position: relative; }
+.bouton-menu__barres::before, .bouton-menu__barres::after {
+  content: ""; position: absolute; left: 0; width: 24px; height: 3px; background: currentColor; }
+.bouton-menu__barres::before { top: -8px; }
+.bouton-menu__barres::after  { top: 8px; }
+
+/* En dessous de 1100 px, la navigation à plat ne tient plus sur la ligne :
+   elle passe derrière le bouton Menu, et l'en-tête reste sur une ligne. */
+@media (max-width: 1099px) {
+  .bouton-menu { display: inline-flex; }
+  .entete__nav {
+    position: absolute; left: 0; right: 0; top: 100%;
+    background: var(--violet);
+    border-top: 2px solid var(--separateur-pied);
+    box-shadow: var(--ombre-relief);
+    max-height: calc(100vh - var(--hauteur-entete, 6rem));
+    overflow-y: auto;
+  }
+  .entete .conteneur { position: relative; }
+  .entete__nav[data-ouvert="false"] { display: none; }
+  .nav-liste { flex-direction: column; flex-wrap: wrap; gap: 0; padding: var(--esp-3); }
+  .nav-liste li { width: 100%; }
+  .nav-liste a, .nav-groupe__bouton {
+    width: 100%; border-bottom: 0; border-left: 5px solid transparent;
+    padding: var(--esp-3) var(--esp-4);
+  }
+  .nav-liste a[aria-current="page"],
+  .nav-groupe__bouton[data-section-courante="true"] { border-left-color: var(--jaune); }
+  .nav-groupe__bouton { justify-content: space-between; }
+  /* Déplié en place plutôt qu'en surcouche. */
+  .nav-groupe__liste {
+    position: static; min-width: 0;
+    border: 0; box-shadow: none; border-radius: 0;
+    padding: 0 0 0 var(--esp-4);
+  }
+}
+
+/* Très petits écrans : le libellé du bouton disparaît au profit de
+   l'icône seule, pour que la ligne reste unique. Le nom accessible est
+   conservé par l'attribut aria-label posé par le script. */
+@media (max-width: 619px) {
+  .entete__logo img { height: 36px; }
+  .bouton-menu__texte { display: none; }
+  .bouton-menu { padding: var(--esp-2) var(--esp-3); }
+  .entete .conteneur { gap: var(--esp-3); }
+  .entete .conteneur { padding-inline: var(--esp-3); }
+  /* Seule l'icône s'efface : le numéro lui-même doit rester visible. */
+  .entete .tel__icone { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   CARTES
+   ------------------------------------------------------------------------ */
+.carte {
+  background: var(--fond-carte);
+  color: var(--texte);
+  border: 2px solid var(--bordure);
+  border-radius: var(--rayon-m);
+  padding: var(--esp-5);
+  box-shadow: var(--ombre-carte);
+  display: flex; flex-direction: column; gap: var(--esp-3);
+}
+.carte > :last-child { margin-bottom: 0; }
+.carte h3 { margin-top: 0; }
+.carte p, .carte li { max-width: none; }
+
+.carte--clair { background: var(--fond-carte-clair); border-color: var(--violet); }
+.carte--marque { background: var(--violet); border-color: var(--violet); color: var(--blanc); }
+.carte--marque h3, .carte--marque p, .carte--marque li { color: var(--blanc); }
+
+/* Carte cliquable : toute la carte est la cible, le lien reste le point focus */
+.carte--lien { position: relative; transition: transform .18s ease, box-shadow .18s ease; }
+.carte--lien:hover { transform: translateY(-4px); box-shadow: var(--ombre-relief); }
+.carte--lien .carte__lien::after { content: ""; position: absolute; inset: 0; }
+.carte__lien { font-weight: var(--graisse-forte); font-size: var(--texte-m); }
+
+/* Icône de carte : rond violet, glyphe blanc */
+.carte__icone {
+  flex: none;
+  display: grid; place-items: center;
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--violet); color: var(--blanc);
+}
+.carte__icone svg { width: 32px; height: 32px; fill: currentColor; }
+.carte--marque .carte__icone { background: var(--blanc); color: var(--violet); }
+
+/* --------------------------------------------------------------------------
+   RÉASSURANCE EN JAUNE
+   Le jaune ne porte jamais de texte ni d'information seule, et reçoit
+   toujours un contour navy — sans quoi il disparaîtrait sur blanc (1,42:1).
+   ------------------------------------------------------------------------ */
+.badge {
+  display: inline-flex; align-items: center; gap: var(--esp-2);
+  /* Dans une carte, qui est un conteneur flex en colonne, un badge devient un
+     élément flex et s'étire sur toute la largeur : il prend alors l'allure
+     d'un bouton pleine largeur. On l'en empêche. */
+  align-self: flex-start;
+  padding: var(--esp-2) var(--esp-4);
+  background: var(--reassurance);
+  color: var(--navy);                              /* navy/jaune = 11,74:1 */
+  border: 2px solid var(--reassurance-contour);
+  border-radius: var(--rayon-plein);
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-forte);
+  line-height: 1.3;
+}
+.badge--discret { background: var(--blanc); }
+
+/* Titre de carte marqué d'une pastille jaune. Remplace l'emploi d'un badge
+   comme titre : un cartouche plein occupait toute la largeur de la carte et se
+   lisait comme un bouton, alors qu'il ne mène nulle part. Le jaune revient
+   ici à ce que la charte lui assigne — un micro-élément. */
+.carte__titre {
+  /* Aligné sur la première ligne, et non centré sur l'ensemble : sur un titre
+     qui passe sur deux lignes, la pastille se retrouvait à mi-hauteur. */
+  display: flex; align-items: flex-start; gap: var(--esp-3);
+  margin-top: 0;
+  font-size: var(--texte-l);
+}
+.carte__titre::before {
+  content: "";
+  margin-top: 0.28em;
+  flex: none; width: 1.25rem; height: 1.25rem;
+  background: var(--reassurance);
+  border: 2px solid var(--reassurance-contour);
+  border-radius: 50%;
+}
+.carte--marque .carte__titre::before { border-color: var(--blanc); }
+
+/* Ligne de réassurance : trois mentions courtes séparées par des pastilles,
+   au lieu de trois cartouches pleins qui se bousculaient sur deux rangées. */
+.reassurance {
+  display: flex; flex-wrap: wrap;
+  gap: var(--esp-3) var(--esp-6);
+  margin: 0; padding: 0;
+  list-style: none;
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-forte);
+}
+.reassurance li {
+  display: flex; align-items: center; gap: var(--esp-2);
+  max-width: none;
+}
+.reassurance li::before {
+  content: "";
+  flex: none; width: 1rem; height: 1rem;
+  background: var(--reassurance);
+  border: 2px solid var(--reassurance-contour);
+  border-radius: 50%;
+}
+
+/* Liste à puces jaunes */
+.liste-puces { list-style: none; margin: 0; padding: 0; }
+.liste-puces li {
+  position: relative;
+  padding-left: 2.5rem;
+  margin-bottom: var(--esp-3);
+}
+.liste-puces li::before {
+  content: "";
+  position: absolute; left: 0; top: 0.35em;
+  width: 1.4rem; height: 1.4rem;
+  background: var(--reassurance);
+  border: 2px solid var(--reassurance-contour);
+  border-radius: 50%;
+}
+/* Sur fond de marque, le contour de puce passe en blanc */
+.section--marque .liste-puces li::before,
+.section--degrade .liste-puces li::before,
+.carte--marque .liste-puces li::before { border-color: var(--blanc); }
+
+/* Surlignage jaune sur du texte navy — 11,74:1 */
+.surligne {
+  background: var(--reassurance);
+  color: var(--navy);
+  padding: 0 var(--esp-2);
+  border-radius: var(--rayon-s);
+  box-decoration-break: clone;
+}
+
+/* Étoiles d'avis — jaune contourné navy + équivalent textuel obligatoire */
+.note { display: inline-flex; align-items: center; gap: var(--esp-2); }
+.note__etoiles { display: inline-flex; gap: 2px; }
+.note__etoiles svg {
+  width: 24px; height: 24px;
+  fill: var(--reassurance);
+  stroke: var(--reassurance-contour); stroke-width: 1.5;
+}
+.section--marque .note__etoiles svg, .section--degrade .note__etoiles svg { stroke: var(--blanc); }
+
+/* --------------------------------------------------------------------------
+   FORMULAIRES
+   Libellé visible AU-DESSUS du champ, jamais en placeholder seul.
+   ------------------------------------------------------------------------ */
+.formulaire { max-width: 40rem; }
+.champ { margin-bottom: var(--esp-5); }
+
+.champ__libelle {
+  display: block;
+  margin-bottom: var(--esp-2);
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-forte);
+  color: var(--texte);
+}
+.champ__obligatoire { color: var(--navy); font-weight: var(--graisse-forte); }
+.champ__aide {
+  display: block;
+  margin: 0 0 var(--esp-2);
+  font-size: var(--texte-s);
+  max-width: none;
+}
+
+.champ input, .champ select, .champ textarea {
+  display: block; width: 100%;
+  min-height: var(--cible-min);
+  padding: var(--esp-3) var(--esp-4);
+  font-family: inherit;
+  font-size: var(--texte-s);
+  line-height: var(--interligne);
+  color: var(--texte);
+  background: var(--blanc);
+  border: 2px solid var(--navy);
+  border-radius: var(--rayon-s);
+}
+.champ textarea { min-height: 10rem; resize: vertical; }
+.champ input:hover, .champ select:hover, .champ textarea:hover { border-color: var(--violet); }
+
+/* Le placeholder est décoratif : il ne remplace jamais le libellé. */
+.champ ::placeholder { color: var(--navy-doux); opacity: 1; }
+
+/* Cases à cocher et boutons radio : cible de 48 px sur tout le libellé */
+.choix { display: flex; align-items: flex-start; gap: var(--esp-3); }
+.choix + .choix { margin-top: var(--esp-2); }
+.choix input { width: 28px; height: 28px; min-height: 28px; margin: 10px 0 0; flex: none; }
+.choix label { min-height: var(--cible-min); display: flex; align-items: center; }
+
+/* Erreurs : couleur + icône + texte, jamais la couleur seule */
+.champ--erreur input, .champ--erreur select, .champ--erreur textarea {
+  border-color: var(--violet); border-width: 3px;
+}
+.champ__erreur {
+  display: flex; align-items: center; gap: var(--esp-2);
+  margin-top: var(--esp-2);
+  font-weight: var(--graisse-forte);
+  color: var(--navy);
+}
+.champ__erreur::before {
+  content: "!";
+  display: grid; place-items: center;
+  flex: none; width: 1.5rem; height: 1.5rem;
+  background: var(--violet); color: var(--blanc);
+  border-radius: 50%; font-size: var(--texte-s);
+}
+
+fieldset { border: 2px solid var(--bordure); border-radius: var(--rayon-m);
+  padding: var(--esp-4) var(--esp-5); margin: 0 0 var(--esp-5); }
+legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-inline: var(--esp-2); }
+
+/* --------------------------------------------------------------------------
+   TABLEAU DE TARIFS
+   ------------------------------------------------------------------------ */
+.tableau-enveloppe { overflow-x: auto; }
+.tableau {
+  width: 100%; border-collapse: collapse;
+  font-size: var(--texte-s);
+  min-width: 34rem;
+}
+.tableau caption {
+  text-align: left; font-weight: var(--graisse-forte);
+  font-size: var(--texte-m); padding-bottom: var(--esp-3);
+}
+.tableau th, .tableau td {
+  padding: var(--esp-4);
+  text-align: left;
+  border-bottom: 2px solid var(--bordure);
+  vertical-align: top;
+}
+.tableau thead th { background: var(--violet); color: var(--blanc); }
+.tableau thead th:first-child { border-top-left-radius: var(--rayon-s); }
+.tableau thead th:last-child  { border-top-right-radius: var(--rayon-s); }
+.tableau tbody tr:nth-child(even) { background: var(--bleu-voile); }
+.tableau th[scope="row"] { font-weight: var(--graisse-forte); }
+.tableau .tarif { font-size: var(--texte-m); font-weight: var(--graisse-forte); white-space: nowrap; }
+
+/* --------------------------------------------------------------------------
+   ENCADRÉS ET DIVERS
+   ------------------------------------------------------------------------ */
+.encadre {
+  background: var(--fond-section-clair);
+  color: var(--texte-sur-clair);
+  border-left: 8px solid var(--violet);
+  border-radius: var(--rayon-m);
+  padding: var(--esp-5);
+}
+.encadre h3 { margin-top: 0; }
+.encadre p, .encadre li { max-width: none; }
+
+/* Étapes numérotées */
+.etapes { list-style: none; margin: 0; padding: 0; counter-reset: etape; }
+.etapes li {
+  counter-increment: etape;
+  position: relative;
+  padding-left: 4.25rem;
+  margin-bottom: var(--esp-5);
+  max-width: var(--largeur-lecture);
+}
+.etapes li::before {
+  content: counter(etape);
+  position: absolute; left: 0; top: 0;
+  display: grid; place-items: center;
+  width: 3rem; height: 3rem;
+  background: var(--violet); color: var(--blanc);
+  border-radius: 50%;
+  font-size: var(--texte-l); font-weight: var(--graisse-forte);
+  line-height: 1;
+}
+.section--marque .etapes li::before, .section--degrade .etapes li::before {
+  background: var(--blanc); color: var(--violet);
+}
+
+/* Questions fréquentes */
+.faq details {
+  border: 2px solid var(--bordure);
+  border-radius: var(--rayon-m);
+  margin-bottom: var(--esp-4);
+  background: var(--blanc);
+}
+.faq summary {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--esp-4);
+  min-height: var(--cible-min);
+  padding: var(--esp-4) var(--esp-5);
+  font-size: var(--texte-m);
+  font-weight: var(--graisse-forte);
+  cursor: pointer;
+  list-style: none;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: var(--texte-l); flex: none; }
+.faq details[open] summary::after { content: "–"; }
+.faq details[open] summary { border-bottom: 2px solid var(--bordure); }
+.faq details > :not(summary) { padding-inline: var(--esp-5); }
+.faq details > :last-child { padding-bottom: var(--esp-4); }
+
+/* Article de blog en liste */
+.article-liste { display: flex; flex-direction: column; gap: var(--esp-3); }
+.article-liste__meta { font-size: var(--texte-s); margin: 0; }
+.article-liste h3 { margin: 0; }
+
+/* Bandeau d'appel à l'action */
+.rappel-action { text-align: center; }
+.rappel-action p { margin-inline: auto; font-size: var(--texte-m); }
+
+/* --------------------------------------------------------------------------
+   PIED DE PAGE
+   ------------------------------------------------------------------------ */
+.pied { background: var(--fond-pied); color: var(--texte-sur-pied); padding-block: var(--esp-7) var(--esp-5); }
+.pied a { color: var(--texte-sur-pied); }
+.pied h2, .pied h3 { color: var(--texte-sur-pied); margin-top: 0; font-size: var(--texte-l); }
+.pied .tel { color: var(--texte-sur-pied); }
+.pied ul { list-style: none; margin: 0; padding: 0; }
+.pied li { max-width: none; }
+.pied li a {
+  display: inline-flex; align-items: center;
+  min-height: var(--cible-min);
+  text-decoration: underline; text-underline-offset: 0.2em;
+}
+/* Plus de pastille blanche : le logo est en trait blanc, il se pose
+   directement sur le navy du pied de page. Sur un fond blanc, il aurait
+   disparu. */
+.pied__logo { display: inline-block; }
+.pied__logo img { height: 62px; width: auto; }
+.pied__bas {
+  margin-top: var(--esp-6); padding-top: var(--esp-4);
+  border-top: 2px solid var(--separateur-pied);
+  display: flex; flex-wrap: wrap; gap: var(--esp-4);
+  align-items: center; justify-content: space-between;
+  font-size: var(--texte-s);
+}
+.pied__bas p { margin: 0; max-width: none; }
+
+/* --------------------------------------------------------------------------
+   FORMULAIRE DE QUALIFICATION (page d'accueil)
+   Parcours en trois étapes. Sans JavaScript, les trois étapes s'affichent à
+   la suite et le formulaire reste entièrement utilisable : la découpe en
+   étapes est une amélioration progressive, jamais une condition d'accès.
+   ------------------------------------------------------------------------ */
+.qualif {
+  background: var(--blanc);
+  color: var(--texte);
+  border-radius: var(--rayon-l);
+  padding: var(--esp-5);
+  box-shadow: var(--ombre-relief);
+  max-width: none;
+}
+.qualif h2 { margin-top: 0; font-size: var(--texte-xl); color: var(--texte); }
+.qualif p, .qualif li { max-width: none; }
+
+/* Progression — annoncée aux lecteurs d'écran à chaque changement d'étape */
+.qualif__progression {
+  display: flex; align-items: center; gap: var(--esp-3);
+  margin: 0 0 var(--esp-4);
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-forte);
+}
+.qualif__jauge {
+  flex: 1; height: 10px;
+  background: var(--bleu);
+  border: 2px solid var(--navy);
+  border-radius: var(--rayon-plein);
+  overflow: hidden;
+}
+.qualif__jauge span {
+  display: block; height: 100%;
+  background: var(--violet);
+  transition: width .25s ease;
+}
+
+/* Étapes : le fieldset porte la question, la legend est le titre de l'étape */
+.qualif__etape { border: 0; padding: 0; margin: 0 0 var(--esp-5); }
+.qualif__etape legend {
+  padding: 0;
+  font-size: var(--texte-m);
+  font-weight: var(--graisse-forte);
+  margin-bottom: var(--esp-4);
+}
+.qualif__question { margin-bottom: var(--esp-5); }
+.qualif__question:last-child { margin-bottom: 0; }
+.qualif__intitule {
+  display: block;
+  margin: 0 0 var(--esp-3);
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-forte);
+}
+
+/* Options cliquables : la case reste visible, l'état sélectionné est signalé
+   par la bordure ET le fond ET la case cochée — jamais par la couleur seule. */
+.qualif__options { display: grid; gap: var(--esp-2); }
+@media (min-width: 560px) { .qualif__options--paire { grid-template-columns: 1fr 1fr; } }
+
+.qualif__option { position: relative; }
+.qualif__option input {
+  position: absolute; z-index: 1;
+  left: var(--esp-4); top: 50%; transform: translateY(-50%);
+  width: 26px; height: 26px; margin: 0;
+}
+.qualif__option label {
+  display: flex; align-items: center;
+  min-height: var(--cible-min);
+  padding: var(--esp-3) var(--esp-4) var(--esp-3) 3.5rem;
+  background: var(--blanc);
+  border: 2px solid var(--navy);
+  border-radius: var(--rayon-s);
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-medium);
+  line-height: 1.4;
+  cursor: pointer;
+}
+.qualif__option label:hover { background: var(--bleu-voile); }
+.qualif__option input:checked + label {
+  background: var(--bleu);
+  border-color: var(--violet);
+  border-width: 3px;
+  padding: calc(var(--esp-3) - 1px) calc(var(--esp-4) - 1px)
+           calc(var(--esp-3) - 1px) calc(3.5rem - 1px);
+  font-weight: var(--graisse-forte);
+}
+.qualif__option input:focus-visible + label {
+  outline: var(--focus-epaisseur) solid var(--focus-couleur);
+  outline-offset: var(--focus-decalage);
+}
+
+/* Navigation entre étapes — construite par le script */
+.qualif__navigation {
+  display: flex; flex-wrap: wrap; gap: var(--esp-3);
+  margin-top: var(--esp-5);
+}
+.qualif__navigation .bouton { flex: 1 1 12rem; }
+
+/* Réassurance sous le formulaire */
+.qualif__reassurance {
+  /* La carte du formulaire est étroite : en ligne, les trois mentions
+     retombaient « deux puis une ». En colonne, elles restent lisibles. */
+  flex-direction: column;
+  gap: var(--esp-4);
+  margin: var(--esp-6) 0 0;
+  padding-top: var(--esp-5);
+  border-top: 2px solid var(--bordure);
+}
+
+/* Message d'erreur d'étape */
+.qualif__alerte {
+  display: flex; align-items: center; gap: var(--esp-3);
+  margin: var(--esp-4) 0 0;
+  padding: var(--esp-3) var(--esp-4);
+  background: var(--bleu);
+  border-left: 8px solid var(--violet);
+  border-radius: var(--rayon-s);
+  font-weight: var(--graisse-forte);
+}
+.qualif__alerte::before {
+  content: "!";
+  display: grid; place-items: center;
+  flex: none; width: 1.75rem; height: 1.75rem;
+  background: var(--violet); color: var(--blanc);
+  border-radius: 50%;
+}
+
+/* Le formulaire est une carte blanche posée sur le dégradé. Les règles de
+   section (.section--degrade p, li…) passent le texte en blanc : il faut les
+   annuler à l'intérieur de la carte, sans quoi son contenu deviendrait
+   invisible. Les sélecteurs sont préfixés par la section pour l'emporter en
+   spécificité sur celles-ci. */
+.section--degrade .qualif,  .section--marque .qualif,
+.section--degrade .qualif p, .section--marque .qualif p,
+.section--degrade .qualif li, .section--marque .qualif li,
+.section--degrade .qualif h2, .section--marque .qualif h2,
+.section--degrade .qualif legend, .section--marque .qualif legend,
+.section--degrade .qualif label, .section--marque .qualif label,
+.section--degrade .qualif span,  .section--marque .qualif span {
+  color: var(--texte);
+}
+/* Le focus à l'intérieur de la carte redevient navy, la section l'ayant
+   passé en blanc pour les fonds foncés. */
+.section--degrade .qualif :focus-visible,
+.section--marque .qualif :focus-visible { outline-color: var(--focus-couleur); }
+
+/* Le formulaire prend un peu plus de place que le texte d'accroche. */
+@media (min-width: 900px) {
+  .duo--formulaire { grid-template-columns: 1fr 1.05fr; align-items: start; }
+}
+
+.accroche-tel { margin-top: var(--esp-5); font-size: var(--texte-m); }
+.accroche-tel .tel { margin-top: var(--esp-2); }
+
+/* --------------------------------------------------------------------------
+   WIDGET DE DISCUSSION
+   Le lanceur est en violet, pas en rose : il est présent sur toutes les pages,
+   et le rose doit rester rare pour garder sa valeur de signal (il est réservé
+   au bouton d'envoi du formulaire de qualification).
+   ------------------------------------------------------------------------ */
+.chat {
+  position: fixed; z-index: 60;
+  right: var(--esp-4); bottom: var(--esp-4);
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: var(--esp-3);
+}
+
+.chat__lanceur {
+  display: inline-flex; align-items: center; gap: var(--esp-3);
+  min-height: var(--cible-min);
+  padding: var(--esp-3) var(--esp-5);
+  background: var(--violet); color: var(--blanc);
+  border: 3px solid var(--blanc);
+  border-radius: var(--rayon-plein);
+  box-shadow: var(--ombre-relief);
+  font-family: inherit;
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-forte);
+  cursor: pointer;
+}
+.chat__lanceur:hover { background: var(--navy); }
+.chat__icone { display: inline-flex; flex: none; }
+.chat__icone svg { width: 24px; height: 24px; fill: currentColor; }
+
+.chat__panneau {
+  width: min(24rem, calc(100vw - 2 * var(--esp-4)));
+  max-height: min(34rem, calc(100vh - 2 * var(--esp-6)));
+  display: flex; flex-direction: column;
+  background: var(--blanc); color: var(--texte);
+  border: 3px solid var(--violet);
+  border-radius: var(--rayon-l);
+  box-shadow: var(--ombre-relief);
+  overflow: hidden;
+}
+
+.chat__entete {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--esp-3);
+  padding: var(--esp-3) var(--esp-3) var(--esp-3) var(--esp-5);
+  background: var(--violet); color: var(--blanc);
+}
+.chat__titre { margin: 0; font-size: var(--texte-m); color: var(--blanc); }
+.chat__fermer {
+  display: grid; place-items: center;
+  flex: none;
+  width: var(--cible-min); height: var(--cible-min);
+  background: transparent; color: var(--blanc);
+  border: 2px solid var(--blanc); border-radius: var(--rayon-s);
+  font-size: var(--texte-m); font-family: inherit;
+  cursor: pointer;
+}
+.chat__fermer:hover { background: var(--blanc); color: var(--violet); }
+
+.chat__fil {
+  flex: 1 1 auto; overflow-y: auto;
+  padding: var(--esp-4) var(--esp-5);
+  display: flex; flex-direction: column; gap: var(--esp-3);
+}
+.chat__message {
+  margin: 0; max-width: none;
+  padding: var(--esp-3) var(--esp-4);
+  border-radius: var(--rayon-m);
+  font-size: var(--texte-s);
+}
+.chat__message--assistant { background: var(--bleu); color: var(--navy); }
+.chat__message--visiteur {
+  align-self: flex-end;
+  background: var(--violet); color: var(--blanc);
+}
+.chat__message a { color: inherit; }
+.chat__message ul { margin: var(--esp-2) 0 0; padding-left: 1.25rem; }
+.chat__message li { max-width: none; }
+
+.chat__choix {
+  display: flex; flex-direction: column; gap: var(--esp-2);
+  padding: 0 var(--esp-5) var(--esp-4);
+}
+.chat__choix:empty { padding: 0; }
+.chat__choix .bouton { width: 100%; font-size: var(--texte-s); }
+
+.chat__pied {
+  margin: 0; max-width: none;
+  padding: var(--esp-3) var(--esp-5);
+  border-top: 2px solid var(--bordure);
+  font-size: var(--texte-s);
+}
+.chat__pied .tel { font-size: var(--texte-s); min-height: var(--cible-min); }
+
+@media (max-width: 599px) {
+  /* Le lanceur reste compact et ancré à droite : étalé sur toute la largeur,
+     il masquerait en permanence le bas du contenu — dont le bouton d'envoi
+     du formulaire. Seul le panneau ouvert occupe la largeur disponible. */
+  .chat { right: var(--esp-3); bottom: var(--esp-3); }
+  .chat__lanceur { padding: var(--esp-3) var(--esp-4); }
+  .chat__panneau { width: calc(100vw - 2 * var(--esp-3)); }
+}
+
+/* On réserve la place du lanceur sous le pied de page, pour qu'il ne
+   recouvre jamais la dernière ligne. */
+.pied { padding-bottom: calc(var(--esp-5) + 4.5rem); }
+
+/* Bouton d'appel à l'action de l'en-tête. Blanc plein plutôt que rose : il est
+   présent sur toutes les pages, et le rose doit rester rare pour garder sa
+   valeur de signal. Sur le violet, le blanc lit comme une action principale. */
+/* Un seul libellé, à toutes les largeurs. La bascule précédente entre un
+   libellé long et un libellé court reposait sur deux éléments dont le CSS
+   masquait l'un : avec une feuille de style obsolète ou absente, les deux
+   s'affichaient côte à côte. « Contactez-nous » tient jusqu'à 320 px — le
+   logo absorbe la contrainte — donc la bascule n'avait pas lieu d'être. */
+.entete__cta { flex: none; padding-inline: var(--esp-4); white-space: nowrap; }
+.entete__cta[aria-current="page"] { border-color: var(--jaune); }
