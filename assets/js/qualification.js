@@ -54,7 +54,10 @@
 
   navigation.appendChild(retour);
   navigation.appendChild(suivant);
+  // Le bouton d'envoi rejoint le conteneur de navigation : resté à côté, il
+  // n'héritait d'aucun écart et venait toucher le bouton « Retour ».
   envoi.parentNode.insertBefore(navigation, envoi);
+  navigation.appendChild(envoi);
 
   /* --- Affichage d'une étape -------------------------------------------- */
   function titreDe(etape) {

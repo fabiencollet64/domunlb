@@ -665,6 +665,9 @@ hr { border: 0; border-top: 2px solid var(--bordure); margin: var(--esp-7) 0; }
 .reassurance li::before {
   content: "";
   flex: none; width: 1rem; height: 1rem;
+}
+.qualif__reassurance li::before {
+  width: 0.9rem; height: 0.9rem;
   background: var(--reassurance);
   border: 2px solid var(--reassurance-contour);
   border-radius: 50%;
@@ -992,17 +995,26 @@ legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-i
 
 /* Navigation entre étapes — construite par le script */
 .qualif__navigation {
-  display: flex; flex-wrap: wrap; gap: var(--esp-3);
-  margin-top: var(--esp-5);
+  display: flex; flex-wrap: wrap; gap: var(--esp-4);
+  margin-top: var(--esp-6);
 }
-.qualif__navigation .bouton { flex: 1 1 12rem; }
+/* Le bouton d'envoi porte le libellé le plus long : il reçoit deux parts de
+   l'espace disponible, faute de quoi « Être rappelé gratuitement » se casse
+   en deux lignes à côté d'un « Retour » à moitié vide. */
+.qualif__navigation .bouton { flex: 1 1 8rem; }
+.qualif__navigation [data-envoi] { flex: 2 1 14rem; }
 
 /* Réassurance sous le formulaire */
 .qualif__reassurance {
-  /* La carte du formulaire est étroite : en ligne, les trois mentions
-     retombaient « deux puis une ». En colonne, elles restent lisibles. */
-  flex-direction: column;
-  gap: var(--esp-4);
+  /* Les trois mentions tiennent sur une ligne, réparties sur toute la largeur.
+     Le corps descend à 16 px et la pastille se resserre : à 18 px, la ligne
+     réclamait 552 px pour 526 px disponibles. C'est un micro-élément, pas du
+     texte courant — le plancher de 18 px reste tenu partout ailleurs. En
+     dessous de 900 px la carte se rétrécit et la ligne se scinde, ce qui
+     reste lisible. */
+  font-size: var(--texte-xs);
+  justify-content: space-between;
+  gap: var(--esp-3);
   margin: var(--esp-6) 0 0;
   padding-top: var(--esp-5);
   border-top: 2px solid var(--bordure);

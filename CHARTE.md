@@ -110,6 +110,11 @@ signaux dont deux non chromatiques.
 ## 5. Typographie
 
 - Corps de texte : **18 px minimum**, porté à **20 px sur les pages services**.
+  Une seule exception, demandée par Domun LB : la ligne de réassurance sous le
+  formulaire d'accueil (`.qualif__reassurance`) descend à **16 px**, faute de
+  quoi ses trois mentions ne tiennent pas sur une ligne — elles réclamaient
+  552 px pour 526 px disponibles. Il s'agit d'un micro-élément de trois
+  mentions courtes, non de texte courant ; le contraste y reste de 16,70:1.
 - Interlignage : **1,6** sur tout le texte courant.
 - Longueur de ligne plafonnée à 68 caractères.
 - Aucune taille n'est écrite en pixels dans le CSS : tout est en `rem`, et la
