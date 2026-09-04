@@ -241,6 +241,11 @@ hr { border: 0; border-top: 2px solid var(--bordure); margin: var(--esp-7) 0; }
    Domun LB — Mise en page : conteneurs, sections, grilles
    ========================================================================== */
 
+/* Le premier élément d'un conteneur ne porte pas de marge haute : celle d'un
+   intertitre s'ajoutait à la marge intérieure de la section, d'où 112 px au
+   sommet d'une section commençant par un titre, contre 48 px pour une autre. */
+.conteneur > :first-child { margin-top: 0; }
+
 .conteneur {
   width: 100%;
   max-width: var(--largeur-page);
@@ -290,6 +295,9 @@ hr { border: 0; border-top: 2px solid var(--bordure); margin: var(--esp-7) 0; }
 
 /* ---- En-tête de page ---------------------------------------------------- */
 .entete-page { padding-block: var(--esp-7) var(--esp-6); }
+/* Quand l'en-tête de page EST le conteneur, la section porte déjà sa marge
+   intérieure : la cumuler doublait l'espace au sommet de la page. */
+.conteneur.entete-page { padding-block: 0; }
 .entete-page .chapo {
   font-size: var(--texte-m);
   max-width: var(--largeur-lecture);
@@ -306,6 +314,25 @@ hr { border: 0; border-top: 2px solid var(--bordure); margin: var(--esp-7) 0; }
 .fil-ariane li + li::before { content: "›"; font-weight: var(--graisse-forte); }
 .fil-ariane a { display: inline-flex; align-items: center; min-height: var(--cible-min); }
 .fil-ariane [aria-current="page"] { font-weight: var(--graisse-forte); }
+
+/* ---- Rythme vertical entre blocs ----------------------------------------
+   Les blocs de mise en page n'ont aucune marge propre : ils ne se séparent
+   que si l'élément précédent en porte une. Deux blocs à la suite — une
+   grille de cartes suivie d'un encadré, un tableau suivi de sa note — se
+   touchaient donc bord à bord.
+
+   La marge est posée EN BAS et non en haut, pour que l'écart après un titre
+   reste celui du titre : un intertitre doit rester proche de ce qu'il
+   annonce. Le dernier bloc d'une section en est exempté, la marge intérieure
+   de la section s'en chargeant. */
+.grille:not(:last-child),
+.duo:not(:last-child),
+.encadre:not(:last-child),
+.etapes:not(:last-child),
+.formulaire:not(:last-child),
+.tableau-enveloppe:not(:last-child) {
+  margin-bottom: var(--esp-6);
+}
 
 /* ---- Pile verticale ----------------------------------------------------- */
 .pile > * + * { margin-top: var(--esp-4); }
