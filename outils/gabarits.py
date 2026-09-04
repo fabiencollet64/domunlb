@@ -244,8 +244,10 @@ def chat(prof=0):
         <span aria-hidden="true">✕</span>
       </button>
     </div>
-    <div class="chat__fil" data-chat-fil role="log" aria-live="polite"></div>
-    <div class="chat__choix" data-chat-choix></div>
+    <div class="chat__corps" data-chat-corps>
+      <div class="chat__fil" data-chat-fil role="log" aria-live="polite"></div>
+      <div class="chat__choix" data-chat-choix></div>
+    </div>
     <p class="chat__pied">
       Vous préférez parler à quelqu'un&nbsp;?
       {lien_tel(classes="tel", prefixe_libelle="Appeler Domun LB au ")}

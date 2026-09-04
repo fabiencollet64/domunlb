@@ -22,6 +22,7 @@
   var lanceur = racine.querySelector("[data-chat-ouvrir]");
   var panneau = racine.querySelector("#chat-panneau");
   var fermer = racine.querySelector("[data-chat-fermer]");
+  var corps = racine.querySelector("[data-chat-corps]");
   var fil = racine.querySelector("[data-chat-fil]");
   var zoneChoix = racine.querySelector("[data-chat-choix]");
   var titre = racine.querySelector(".chat__titre");
@@ -126,7 +127,36 @@
       p.innerHTML = html;
     }
     fil.appendChild(p);
-    fil.scrollTop = fil.scrollHeight;
+  }
+
+  /* Signale, par une ombre intérieure basse, qu'il reste du contenu sous la
+     zone visible — sans quoi une réponse longue masquerait les suggestions
+     sans que rien ne l'indique. */
+  function majIndicateurDefilement() {
+    var reste = corps.scrollHeight - corps.clientHeight - corps.scrollTop;
+    corps.classList.toggle("chat__corps--suite", reste > 8);
+  }
+
+  /* Cadrage de la zone visible après chaque réponse.
+
+     Si la réponse et ses suggestions tiennent ensemble, on descend tout en
+     bas : le visiteur voit l'une et les autres. Sinon on aligne le haut du
+     message sur celui de la zone, de sorte que la réponse soit lisible en
+     entier, les suggestions restant accessibles au défilement. */
+  function cadrerDerniereReponse() {
+    var messages = fil.querySelectorAll(".chat__message--assistant");
+    var dernier = messages[messages.length - 1];
+    if (!dernier) return;
+
+    var hautMessage = dernier.getBoundingClientRect().top;
+    var basChoix = zoneChoix.getBoundingClientRect().bottom;
+
+    if (basChoix - hautMessage <= corps.clientHeight) {
+      corps.scrollTop = corps.scrollHeight;
+    } else {
+      corps.scrollTop += hautMessage - corps.getBoundingClientRect().top;
+    }
+    majIndicateurDefilement();
   }
 
   function afficherChoix(options) {
@@ -149,6 +179,7 @@
     if (!noeud) return;
     ajouterMessage(noeud.message, "assistant");
     afficherChoix(noeud.options);
+    cadrerDerniereReponse();
   }
 
   /* --- Ouverture et fermeture ------------------------------------------- */
@@ -169,6 +200,8 @@
     lanceur.setAttribute("aria-expanded", "false");
     lanceur.focus();
   }
+
+  corps.addEventListener("scroll", majIndicateurDefilement);
 
   lanceur.hidden = false;
   lanceur.addEventListener("click", function () {

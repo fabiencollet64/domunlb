@@ -782,7 +782,7 @@ legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-i
 
 .chat__panneau {
   width: min(24rem, calc(100vw - 2 * var(--esp-4)));
-  max-height: min(34rem, calc(100vh - 2 * var(--esp-6)));
+  max-height: min(40rem, calc(100vh - 2 * var(--esp-6)));
   display: flex; flex-direction: column;
   background: var(--blanc); color: var(--texte);
   border: 3px solid var(--violet);
@@ -809,11 +809,22 @@ legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-i
 }
 .chat__fermer:hover { background: var(--blanc); color: var(--violet); }
 
-.chat__fil {
+/* Messages et suggestions partagent une seule zone défilante. Séparés, ils se
+   disputaient la hauteur : le fil pouvait rétrécir, les boutons non — leurs
+   48 px sont un plancher — si bien que les messages se retrouvaient écrasés à
+   quelques pixels. Réunis, les suggestions suivent simplement le dernier
+   message, comme dans une messagerie. */
+.chat__corps {
   flex: 1 1 auto; overflow-y: auto;
   padding: var(--esp-4) var(--esp-5);
+  display: flex; flex-direction: column; gap: var(--esp-5);
+}
+.chat__fil {
   display: flex; flex-direction: column; gap: var(--esp-3);
 }
+/* Une réponse longue peut repousser les suggestions hors de la zone visible :
+   cette ombre intérieure signale qu'il reste du contenu en dessous. */
+.chat__corps--suite { box-shadow: var(--ombre-defilement); }
 .chat__message {
   margin: 0; max-width: none;
   padding: var(--esp-3) var(--esp-4);
@@ -831,9 +842,7 @@ legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-i
 
 .chat__choix {
   display: flex; flex-direction: column; gap: var(--esp-2);
-  padding: 0 var(--esp-5) var(--esp-4);
 }
-.chat__choix:empty { padding: 0; }
 .chat__choix .bouton { width: 100%; font-size: var(--texte-s); }
 
 .chat__pied {

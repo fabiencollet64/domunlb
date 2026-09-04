@@ -87,6 +87,8 @@
 
   --ombre-carte:  0 2px 8px rgba(10, 21, 87, 0.10);
   --ombre-relief: 0 6px 20px rgba(10, 21, 87, 0.16);
+  /* Ombre intérieure basse : signale qu'une zone défilante a une suite. */
+  --ombre-defilement: inset 0 -12px 10px -10px rgba(10, 21, 87, 0.35);
 
   /* ---- Focus — visible partout, jamais supprimé ------------------------- */
   --focus-epaisseur: 3px;
