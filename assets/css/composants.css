@@ -93,33 +93,47 @@
 /* --------------------------------------------------------------------------
    EN-TÊTE
    ------------------------------------------------------------------------ */
-.bandeau-contact {
-  background: var(--navy);
-  color: var(--blanc);
-  font-size: var(--texte-s);
+/* En-tête collant, posé sur le violet de la marque — le fond du logo s'y
+   fond au lieu de former un rectangle. Texte blanc : 12,72:1. */
+.entete {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--fond-section-marque);
+  color: var(--texte-sur-marque);
 }
-.bandeau-contact .conteneur {
-  display: flex; flex-wrap: wrap; gap: var(--esp-4);
-  align-items: center; justify-content: space-between;
-  padding-block: var(--esp-2);
-}
-.bandeau-contact a { color: var(--blanc); }
-.bandeau-contact .tel { color: var(--blanc); }
-.bandeau-contact__mention {
-  display: inline-flex; align-items: center; gap: var(--esp-2);
-  margin: 0; max-width: none;
-}
+/* Une fois déroulé, l'en-tête se compacte : le logo rapetisse et les horaires
+   s'effacent. Il reste ainsi collant sans confisquer un cinquième de l'écran,
+   et le téléphone demeure visible en permanence comme l'exige la charte. */
+.entete--defile { box-shadow: var(--ombre-relief); }
+.entete--defile .conteneur { padding-block: var(--esp-2); }
+.entete--defile .entete__logo img { height: 40px; }
+.entete--defile .entete__horaires { display: none; }
+.entete__logo img, .entete .conteneur { transition: height .18s ease, padding .18s ease; }
 
-.entete { background: var(--blanc); border-bottom: 2px solid var(--bordure); }
+/* En petit écran, le logo et les actions ne tiennent pas sur une même ligne :
+   l'en-tête déroulé ferait deux rangées de 48 px, soit un sixième de l'écran.
+   Une fois déroulé, on efface donc le logo — le téléphone et le menu restent,
+   et « Accueil » reste accessible dans le menu. */
+@media (max-width: 899px) {
+  .entete--defile .entete__logo { display: none; }
+}
 .entete .conteneur {
   display: flex; flex-wrap: wrap; gap: var(--esp-4);
   align-items: center; justify-content: space-between;
-  padding-block: var(--esp-4);
+  padding-block: var(--esp-3);
 }
-.entete__logo { display: inline-flex; align-items: center; min-height: var(--cible-min); }
+.entete__logo {
+  display: inline-flex; align-items: center; min-height: var(--cible-min);
+  /* Si l'image ne se charge pas, le texte de remplacement doit rester
+     lisible sur le violet — en navy il serait à 1,31:1. */
+  color: var(--texte-sur-marque);
+}
 .entete__logo img { width: auto; height: 56px; }
 .entete__actions { display: flex; align-items: center; gap: var(--esp-4); flex-wrap: wrap; }
-.entete .tel { color: var(--navy); }
+
+.entete__contact { display: flex; flex-direction: column; margin: 0; max-width: none; }
+.entete .tel { color: var(--texte-sur-marque); }
+.entete__horaires { font-size: var(--texte-s); }
+@media (max-width: 599px) { .entete__horaires { display: none; } }
 
 /* Navigation */
 .entete__nav { width: 100%; }
@@ -134,14 +148,18 @@
   padding: var(--esp-2) var(--esp-4);
   font-size: var(--texte-s);
   font-weight: var(--graisse-medium);
+  color: var(--texte-sur-marque);
   text-decoration: none;
   border-radius: var(--rayon-s);
   border-bottom: 4px solid transparent;
 }
-.nav-liste a:hover { background: var(--bleu); }
+/* Au survol, on repasse en texte navy sur bleu clair : 10,72:1. */
+.nav-liste a:hover { background: var(--bleu); color: var(--navy); }
+/* L'onglet actif est signalé par la graisse ET un trait jaune (8,94:1 sur le
+   violet) : jamais par la couleur seule. */
 .nav-liste a[aria-current="page"] {
   font-weight: var(--graisse-forte);
-  border-bottom-color: var(--violet);
+  border-bottom-color: var(--jaune);
 }
 
 /* Bouton menu (mobile) */
@@ -149,8 +167,8 @@
   display: none;
   align-items: center; gap: var(--esp-3);
   min-height: var(--cible-min); padding: var(--esp-2) var(--esp-4);
-  background: var(--blanc); color: var(--navy);
-  border: 3px solid var(--violet); border-radius: var(--rayon-s);
+  background: var(--blanc); color: var(--violet);
+  border: 3px solid var(--blanc); border-radius: var(--rayon-s);
   font-family: inherit; font-size: var(--texte-s);
   font-weight: var(--graisse-forte); cursor: pointer;
 }
@@ -165,9 +183,14 @@
   .bouton-menu { display: inline-flex; }
   .entete__nav[data-ouvert="false"] { display: none; }
   .nav-liste { flex-direction: column; gap: 0; padding-block: var(--esp-3); }
-  .nav-liste li + li { border-top: 2px solid var(--bordure); }
+  .nav-liste li + li { border-top: 2px solid var(--separateur-pied); }
   .nav-liste a { border-bottom: none; border-left: 5px solid transparent; }
-  .nav-liste a[aria-current="page"] { border-left-color: var(--violet); }
+  .nav-liste a[aria-current="page"] { border-left-color: var(--jaune); }
+  /* Le menu ouvert ne doit jamais dépasser la hauteur de l'écran. */
+  .entete__nav[data-ouvert="true"] {
+    max-height: calc(100vh - var(--hauteur-entete, 6rem));
+    overflow-y: auto;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -602,3 +625,110 @@ legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-i
 
 .accroche-tel { margin-top: var(--esp-5); font-size: var(--texte-m); }
 .accroche-tel .tel { margin-top: var(--esp-2); }
+
+/* --------------------------------------------------------------------------
+   WIDGET DE DISCUSSION
+   Le lanceur est en violet, pas en rose : il est présent sur toutes les pages,
+   et le rose doit rester rare pour garder sa valeur de signal (il est réservé
+   au bouton d'envoi du formulaire de qualification).
+   ------------------------------------------------------------------------ */
+.chat {
+  position: fixed; z-index: 60;
+  right: var(--esp-4); bottom: var(--esp-4);
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: var(--esp-3);
+}
+
+.chat__lanceur {
+  display: inline-flex; align-items: center; gap: var(--esp-3);
+  min-height: var(--cible-min);
+  padding: var(--esp-3) var(--esp-5);
+  background: var(--violet); color: var(--blanc);
+  border: 3px solid var(--blanc);
+  border-radius: var(--rayon-plein);
+  box-shadow: var(--ombre-relief);
+  font-family: inherit;
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-forte);
+  cursor: pointer;
+}
+.chat__lanceur:hover { background: var(--navy); }
+.chat__icone { display: inline-flex; flex: none; }
+.chat__icone svg { width: 24px; height: 24px; fill: currentColor; }
+
+.chat__panneau {
+  width: min(24rem, calc(100vw - 2 * var(--esp-4)));
+  max-height: min(34rem, calc(100vh - 2 * var(--esp-6)));
+  display: flex; flex-direction: column;
+  background: var(--blanc); color: var(--texte);
+  border: 3px solid var(--violet);
+  border-radius: var(--rayon-l);
+  box-shadow: var(--ombre-relief);
+  overflow: hidden;
+}
+
+.chat__entete {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--esp-3);
+  padding: var(--esp-3) var(--esp-3) var(--esp-3) var(--esp-5);
+  background: var(--violet); color: var(--blanc);
+}
+.chat__titre { margin: 0; font-size: var(--texte-m); color: var(--blanc); }
+.chat__fermer {
+  display: grid; place-items: center;
+  flex: none;
+  width: var(--cible-min); height: var(--cible-min);
+  background: transparent; color: var(--blanc);
+  border: 2px solid var(--blanc); border-radius: var(--rayon-s);
+  font-size: var(--texte-m); font-family: inherit;
+  cursor: pointer;
+}
+.chat__fermer:hover { background: var(--blanc); color: var(--violet); }
+
+.chat__fil {
+  flex: 1 1 auto; overflow-y: auto;
+  padding: var(--esp-4) var(--esp-5);
+  display: flex; flex-direction: column; gap: var(--esp-3);
+}
+.chat__message {
+  margin: 0; max-width: none;
+  padding: var(--esp-3) var(--esp-4);
+  border-radius: var(--rayon-m);
+  font-size: var(--texte-s);
+}
+.chat__message--assistant { background: var(--bleu); color: var(--navy); }
+.chat__message--visiteur {
+  align-self: flex-end;
+  background: var(--violet); color: var(--blanc);
+}
+.chat__message a { color: inherit; }
+.chat__message ul { margin: var(--esp-2) 0 0; padding-left: 1.25rem; }
+.chat__message li { max-width: none; }
+
+.chat__choix {
+  display: flex; flex-direction: column; gap: var(--esp-2);
+  padding: 0 var(--esp-5) var(--esp-4);
+}
+.chat__choix:empty { padding: 0; }
+.chat__choix .bouton { width: 100%; font-size: var(--texte-s); }
+
+.chat__pied {
+  margin: 0; max-width: none;
+  padding: var(--esp-3) var(--esp-5);
+  border-top: 2px solid var(--bordure);
+  font-size: var(--texte-s);
+}
+.chat__pied .tel { font-size: var(--texte-s); min-height: var(--cible-min); }
+
+@media (max-width: 599px) {
+  /* Le lanceur reste compact et ancré à droite : étalé sur toute la largeur,
+     il masquerait en permanence le bas du contenu — dont le bouton d'envoi
+     du formulaire. Seul le panneau ouvert occupe la largeur disponible. */
+  .chat { right: var(--esp-3); bottom: var(--esp-3); }
+  .chat__lanceur { padding: var(--esp-3) var(--esp-4); }
+  .chat__panneau { width: calc(100vw - 2 * var(--esp-3)); }
+}
+
+/* On réserve la place du lanceur sous le pied de page, pour qu'il ne
+   recouvre jamais la dernière ligne. */
+.pied { padding-bottom: calc(var(--esp-5) + 4.5rem); }

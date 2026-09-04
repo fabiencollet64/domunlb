@@ -34,8 +34,9 @@ assets/css/
   mise-en-page.css                  Conteneurs, sections, grilles
   composants.css                    Boutons, cartes, formulaires, en-tête, pied
 assets/js/
-  navigation.js                     Menu en petit écran (amélioration progressive)
+  navigation.js                     Menu en petit écran, en-tête collant
   qualification.js                  Découpe en étapes du formulaire d'accueil
+  chat.js                           Assistant guidé (réponses écrites à l'avance)
 outils/
   gabarits.py                       En-tête, navigation et pied partagés
   generer.py                        Génère les pages HTML
@@ -65,6 +66,42 @@ python3 outils/generer.py          # régénère les 9 pages
 Si vous préférez abandonner la génération et reprendre les fichiers HTML à la
 main, c'est possible sans rien casser : les pages produites sont du HTML
 statique ordinaire, et le CSS ne dépend pas du générateur.
+
+## En-tête
+
+L'en-tête est **collant** et posé sur le violet de la marque, pour que le fond
+du logo s'y fonde au lieu de former un rectangle. Le bandeau supérieur a été
+supprimé au profit du widget de discussion ; les horaires ont été replacés sous
+le numéro de téléphone.
+
+Une fois la page déroulée, l'en-tête se compacte : le logo rapetisse, les
+horaires s'effacent, et en petit écran le logo disparaît — sans quoi les deux
+rangées de 48 px occuperaient un sixième de l'écran. Il passe ainsi de 166 à
+137 px en grand écran, et de 144 à 72 px en petit écran.
+
+Le **numéro de téléphone reste visible en permanence** dans l'en-tête, comme
+l'exige la charte : c'est la raison pour laquelle l'en-tête entier est collant
+plutôt que la seule barre de navigation. `outils/verifier-pages.py` contrôle sa
+présence sur chaque page.
+
+## Assistant de discussion
+
+Le widget en bas à droite **n'est pas un agent conversationnel**. Les réponses
+sont écrites à l'avance dans `assets/js/chat.js` et reprennent le contenu du
+site — services, tarifs, déroulé de la mise en place. Rien n'est généré, donc
+rien ne peut être inventé. Chaque branche se termine par un chemin humain :
+appeler, ou être rappelé via le formulaire.
+
+Pour brancher un service de discussion avec un conseiller, c'est ce fichier
+qu'il faut remplacer : le balisage du panneau et ses styles restent valables,
+seule la source des messages change. Un widget tiers embarqué tel quel
+imposerait en revanche sa propre interface, qui ne respecterait ni la palette,
+ni le corps à 18 px, ni les zones cliquables de 48 px.
+
+Le lanceur est en **violet et non en rose** : il est présent sur toutes les
+pages, et le rose doit rester rare pour garder sa valeur de signal. Il est
+masqué par défaut et révélé par le script — sans JavaScript, aucun bouton
+inerte n'apparaît et le téléphone de l'en-tête reste le chemin de contact.
 
 ## Formulaire de qualification de la page d'accueil
 

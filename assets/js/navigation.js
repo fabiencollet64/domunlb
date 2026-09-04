@@ -33,6 +33,38 @@
   var large = window.matchMedia("(min-width: 900px)");
   function auRedimensionnement() {
     if (large.matches) basculer(false);
+    mesurerEntete();
   }
   large.addEventListener("change", auRedimensionnement);
+  window.addEventListener("resize", mesurerEntete);
+})();
+
+/* En-tête collant : hauteur réelle et ombre au défilement.
+   La hauteur est publiée dans --hauteur-entete, dont dépend le
+   scroll-padding-top : sans elle, une ancre se placerait sous l'en-tête. */
+function mesurerEntete() {
+  var entete = document.querySelector("[data-entete]");
+  if (!entete) return;
+  document.documentElement.style.setProperty(
+    "--hauteur-entete", entete.offsetHeight + "px");
+}
+
+(function () {
+  "use strict";
+  var entete = document.querySelector("[data-entete]");
+  if (!entete) return;
+
+  mesurerEntete();
+
+  var defile = false;
+  function auDefilement() {
+    var doit = window.scrollY > 8;
+    if (doit !== defile) {
+      defile = doit;
+      entete.classList.toggle("entete--defile", doit);
+      mesurerEntete();
+    }
+  }
+  auDefilement();
+  window.addEventListener("scroll", auDefilement, { passive: true });
 })();

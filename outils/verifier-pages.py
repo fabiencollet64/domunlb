@@ -83,8 +83,10 @@ def controler(chemin):
         if not re.search(r'\balt="', balise):
             anomalies.append("image sans attribut alt : %s" % balise[:70])
 
-    # Aucune couleur hors palette écrite dans le HTML.
-    for couleur in re.findall(r"#[0-9a-fA-F]{3,8}\b", html):
+    # Aucune couleur hors palette écrite dans le HTML. La parenthèse
+    # arrière écarte les entités HTML numériques (&#10005;), qui ne sont
+    # pas des couleurs.
+    for couleur in re.findall(r"(?<!&)#[0-9a-fA-F]{3,8}\b", html):
         if couleur.lower() not in PALETTE_AUTORISEE:
             anomalies.append("couleur hors palette dans le HTML : %s" % couleur)
 

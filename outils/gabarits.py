@@ -69,20 +69,16 @@ def entete(page_active, prof=0):
     liens = "\n          ".join(items)
     return f"""<a class="lien-evitement" href="#contenu">Aller au contenu principal</a>
 
-<div class="bandeau-contact">
-  <div class="conteneur">
-    <p class="bandeau-contact__mention">Une question&nbsp;? Nous répondons du lundi au samedi, 8h–19h.</p>
-    {lien_tel()}
-  </div>
-</div>
-
-<header class="entete">
+<header class="entete" data-entete>
   <div class="conteneur">
     <a class="entete__logo" href="{p}index.html">
       <img src="{LOGO}" alt="Domun LB, accueil" width="200" height="56">
     </a>
     <div class="entete__actions">
-      {lien_tel(classes="tel")}
+      <p class="entete__contact">
+        {lien_tel(classes="tel")}
+        <span class="entete__horaires">Du lundi au samedi, 8h–19h</span>
+      </p>
       <button class="bouton-menu" type="button" data-bouton-menu hidden
               aria-expanded="false" aria-controls="navigation-principale">
         <span class="bouton-menu__barres" aria-hidden="true"></span>
@@ -170,6 +166,47 @@ def pied(prof=0):
 </footer>"""
 
 
+ICONE_CHAT = (
+    '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+    '<path d="M12 3c5 0 9 3.1 9 7s-4 7-9 7a11 11 0 0 1-2.6-.3L5 19l.9-3.3'
+    'A7.6 7.6 0 0 1 3 10c0-3.9 4-7 9-7z"/></svg>'
+)
+
+
+def chat(prof=0):
+    """Widget de discussion.
+
+    Le lanceur est masqué par défaut et révélé par le script : sans
+    JavaScript, aucun bouton inerte n'apparaît et le téléphone de l'en-tête
+    reste le chemin de contact.
+    """
+    p = prefixe(prof)
+    return f"""<div class="chat" data-chat data-prefixe="{p}">
+  <button class="chat__lanceur" type="button" data-chat-ouvrir hidden
+          aria-expanded="false" aria-controls="chat-panneau">
+    <span class="chat__icone">{ICONE_CHAT}</span>
+    <span>Poser une question</span>
+  </button>
+
+  <div class="chat__panneau" id="chat-panneau" role="dialog"
+       aria-labelledby="chat-titre" hidden>
+    <div class="chat__entete">
+      <h2 class="chat__titre" id="chat-titre" tabindex="-1">Assistant Domun LB</h2>
+      <button class="chat__fermer" type="button" data-chat-fermer>
+        <span class="visuellement-cache">Fermer la discussion</span>
+        <span aria-hidden="true">✕</span>
+      </button>
+    </div>
+    <div class="chat__fil" data-chat-fil role="log" aria-live="polite"></div>
+    <div class="chat__choix" data-chat-choix></div>
+    <p class="chat__pied">
+      Vous préférez parler à quelqu'un&nbsp;?
+      {lien_tel(classes="tel", prefixe_libelle="Appeler Domun LB au ")}
+    </p>
+  </div>
+</div>"""
+
+
 def page(titre, description, corps, page_active, prof=0, classe_body="",
          scripts=()):
     p = prefixe(prof)
@@ -191,7 +228,9 @@ def page(titre, description, corps, page_active, prof=0, classe_body="",
 {corps}
 </main>
 {pied(prof)}
-<script src="{p}assets/js/navigation.js" defer></script>{scripts_html}
+{chat(prof)}
+<script src="{p}assets/js/navigation.js" defer></script>
+<script src="{p}assets/js/chat.js" defer></script>{scripts_html}
 </body>
 </html>
 """
