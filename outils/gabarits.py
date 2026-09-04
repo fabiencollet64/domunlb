@@ -170,9 +170,12 @@ def pied(prof=0):
 </footer>"""
 
 
-def page(titre, description, corps, page_active, prof=0, classe_body=""):
+def page(titre, description, corps, page_active, prof=0, classe_body="",
+         scripts=()):
     p = prefixe(prof)
     cls = f' class="{classe_body}"' if classe_body else ""
+    scripts_html = "".join(
+        f'\n<script src="{p}assets/js/{nom}" defer></script>' for nom in scripts)
     return f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -188,7 +191,7 @@ def page(titre, description, corps, page_active, prof=0, classe_body=""):
 {corps}
 </main>
 {pied(prof)}
-<script src="{p}assets/js/navigation.js" defer></script>
+<script src="{p}assets/js/navigation.js" defer></script>{scripts_html}
 </body>
 </html>
 """

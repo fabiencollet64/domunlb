@@ -71,6 +71,7 @@ ASSOCIATIONS = [
 INTERDITS = [
     ("blanc", "jaune", "Texte clair sur jaune"),
     ("blanc", "bleu",  "Texte clair sur bleu clair"),
+    ("navy",  "violet", "Texte navy sur aplat ou dégradé de marque"),
 ]
 
 

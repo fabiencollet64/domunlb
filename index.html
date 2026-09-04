@@ -48,26 +48,164 @@
 <main id="contenu">
 <section class="section section--degrade">
   <div class="conteneur">
-    <div class="duo">
+    <div class="duo duo--formulaire">
       <div class="entete-page">
         <h1>Rester chez soi, bien entouré</h1>
         <p class="chapo">Domun LB accompagne à domicile les personnes âgées et en
           perte d'autonomie&nbsp;: aide au quotidien, soins, entretien du logement.
           Un référent joignable, des intervenants que vous rencontrez avant le
           début de la mission.</p>
-        <div class="groupe-boutons">
-          <a class="tel tel--bouton" href="tel:+33182642033"><svg class="tel__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .58 3.6 1 1 0 0 1-.25 1z"/></svg><span class="visuellement-cache">Nous appeler au </span><span class="tel__numero">01 82 64 20 33</span></a>
-          <a class="bouton bouton--inverse" href="tarifs.html">Voir nos tarifs</a>
-        </div>
-      </div>
-      <div class="carte carte--marque">
-        <h2>Un premier échange gratuit</h2>
         <ul class="liste-puces">
           <li>Une évaluation à domicile sans frais et sans engagement</li>
           <li>Une réponse sous 48&nbsp;heures</li>
           <li>Un devis clair, avec le reste à charge après crédit d'impôt</li>
         </ul>
+        <p class="accroche-tel">Vous préférez le téléphone&nbsp;?<br>
+          <a class="tel" href="tel:+33182642033"><svg class="tel__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .58 3.6 1 1 0 0 1-.25 1z"/></svg><span class="visuellement-cache">Nous appeler au </span><span class="tel__numero">01 82 64 20 33</span></a></p>
       </div>
+      <form class="qualif" data-qualification
+      action="#" method="post" novalidate aria-labelledby="titre-qualif">
+  <h2 id="titre-qualif">Votre demande en 2 minutes</h2>
+  <p>Répondez à quelques questions, nous vous rappelons pour préciser le besoin
+    et convenir d'une visite d'évaluation gratuite.</p>
+
+  <fieldset class="qualif__etape" data-etape="1">
+    <legend>Votre besoin</legend>
+    <div class="qualif__question">
+        <span class="qualif__intitule" id="intitule-pour-qui">Pour qui recherchez-vous une aide&nbsp;?</span>
+        <div class="qualif__options qualif__options--paire" role="radiogroup"
+             aria-labelledby="intitule-pour-qui" data-groupe-requis="pour-qui">
+          <div class="qualif__option">
+            <input type="radio" id="pour-qui-0" name="pour-qui" value="Pour moi-même">
+            <label for="pour-qui-0">Pour moi-même</label>
+          </div><div class="qualif__option">
+            <input type="radio" id="pour-qui-1" name="pour-qui" value="Pour un proche">
+            <label for="pour-qui-1">Pour un proche</label>
+          </div>
+        </div>
+      </div>
+    <div class="qualif__question">
+        <span class="qualif__intitule" id="intitule-type-aide">De quel type d'aide s'agit-il&nbsp;?</span>
+        <div class="qualif__options" role="radiogroup"
+             aria-labelledby="intitule-type-aide" data-groupe-requis="type-aide">
+          <div class="qualif__option">
+            <input type="radio" id="type-aide-0" name="type-aide" value="Aide au quotidien (auxiliaire de vie)">
+            <label for="type-aide-0">Aide au quotidien (auxiliaire de vie)</label>
+          </div><div class="qualif__option">
+            <input type="radio" id="type-aide-1" name="type-aide" value="Soins et hygiène (aide-soignante)">
+            <label for="type-aide-1">Soins et hygiène (aide-soignante)</label>
+          </div><div class="qualif__option">
+            <input type="radio" id="type-aide-2" name="type-aide" value="Entretien du logement (aide ménagère)">
+            <label for="type-aide-2">Entretien du logement (aide ménagère)</label>
+          </div><div class="qualif__option">
+            <input type="radio" id="type-aide-3" name="type-aide" value="Je ne sais pas encore">
+            <label for="type-aide-3">Je ne sais pas encore</label>
+          </div>
+        </div>
+      </div>
+  </fieldset>
+
+  <fieldset class="qualif__etape" data-etape="2">
+    <legend>Le rythme souhaité</legend>
+    <div class="qualif__question">
+        <span class="qualif__intitule" id="intitule-volume">Quel volume d'aide envisagez-vous&nbsp;?</span>
+        <div class="qualif__options" role="radiogroup"
+             aria-labelledby="intitule-volume" data-groupe-requis="volume">
+          <div class="qualif__option">
+            <input type="radio" id="volume-0" name="volume" value="Quelques heures par semaine">
+            <label for="volume-0">Quelques heures par semaine</label>
+          </div><div class="qualif__option">
+            <input type="radio" id="volume-1" name="volume" value="Plusieurs heures par jour">
+            <label for="volume-1">Plusieurs heures par jour</label>
+          </div><div class="qualif__option">
+            <input type="radio" id="volume-2" name="volume" value="Une présence jour et nuit">
+            <label for="volume-2">Une présence jour et nuit</label>
+          </div><div class="qualif__option">
+            <input type="radio" id="volume-3" name="volume" value="Je ne sais pas encore">
+            <label for="volume-3">Je ne sais pas encore</label>
+          </div>
+        </div>
+      </div>
+    <div class="qualif__question">
+        <span class="qualif__intitule" id="intitule-delai">Quand souhaitez-vous démarrer&nbsp;?</span>
+        <div class="qualif__options qualif__options--paire" role="radiogroup"
+             aria-labelledby="intitule-delai" data-groupe-requis="delai">
+          <div class="qualif__option">
+            <input type="radio" id="delai-0" name="delai" value="Dès que possible">
+            <label for="delai-0">Dès que possible</label>
+          </div><div class="qualif__option">
+            <input type="radio" id="delai-1" name="delai" value="Dans les 15 jours">
+            <label for="delai-1">Dans les 15 jours</label>
+          </div><div class="qualif__option">
+            <input type="radio" id="delai-2" name="delai" value="Dans le mois">
+            <label for="delai-2">Dans le mois</label>
+          </div><div class="qualif__option">
+            <input type="radio" id="delai-3" name="delai" value="Je me renseigne">
+            <label for="delai-3">Je me renseigne</label>
+          </div>
+        </div>
+      </div>
+  </fieldset>
+
+  <fieldset class="qualif__etape" data-etape="3">
+    <legend>Vos coordonnées</legend>
+    <div class="champ">
+      <label class="champ__libelle" for="qualif-cp">
+        Code postal <span class="champ__obligatoire">(obligatoire)</span>
+      </label>
+      <span class="champ__aide" id="qualif-aide-cp">
+        Pour vous orienter vers l'équipe de votre secteur.
+      </span>
+      <input type="text" id="qualif-cp" name="code-postal" required
+             inputmode="numeric" autocomplete="postal-code"
+             aria-describedby="qualif-aide-cp">
+    </div>
+    <div class="champ">
+      <label class="champ__libelle" for="qualif-nom">
+        Nom et prénom <span class="champ__obligatoire">(obligatoire)</span>
+      </label>
+      <input type="text" id="qualif-nom" name="nom" required autocomplete="name">
+    </div>
+    <div class="champ">
+      <label class="champ__libelle" for="qualif-tel">
+        Téléphone <span class="champ__obligatoire">(obligatoire)</span>
+      </label>
+      <span class="champ__aide" id="qualif-aide-tel">
+        C'est par téléphone que nous vous rappelons. Exemple&nbsp;: 06 12 34 56 78
+      </span>
+      <input type="tel" id="qualif-tel" name="telephone" required
+             autocomplete="tel" aria-describedby="qualif-aide-tel">
+    </div>
+    <div class="champ">
+      <label class="champ__libelle" for="qualif-courriel">Adresse électronique</label>
+      <span class="champ__aide" id="qualif-aide-courriel">
+        Facultatif. Nous vous répondons par téléphone si vous n'en avez pas.
+      </span>
+      <input type="email" id="qualif-courriel" name="courriel"
+             autocomplete="email" aria-describedby="qualif-aide-courriel">
+    </div>
+    <div class="champ">
+      <div class="choix">
+        <input type="checkbox" id="qualif-consentement" name="consentement"
+               value="oui" required>
+        <label for="qualif-consentement">
+          J'accepte d'être rappelé par Domun LB au sujet de ma demande
+          <span class="champ__obligatoire">(obligatoire)</span>
+        </label>
+      </div>
+    </div>
+  </fieldset>
+
+  <button class="bouton bouton--principal bouton--large" type="submit" data-envoi>
+    Être rappelé gratuitement
+  </button>
+
+  <p class="qualif__reassurance">
+    <span class="badge">Réponse sous 48&nbsp;h</span>
+    <span class="badge">Évaluation gratuite</span>
+    <span class="badge">Sans engagement</span>
+  </p>
+</form>
     </div>
   </div>
 </section>
@@ -206,5 +344,6 @@
   </div>
 </footer>
 <script src="assets/js/navigation.js" defer></script>
+<script src="assets/js/qualification.js" defer></script>
 </body>
 </html>

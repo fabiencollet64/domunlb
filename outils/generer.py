@@ -219,28 +219,135 @@ cartes_services = "".join(
     for s in SERVICES
 )
 
+# Formulaire de qualification de la demande, en trois étapes.
+# Le HTML porte les trois étapes à la suite : sans JavaScript, le formulaire
+# reste entièrement remplissable (cf. assets/js/qualification.js).
+def options(nom, intitule, choix, colonnes=False):
+    boutons = "".join(
+        f'''<div class="qualif__option">
+            <input type="radio" id="{nom}-{i}" name="{nom}" value="{c}">
+            <label for="{nom}-{i}">{c}</label>
+          </div>'''
+        for i, c in enumerate(choix)
+    )
+    paire = " qualif__options--paire" if colonnes else ""
+    return f'''<div class="qualif__question">
+        <span class="qualif__intitule" id="intitule-{nom}">{intitule}</span>
+        <div class="qualif__options{paire}" role="radiogroup"
+             aria-labelledby="intitule-{nom}" data-groupe-requis="{nom}">
+          {boutons}
+        </div>
+      </div>'''
+
+
+formulaire_qualification = f"""<form class="qualif" data-qualification
+      action="#" method="post" novalidate aria-labelledby="titre-qualif">
+  <h2 id="titre-qualif">Votre demande en 2 minutes</h2>
+  <p>Répondez à quelques questions, nous vous rappelons pour préciser le besoin
+    et convenir d'une visite d'évaluation gratuite.</p>
+
+  <fieldset class="qualif__etape" data-etape="1">
+    <legend>Votre besoin</legend>
+    {options("pour-qui", "Pour qui recherchez-vous une aide&nbsp;?",
+             ["Pour moi-même", "Pour un proche"], colonnes=True)}
+    {options("type-aide", "De quel type d'aide s'agit-il&nbsp;?",
+             ["Aide au quotidien (auxiliaire de vie)",
+              "Soins et hygiène (aide-soignante)",
+              "Entretien du logement (aide ménagère)",
+              "Je ne sais pas encore"])}
+  </fieldset>
+
+  <fieldset class="qualif__etape" data-etape="2">
+    <legend>Le rythme souhaité</legend>
+    {options("volume", "Quel volume d'aide envisagez-vous&nbsp;?",
+             ["Quelques heures par semaine",
+              "Plusieurs heures par jour",
+              "Une présence jour et nuit",
+              "Je ne sais pas encore"])}
+    {options("delai", "Quand souhaitez-vous démarrer&nbsp;?",
+             ["Dès que possible", "Dans les 15 jours",
+              "Dans le mois", "Je me renseigne"], colonnes=True)}
+  </fieldset>
+
+  <fieldset class="qualif__etape" data-etape="3">
+    <legend>Vos coordonnées</legend>
+    <div class="champ">
+      <label class="champ__libelle" for="qualif-cp">
+        Code postal <span class="champ__obligatoire">(obligatoire)</span>
+      </label>
+      <span class="champ__aide" id="qualif-aide-cp">
+        Pour vous orienter vers l'équipe de votre secteur.
+      </span>
+      <input type="text" id="qualif-cp" name="code-postal" required
+             inputmode="numeric" autocomplete="postal-code"
+             aria-describedby="qualif-aide-cp">
+    </div>
+    <div class="champ">
+      <label class="champ__libelle" for="qualif-nom">
+        Nom et prénom <span class="champ__obligatoire">(obligatoire)</span>
+      </label>
+      <input type="text" id="qualif-nom" name="nom" required autocomplete="name">
+    </div>
+    <div class="champ">
+      <label class="champ__libelle" for="qualif-tel">
+        Téléphone <span class="champ__obligatoire">(obligatoire)</span>
+      </label>
+      <span class="champ__aide" id="qualif-aide-tel">
+        C'est par téléphone que nous vous rappelons. Exemple&nbsp;: 06 12 34 56 78
+      </span>
+      <input type="tel" id="qualif-tel" name="telephone" required
+             autocomplete="tel" aria-describedby="qualif-aide-tel">
+    </div>
+    <div class="champ">
+      <label class="champ__libelle" for="qualif-courriel">Adresse électronique</label>
+      <span class="champ__aide" id="qualif-aide-courriel">
+        Facultatif. Nous vous répondons par téléphone si vous n'en avez pas.
+      </span>
+      <input type="email" id="qualif-courriel" name="courriel"
+             autocomplete="email" aria-describedby="qualif-aide-courriel">
+    </div>
+    <div class="champ">
+      <div class="choix">
+        <input type="checkbox" id="qualif-consentement" name="consentement"
+               value="oui" required>
+        <label for="qualif-consentement">
+          J'accepte d'être rappelé par Domun LB au sujet de ma demande
+          <span class="champ__obligatoire">(obligatoire)</span>
+        </label>
+      </div>
+    </div>
+  </fieldset>
+
+  <button class="bouton bouton--principal bouton--large" type="submit" data-envoi>
+    Être rappelé gratuitement
+  </button>
+
+  <p class="qualif__reassurance">
+    <span class="badge">Réponse sous 48&nbsp;h</span>
+    <span class="badge">Évaluation gratuite</span>
+    <span class="badge">Sans engagement</span>
+  </p>
+</form>"""
+
+
 accueil = f"""<section class="section section--degrade">
   <div class="conteneur">
-    <div class="duo">
+    <div class="duo duo--formulaire">
       <div class="entete-page">
         <h1>Rester chez soi, bien entouré</h1>
         <p class="chapo">Domun LB accompagne à domicile les personnes âgées et en
           perte d'autonomie&nbsp;: aide au quotidien, soins, entretien du logement.
           Un référent joignable, des intervenants que vous rencontrez avant le
           début de la mission.</p>
-        <div class="groupe-boutons">
-          {g.lien_tel(classes="tel tel--bouton", prefixe_libelle="Nous appeler au ")}
-          <a class="bouton bouton--inverse" href="tarifs.html">Voir nos tarifs</a>
-        </div>
-      </div>
-      <div class="carte carte--marque">
-        <h2>Un premier échange gratuit</h2>
         <ul class="liste-puces">
           <li>Une évaluation à domicile sans frais et sans engagement</li>
           <li>Une réponse sous 48&nbsp;heures</li>
           <li>Un devis clair, avec le reste à charge après crédit d'impôt</li>
         </ul>
+        <p class="accroche-tel">Vous préférez le téléphone&nbsp;?<br>
+          {g.lien_tel(prefixe_libelle="Nous appeler au ")}</p>
       </div>
+      {formulaire_qualification}
     </div>
   </div>
 </section>
@@ -326,6 +433,7 @@ ecrire("index.html", g.page(
     description="Domun LB : auxiliaire de vie, aide-soignante, aide ménagère et "
                 "mode mandataire. Évaluation à domicile gratuite. " + g.TEL_AFFICHE,
     corps=accueil, page_active="index.html", prof=0,
+    scripts=("qualification.js",),
 ))
 
 

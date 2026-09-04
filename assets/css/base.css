@@ -55,7 +55,9 @@ p { margin: 0 0 var(--esp-4); }
 /* ---- Liens -------------------------------------------------------------- */
 a { color: var(--texte); text-underline-offset: 0.2em; text-decoration-thickness: 2px; }
 a:hover { text-decoration-thickness: 3px; }
-.section--marque a, .pied a { color: var(--texte-sur-marque); }
+/* Le dégradé est aussi un fond foncé : sans lui, un lien y resterait en
+   navy (1,31:1 sur le violet), donc illisible. */
+.section--marque a, .section--degrade a, .pied a { color: var(--texte-sur-marque); }
 
 /* ---- Focus : visible partout, sur toutes les couleurs de fond ----------- */
 :focus-visible {
@@ -65,6 +67,7 @@ a:hover { text-decoration-thickness: 3px; }
 }
 /* Sur fond foncé, l'anneau navy serait invisible : on le passe en blanc. */
 .section--marque :focus-visible,
+.section--degrade :focus-visible,
 .pied :focus-visible,
 .bandeau-contact :focus-visible { outline-color: var(--blanc); }
 
@@ -81,6 +84,12 @@ a:hover { text-decoration-thickness: 3px; }
 .lien-evitement:focus { transform: translateY(0); }
 
 /* ---- Utilitaires -------------------------------------------------------- */
+
+/* L'attribut hidden ne pose qu'un display:none de faible priorité, que la
+   moindre classe posant un display (.bouton { display: inline-flex }) écrase
+   silencieusement. On le rend inconditionnel : sans cela, les éléments
+   masqués par le script resteraient visibles. */
+[hidden] { display: none !important; }
 .visuellement-cache {
   position: absolute !important; width: 1px; height: 1px;
   padding: 0; margin: -1px; overflow: hidden;

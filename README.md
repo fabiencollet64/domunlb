@@ -35,6 +35,7 @@ assets/css/
   composants.css                    Boutons, cartes, formulaires, en-tête, pied
 assets/js/
   navigation.js                     Menu en petit écran (amélioration progressive)
+  qualification.js                  Découpe en étapes du formulaire d'accueil
 outils/
   gabarits.py                       En-tête, navigation et pied partagés
   generer.py                        Génère les pages HTML
@@ -64,6 +65,31 @@ python3 outils/generer.py          # régénère les 9 pages
 Si vous préférez abandonner la génération et reprendre les fichiers HTML à la
 main, c'est possible sans rien casser : les pages produites sont du HTML
 statique ordinaire, et le CSS ne dépend pas du générateur.
+
+## Formulaire de qualification de la page d'accueil
+
+Le formulaire du bandeau d'accueil qualifie la demande en trois étapes — le
+besoin, le rythme souhaité, puis les coordonnées — avant un rappel par
+téléphone. C'est une reprise du modèle de parcours observé chez Petits-fils
+(formulaire sans engagement, rappel par un conseiller, visite d'évaluation
+gratuite), adaptée à la charte et aux contraintes d'accessibilité de Domun LB.
+Les libellés exacts restent à valider avec l'agence.
+
+Le découpage en étapes est une **amélioration progressive** : le HTML contient
+les trois étapes à la suite, avec un unique bouton d'envoi. Sans JavaScript, le
+formulaire s'affiche d'un seul tenant et reste entièrement remplissable. Le
+script `assets/js/qualification.js` se contente de masquer les étapes non
+courantes et d'ajouter la navigation.
+
+Ce qui est tenu à chaque étape :
+
+- le focus est porté sur le titre de l'étape à chaque changement ;
+- la progression est annoncée par une zone `aria-live` ;
+- une étape incomplète affiche un message en toutes lettres et renvoie le focus
+  sur le premier champ concerné ;
+- l'état d'une option sélectionnée est signalé par la bordure, le fond **et**
+  la case cochée — jamais par la couleur seule ;
+- un seul bouton rose est visible à la fois, conformément à la charte.
 
 ## Vérifications
 
@@ -103,9 +129,11 @@ réaliste à porter. Ils n'ont pas été fournis par Domun LB et **doivent être
 validés ou remplacés** avant toute publication — en particulier les montants et
 tout ce qui touche aux aides financières.
 
-**Le formulaire de candidature n'est pas branché.** Son attribut `action` pointe
-sur `#`. Il reste à le relier à un traitement côté serveur, avec la mention
-d'information sur les données personnelles qui convient.
+**Les deux formulaires ne sont pas branchés.** Le formulaire de qualification
+de la page d'accueil et celui de la page Candidature ont un attribut `action`
+pointant sur `#`. Il reste à les relier à un traitement côté serveur, avec la
+mention d'information sur les données personnelles qui convient. Les champs
+portent déjà des attributs `name` exploitables tels quels.
 
 **Les articles de blog n'ont pas de page.** Les liens de `blog.html` pointent
 sur `#` : la liste montre la mise en forme, les pages d'article restent à

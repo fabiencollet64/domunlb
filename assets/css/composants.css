@@ -451,3 +451,154 @@ legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-i
   font-size: var(--texte-s);
 }
 .pied__bas p { margin: 0; max-width: none; }
+
+/* --------------------------------------------------------------------------
+   FORMULAIRE DE QUALIFICATION (page d'accueil)
+   Parcours en trois étapes. Sans JavaScript, les trois étapes s'affichent à
+   la suite et le formulaire reste entièrement utilisable : la découpe en
+   étapes est une amélioration progressive, jamais une condition d'accès.
+   ------------------------------------------------------------------------ */
+.qualif {
+  background: var(--blanc);
+  color: var(--texte);
+  border-radius: var(--rayon-l);
+  padding: var(--esp-5);
+  box-shadow: var(--ombre-relief);
+  max-width: none;
+}
+.qualif h2 { margin-top: 0; font-size: var(--texte-xl); color: var(--texte); }
+.qualif p, .qualif li { max-width: none; }
+
+/* Progression — annoncée aux lecteurs d'écran à chaque changement d'étape */
+.qualif__progression {
+  display: flex; align-items: center; gap: var(--esp-3);
+  margin: 0 0 var(--esp-4);
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-forte);
+}
+.qualif__jauge {
+  flex: 1; height: 10px;
+  background: var(--bleu);
+  border: 2px solid var(--navy);
+  border-radius: var(--rayon-plein);
+  overflow: hidden;
+}
+.qualif__jauge span {
+  display: block; height: 100%;
+  background: var(--violet);
+  transition: width .25s ease;
+}
+
+/* Étapes : le fieldset porte la question, la legend est le titre de l'étape */
+.qualif__etape { border: 0; padding: 0; margin: 0 0 var(--esp-5); }
+.qualif__etape legend {
+  padding: 0;
+  font-size: var(--texte-m);
+  font-weight: var(--graisse-forte);
+  margin-bottom: var(--esp-4);
+}
+.qualif__question { margin-bottom: var(--esp-5); }
+.qualif__question:last-child { margin-bottom: 0; }
+.qualif__intitule {
+  display: block;
+  margin: 0 0 var(--esp-3);
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-forte);
+}
+
+/* Options cliquables : la case reste visible, l'état sélectionné est signalé
+   par la bordure ET le fond ET la case cochée — jamais par la couleur seule. */
+.qualif__options { display: grid; gap: var(--esp-2); }
+@media (min-width: 560px) { .qualif__options--paire { grid-template-columns: 1fr 1fr; } }
+
+.qualif__option { position: relative; }
+.qualif__option input {
+  position: absolute; z-index: 1;
+  left: var(--esp-4); top: 50%; transform: translateY(-50%);
+  width: 26px; height: 26px; margin: 0;
+}
+.qualif__option label {
+  display: flex; align-items: center;
+  min-height: var(--cible-min);
+  padding: var(--esp-3) var(--esp-4) var(--esp-3) 3.5rem;
+  background: var(--blanc);
+  border: 2px solid var(--navy);
+  border-radius: var(--rayon-s);
+  font-size: var(--texte-s);
+  font-weight: var(--graisse-medium);
+  line-height: 1.4;
+  cursor: pointer;
+}
+.qualif__option label:hover { background: var(--bleu-voile); }
+.qualif__option input:checked + label {
+  background: var(--bleu);
+  border-color: var(--violet);
+  border-width: 3px;
+  padding: calc(var(--esp-3) - 1px) calc(var(--esp-4) - 1px)
+           calc(var(--esp-3) - 1px) calc(3.5rem - 1px);
+  font-weight: var(--graisse-forte);
+}
+.qualif__option input:focus-visible + label {
+  outline: var(--focus-epaisseur) solid var(--focus-couleur);
+  outline-offset: var(--focus-decalage);
+}
+
+/* Navigation entre étapes — construite par le script */
+.qualif__navigation {
+  display: flex; flex-wrap: wrap; gap: var(--esp-3);
+  margin-top: var(--esp-5);
+}
+.qualif__navigation .bouton { flex: 1 1 12rem; }
+
+/* Réassurance sous le formulaire */
+.qualif__reassurance {
+  display: flex; flex-wrap: wrap; gap: var(--esp-2);
+  margin: var(--esp-5) 0 0;
+  padding-top: var(--esp-4);
+  border-top: 2px solid var(--bordure);
+}
+
+/* Message d'erreur d'étape */
+.qualif__alerte {
+  display: flex; align-items: center; gap: var(--esp-3);
+  margin: var(--esp-4) 0 0;
+  padding: var(--esp-3) var(--esp-4);
+  background: var(--bleu);
+  border-left: 8px solid var(--violet);
+  border-radius: var(--rayon-s);
+  font-weight: var(--graisse-forte);
+}
+.qualif__alerte::before {
+  content: "!";
+  display: grid; place-items: center;
+  flex: none; width: 1.75rem; height: 1.75rem;
+  background: var(--violet); color: var(--blanc);
+  border-radius: 50%;
+}
+
+/* Le formulaire est une carte blanche posée sur le dégradé. Les règles de
+   section (.section--degrade p, li…) passent le texte en blanc : il faut les
+   annuler à l'intérieur de la carte, sans quoi son contenu deviendrait
+   invisible. Les sélecteurs sont préfixés par la section pour l'emporter en
+   spécificité sur celles-ci. */
+.section--degrade .qualif,  .section--marque .qualif,
+.section--degrade .qualif p, .section--marque .qualif p,
+.section--degrade .qualif li, .section--marque .qualif li,
+.section--degrade .qualif h2, .section--marque .qualif h2,
+.section--degrade .qualif legend, .section--marque .qualif legend,
+.section--degrade .qualif label, .section--marque .qualif label,
+.section--degrade .qualif span,  .section--marque .qualif span {
+  color: var(--texte);
+}
+/* Le focus à l'intérieur de la carte redevient navy, la section l'ayant
+   passé en blanc pour les fonds foncés. */
+.section--degrade .qualif :focus-visible,
+.section--marque .qualif :focus-visible { outline-color: var(--focus-couleur); }
+
+/* Le formulaire prend un peu plus de place que le texte d'accroche. */
+@media (min-width: 900px) {
+  .duo--formulaire { grid-template-columns: 1fr 1.05fr; align-items: start; }
+}
+
+.accroche-tel { margin-top: var(--esp-5); font-size: var(--texte-m); }
+.accroche-tel .tel { margin-top: var(--esp-2); }
