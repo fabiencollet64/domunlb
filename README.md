@@ -69,15 +69,28 @@ statique ordinaire, et le CSS ne dépend pas du générateur.
 
 ## En-tête
 
-L'en-tête est **collant** et posé sur le violet de la marque, pour que le fond
-du logo s'y fonde au lieu de former un rectangle. Le bandeau supérieur a été
-supprimé au profit du widget de discussion ; les horaires ont été replacés sous
-le numéro de téléphone.
+L'en-tête tient sur **une seule ligne** — logo, navigation, téléphone — à
+toutes les largeurs de 320 à 1600 px, pour une hauteur de 72 px. Il est
+**collant** et posé sur le violet de la marque, pour que le fond du logo s'y
+fonde au lieu de former un rectangle.
 
-Une fois la page déroulée, l'en-tête se compacte : le logo rapetisse, les
-horaires s'effacent, et en petit écran le logo disparaît — sans quoi les deux
-rangées de 48 px occuperaient un sixième de l'écran. Il passe ainsi de 166 à
-137 px en grand écran, et de 144 à 72 px en petit écran.
+Deux contraintes ont dicté cette mise en page :
+
+- **Les quatre services sont regroupés sous « Nos services ».** À plat, les
+  huit entrées réclamaient 1428 px pour 1152 px disponibles. Les faire tenir
+  aurait demandé de descendre sous le corps de 18 px, ce que la charte
+  interdit. Le sous-menu s'ouvre **au clic et jamais au survol** : un menu qui
+  se déplie au passage de la souris est difficile à viser et ne se referme pas
+  au clavier. Sans JavaScript, les quatre services restent atteignables depuis
+  la page d'accueil, le pied de page et le fil d'Ariane.
+- **Les horaires ont quitté l'en-tête.** Empilées sous le numéro, elles en
+  formaient la seconde ligne. Elles restent dans le pied de page et dans
+  l'assistant de discussion.
+
+En dessous de 1100 px la navigation passe derrière le bouton Menu ; en dessous
+de 620 px le libellé du bouton et l'icône du téléphone s'effacent, et le logo
+se réduit pour absorber la contrainte. **Le numéro lui-même reste visible à
+toutes les largeurs**, jusqu'à 320 px.
 
 Le **numéro de téléphone reste visible en permanence** dans l'en-tête, comme
 l'exige la charte : c'est la raison pour laquelle l'en-tête entier est collant

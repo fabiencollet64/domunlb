@@ -6,20 +6,38 @@ c'est ce qui garantit que le téléphone reste visible et cliquable partout,
 et que la navigation ne dérive pas d'une page à l'autre.
 """
 
+# Pour héberger le logo avec le site : déposer le fichier dans assets/img/ et
+# écrire ici un chemin relatif (« assets/img/logo-domunlb.png »). Un chemin
+# relatif est automatiquement préfixé selon la profondeur de la page.
 LOGO = "https://www.domunlb.com/wp-content/uploads/2023/01/logo-domunlb.png"
+
+
+def url_logo(prof=0):
+    if LOGO.startswith("http://") or LOGO.startswith("https://"):
+        return LOGO
+    return prefixe(prof) + LOGO
 TEL_AFFICHE = "01 82 64 20 33"
 TEL_LIEN = "+33182642033"
 
 # Arborescence imposée par la charte : les 4 services, Tarifs, Candidature, Blog.
-NAV = [
-    ("index.html",                        "Accueil"),
+SERVICES_NAV = [
     ("services/auxiliaire-de-vie.html",   "Auxiliaire de vie"),
     ("services/aide-soignante.html",      "Aide-soignante"),
     ("services/aide-menagere.html",       "Aide ménagère"),
     ("services/mandataire.html",          "Mandataire"),
-    ("tarifs.html",                       "Tarifs"),
-    ("blog.html",                         "Blog"),
-    ("candidature.html",                  "Candidature"),
+]
+
+# Arborescence imposée par la charte : les 4 services, Tarifs, Candidature, Blog.
+# Les quatre services sont regroupés sous un menu déroulant : à plat, les huit
+# entrées réclamaient 1428 px pour 1152 px disponibles, et l'en-tête ne pouvait
+# pas tenir sur une seule ligne sans descendre sous le corps de 18 px.
+GROUPE_SERVICES = "__services__"
+NAV = [
+    ("index.html",       "Accueil"),
+    (GROUPE_SERVICES,    "Nos services"),
+    ("tarifs.html",      "Tarifs"),
+    ("blog.html",        "Blog"),
+    ("candidature.html", "Candidature"),
 ]
 
 ICONE_TEL = (
@@ -64,33 +82,52 @@ def entete(page_active, prof=0):
     p = prefixe(prof)
     items = []
     for href, libelle in NAV:
-        actuel = ' aria-current="page"' if href == page_active else ""
-        items.append(f'<li><a href="{p}{href}"{actuel}>{libelle}</a></li>')
+        if href == GROUPE_SERVICES:
+            sous = "".join(
+                '<li><a href="{}{}"{}>{}</a></li>'.format(
+                    p, s_href,
+                    ' aria-current="page"' if s_href == page_active else "",
+                    s_lib)
+                for s_href, s_lib in SERVICES_NAV
+            )
+            # Le bouton porte l'état « section courante » quand on se trouve
+            # sur l'une des pages du groupe.
+            dans_groupe = any(s_href == page_active for s_href, _ in SERVICES_NAV)
+            marque = ' data-section-courante="true"' if dans_groupe else ""
+            items.append(
+                f'<li class="nav-groupe">'
+                f'<button type="button" class="nav-groupe__bouton" data-sous-menu'
+                f'{marque} aria-expanded="false" aria-controls="sous-menu-services">'
+                f'{libelle}<span class="nav-groupe__chevron" aria-hidden="true"></span>'
+                f'</button>'
+                f'<ul class="nav-groupe__liste" id="sous-menu-services" hidden>{sous}</ul>'
+                f'</li>')
+        else:
+            actuel = ' aria-current="page"' if href == page_active else ""
+            items.append(f'<li><a href="{p}{href}"{actuel}>{libelle}</a></li>')
     liens = "\n          ".join(items)
     return f"""<a class="lien-evitement" href="#contenu">Aller au contenu principal</a>
 
 <header class="entete" data-entete>
   <div class="conteneur">
     <a class="entete__logo" href="{p}index.html">
-      <img src="{LOGO}" alt="Domun LB, accueil" width="200" height="56">
+      <img src="{url_logo(prof)}" alt="Domun LB, accueil" width="200" height="56">
     </a>
-    <div class="entete__actions">
-      <p class="entete__contact">
-        {lien_tel(classes="tel")}
-        <span class="entete__horaires">Du lundi au samedi, 8h–19h</span>
-      </p>
-      <button class="bouton-menu" type="button" data-bouton-menu hidden
-              aria-expanded="false" aria-controls="navigation-principale">
-        <span class="bouton-menu__barres" aria-hidden="true"></span>
-        Menu
-      </button>
-    </div>
     <nav class="entete__nav" id="navigation-principale" data-nav
          aria-label="Navigation principale">
       <ul class="nav-liste">
           {liens}
       </ul>
     </nav>
+    <div class="entete__actions">
+      {lien_tel(classes="tel")}
+      <button class="bouton-menu" type="button" data-bouton-menu hidden
+              aria-label="Menu" aria-expanded="false"
+              aria-controls="navigation-principale">
+        <span class="bouton-menu__barres" aria-hidden="true"></span>
+        <span class="bouton-menu__texte">Menu</span>
+      </button>
+    </div>
   </div>
 </header>"""
 
@@ -130,7 +167,7 @@ def pied(prof=0):
     p = prefixe(prof)
     services = "".join(
         f'<li><a href="{p}{href}">{lib}</a></li>'
-        for href, lib in NAV[1:5]
+        for href, lib in SERVICES_NAV
     )
     return f"""<footer class="pied">
   <div class="conteneur">

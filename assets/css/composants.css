@@ -93,76 +93,106 @@
 /* --------------------------------------------------------------------------
    EN-TÊTE
    ------------------------------------------------------------------------ */
-/* En-tête collant, posé sur le violet de la marque — le fond du logo s'y
-   fond au lieu de former un rectangle. Texte blanc : 12,72:1. */
+/* --------------------------------------------------------------------------
+   EN-TÊTE — une seule ligne : logo | navigation | téléphone
+   Posé sur le violet de la marque, pour que le fond du logo s'y fonde.
+   Texte blanc : 12,72:1.
+   ------------------------------------------------------------------------ */
 .entete {
   position: sticky; top: 0; z-index: 50;
   background: var(--fond-section-marque);
   color: var(--texte-sur-marque);
 }
-/* Une fois déroulé, l'en-tête se compacte : le logo rapetisse et les horaires
-   s'effacent. Il reste ainsi collant sans confisquer un cinquième de l'écran,
-   et le téléphone demeure visible en permanence comme l'exige la charte. */
 .entete--defile { box-shadow: var(--ombre-relief); }
-.entete--defile .conteneur { padding-block: var(--esp-2); }
-.entete--defile .entete__logo img { height: 40px; }
-.entete--defile .entete__horaires { display: none; }
-.entete__logo img, .entete .conteneur { transition: height .18s ease, padding .18s ease; }
-
-/* En petit écran, le logo et les actions ne tiennent pas sur une même ligne :
-   l'en-tête déroulé ferait deux rangées de 48 px, soit un sixième de l'écran.
-   Une fois déroulé, on efface donc le logo — le téléphone et le menu restent,
-   et « Accueil » reste accessible dans le menu. */
-@media (max-width: 899px) {
-  .entete--defile .entete__logo { display: none; }
-}
 .entete .conteneur {
-  display: flex; flex-wrap: wrap; gap: var(--esp-4);
+  display: flex; flex-wrap: nowrap;
   align-items: center; justify-content: space-between;
+  gap: var(--esp-4);
   padding-block: var(--esp-3);
 }
 .entete__logo {
   display: inline-flex; align-items: center; min-height: var(--cible-min);
-  /* Si l'image ne se charge pas, le texte de remplacement doit rester
+  /* Le logo absorbe la contrainte en très petit écran : sans cela, il
+     pousserait la ligne au débordement plutôt que de se réduire. */
+  flex: 0 1 auto; min-width: 0;
+  /* Si l'image ne se charge pas, son texte de remplacement doit rester
      lisible sur le violet — en navy il serait à 1,31:1. */
   color: var(--texte-sur-marque);
 }
-.entete__logo img { width: auto; height: 56px; }
-.entete__actions { display: flex; align-items: center; gap: var(--esp-4); flex-wrap: wrap; }
+.entete__logo img {
+  height: 48px; width: auto; max-width: 100%; object-fit: contain;
+  transition: height .18s ease;
+}
+.entete--defile .entete__logo img { height: 38px; }
 
-.entete__contact { display: flex; flex-direction: column; margin: 0; max-width: none; }
-.entete .tel { color: var(--texte-sur-marque); }
-.entete__horaires { font-size: var(--texte-s); }
-@media (max-width: 599px) { .entete__horaires { display: none; } }
+.entete__actions { display: flex; align-items: center; gap: var(--esp-3); flex: none; }
+/* Les horaires ne figurent plus ici : empilées sous le numéro, elles
+   formaient la seconde ligne de l'en-tête. Elles restent dans le pied de
+   page et dans l'assistant de discussion. */
+.entete .tel { color: var(--texte-sur-marque); white-space: nowrap; }
 
-/* Navigation */
-.entete__nav { width: 100%; }
+/* ---- Navigation --------------------------------------------------------- */
+.entete__nav { flex: 0 1 auto; min-width: 0; }
 .nav-liste {
   list-style: none; margin: 0; padding: 0;
-  display: flex; flex-wrap: wrap; gap: var(--esp-1);
+  display: flex; flex-wrap: nowrap; gap: var(--esp-1);
 }
 .nav-liste li { max-width: none; }
-.nav-liste a {
-  display: flex; align-items: center;
+.nav-liste a, .nav-groupe__bouton {
+  display: flex; align-items: center; gap: var(--esp-2);
   min-height: var(--cible-min);
-  padding: var(--esp-2) var(--esp-4);
+  padding: var(--esp-2) var(--esp-3);
+  font-family: inherit;
   font-size: var(--texte-s);
   font-weight: var(--graisse-medium);
   color: var(--texte-sur-marque);
   text-decoration: none;
-  border-radius: var(--rayon-s);
+  white-space: nowrap;
+  background: transparent;
+  border: 0;
   border-bottom: 4px solid transparent;
+  border-radius: var(--rayon-s);
+  cursor: pointer;
 }
-/* Au survol, on repasse en texte navy sur bleu clair : 10,72:1. */
-.nav-liste a:hover { background: var(--bleu); color: var(--navy); }
-/* L'onglet actif est signalé par la graisse ET un trait jaune (8,94:1 sur le
-   violet) : jamais par la couleur seule. */
-.nav-liste a[aria-current="page"] {
+/* Au survol, texte navy sur bleu clair : 10,72:1. */
+.nav-liste a:hover, .nav-groupe__bouton:hover { background: var(--bleu); color: var(--navy); }
+/* La page ou la section courante est signalée par la graisse ET un trait
+   jaune (8,94:1 sur le violet) : jamais par la couleur seule. */
+.nav-liste a[aria-current="page"],
+.nav-groupe__bouton[data-section-courante="true"] {
   font-weight: var(--graisse-forte);
   border-bottom-color: var(--jaune);
 }
 
-/* Bouton menu (mobile) */
+/* Sous-menu des services — ouverture au clic, jamais au survol : un menu qui
+   se déplie au passage de la souris est difficile à viser. */
+.nav-groupe { position: relative; }
+.nav-groupe__chevron {
+  width: 0; height: 0; flex: none;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid currentColor;
+}
+.nav-groupe__bouton[aria-expanded="true"] .nav-groupe__chevron {
+  border-top: 0; border-bottom: 7px solid currentColor;
+}
+.nav-groupe__liste {
+  position: absolute; top: calc(100% + var(--esp-2)); left: 0;
+  min-width: 17rem;
+  margin: 0; padding: var(--esp-2);
+  list-style: none;
+  background: var(--violet);
+  border: 3px solid var(--blanc);
+  border-radius: var(--rayon-m);
+  box-shadow: var(--ombre-relief);
+}
+.nav-groupe__liste a {
+  border-bottom: 0; border-left: 5px solid transparent;
+  padding: var(--esp-2) var(--esp-4);
+}
+.nav-groupe__liste a[aria-current="page"] { border-left-color: var(--jaune); }
+
+/* Bouton menu (petit écran) */
 .bouton-menu {
   display: none;
   align-items: center; gap: var(--esp-3);
@@ -179,18 +209,48 @@
 .bouton-menu__barres::before { top: -8px; }
 .bouton-menu__barres::after  { top: 8px; }
 
-@media (max-width: 899px) {
+/* En dessous de 1100 px, la navigation à plat ne tient plus sur la ligne :
+   elle passe derrière le bouton Menu, et l'en-tête reste sur une ligne. */
+@media (max-width: 1099px) {
   .bouton-menu { display: inline-flex; }
-  .entete__nav[data-ouvert="false"] { display: none; }
-  .nav-liste { flex-direction: column; gap: 0; padding-block: var(--esp-3); }
-  .nav-liste li + li { border-top: 2px solid var(--separateur-pied); }
-  .nav-liste a { border-bottom: none; border-left: 5px solid transparent; }
-  .nav-liste a[aria-current="page"] { border-left-color: var(--jaune); }
-  /* Le menu ouvert ne doit jamais dépasser la hauteur de l'écran. */
-  .entete__nav[data-ouvert="true"] {
+  .entete__nav {
+    position: absolute; left: 0; right: 0; top: 100%;
+    background: var(--violet);
+    border-top: 2px solid var(--separateur-pied);
+    box-shadow: var(--ombre-relief);
     max-height: calc(100vh - var(--hauteur-entete, 6rem));
     overflow-y: auto;
   }
+  .entete .conteneur { position: relative; }
+  .entete__nav[data-ouvert="false"] { display: none; }
+  .nav-liste { flex-direction: column; flex-wrap: wrap; gap: 0; padding: var(--esp-3); }
+  .nav-liste li { width: 100%; }
+  .nav-liste a, .nav-groupe__bouton {
+    width: 100%; border-bottom: 0; border-left: 5px solid transparent;
+    padding: var(--esp-3) var(--esp-4);
+  }
+  .nav-liste a[aria-current="page"],
+  .nav-groupe__bouton[data-section-courante="true"] { border-left-color: var(--jaune); }
+  .nav-groupe__bouton { justify-content: space-between; }
+  /* Déplié en place plutôt qu'en surcouche. */
+  .nav-groupe__liste {
+    position: static; min-width: 0;
+    border: 0; box-shadow: none; border-radius: 0;
+    padding: 0 0 0 var(--esp-4);
+  }
+}
+
+/* Très petits écrans : le libellé du bouton disparaît au profit de
+   l'icône seule, pour que la ligne reste unique. Le nom accessible est
+   conservé par l'attribut aria-label posé par le script. */
+@media (max-width: 619px) {
+  .entete__logo img { height: 36px; }
+  .bouton-menu__texte { display: none; }
+  .bouton-menu { padding: var(--esp-2) var(--esp-3); }
+  .entete .conteneur { gap: var(--esp-3); }
+  .entete .conteneur { padding-inline: var(--esp-3); }
+  /* Seule l'icône s'efface : le numéro lui-même doit rester visible. */
+  .entete .tel__icone { display: none; }
 }
 
 /* --------------------------------------------------------------------------

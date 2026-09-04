@@ -21,6 +21,13 @@
     basculer(bouton.getAttribute("aria-expanded") !== "true");
   });
 
+  // Refermer le menu referme aussi le sous-menu qu'il contenait.
+  var ancienBasculer = basculer;
+  basculer = function (ouvrir) {
+    ancienBasculer(ouvrir);
+    if (!ouvrir) fermerSousMenus();
+  };
+
   // Échap referme le menu et rend le focus au bouton.
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && bouton.getAttribute("aria-expanded") === "true") {
@@ -30,7 +37,8 @@
   });
 
   // Au-delà de 900 px la navigation est toujours visible : on nettoie l'état.
-  var large = window.matchMedia("(min-width: 900px)");
+  // Au-delà de 1100 px la navigation tient sur la ligne de l'en-tête.
+  var large = window.matchMedia("(min-width: 1100px)");
   function auRedimensionnement() {
     if (large.matches) basculer(false);
     mesurerEntete();
@@ -67,4 +75,63 @@ function mesurerEntete() {
   }
   auDefilement();
   window.addEventListener("scroll", auDefilement, { passive: true });
+})();
+
+/* Sous-menu « Nos services ».
+
+   Ouverture au clic et jamais au survol : un menu qui se déplie au passage de
+   la souris est difficile à viser, et ne se referme pas au clavier. Le
+   regroupement existe parce que les huit entrées à plat réclamaient 1428 px
+   pour 1152 px disponibles ; sans lui, l'en-tête ne pouvait pas tenir sur une
+   seule ligne sans descendre sous le corps de 18 px.
+
+   Sans JavaScript, le bouton reste inerte : les quatre services demeurent
+   accessibles depuis la page d'accueil, le pied de page et le fil d'Ariane.
+*/
+function fermerSousMenus(sauf) {
+  var boutons = document.querySelectorAll("[data-sous-menu]");
+  Array.prototype.forEach.call(boutons, function (bouton) {
+    if (bouton === sauf) return;
+    bouton.setAttribute("aria-expanded", "false");
+    var liste = document.getElementById(bouton.getAttribute("aria-controls"));
+    if (liste) liste.hidden = true;
+  });
+}
+
+(function () {
+  "use strict";
+
+  var boutons = document.querySelectorAll("[data-sous-menu]");
+  if (!boutons.length) return;
+
+  Array.prototype.forEach.call(boutons, function (bouton) {
+    var liste = document.getElementById(bouton.getAttribute("aria-controls"));
+    if (!liste) return;
+
+    bouton.addEventListener("click", function () {
+      var ouvert = bouton.getAttribute("aria-expanded") === "true";
+      fermerSousMenus(bouton);
+      bouton.setAttribute("aria-expanded", ouvert ? "false" : "true");
+      liste.hidden = ouvert;
+    });
+  });
+
+  // Échap referme et rend le focus au bouton du sous-menu concerné.
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    var ouvert = document.querySelector('[data-sous-menu][aria-expanded="true"]');
+    if (!ouvert) return;
+    fermerSousMenus();
+    ouvert.focus();
+  });
+
+  // Un clic ou un focus hors du groupe referme le sous-menu.
+  function siDehors(e) {
+    var ouvert = document.querySelector('[data-sous-menu][aria-expanded="true"]');
+    if (ouvert && !ouvert.closest(".nav-groupe").contains(e.target)) {
+      fermerSousMenus();
+    }
+  }
+  document.addEventListener("click", siDehors);
+  document.addEventListener("focusin", siDehors);
 })();
