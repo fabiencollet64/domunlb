@@ -49,6 +49,12 @@ Aucune ne sert d'aplat, d'arrière-plan de section ni de couleur de marque.
 - Le violet sert aux grands aplats de section et aux en-têtes. Le rose reste
   rare, pour garder sa valeur de signal.
 - Le jaune ne sert qu'aux micro-éléments de réassurance et aux étoiles d'avis.
+  **Un badge n'est pas un titre.** Employé comme titre de carte, le cartouche
+  plein occupe toute la largeur — une carte est un conteneur flex en colonne —
+  et se lit alors comme un bouton qui ne mène nulle part. Un titre de carte
+  utilise `.carte__titre`, qui le laisse en navy et réduit le jaune à une
+  pastille. De même, une suite de mentions de réassurance utilise
+  `.reassurance`, une liste à pastilles, et non un chapelet de cartouches.
 - **Dégradés** : violet vers navy uniquement. Jamais violet vers rose.
 
 ## 3. Contrastes

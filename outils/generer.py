@@ -322,11 +322,11 @@ formulaire_qualification = f"""<form class="qualif" data-qualification
     Être rappelé gratuitement
   </button>
 
-  <p class="qualif__reassurance">
-    <span class="badge">Réponse sous 48&nbsp;h</span>
-    <span class="badge">Évaluation gratuite</span>
-    <span class="badge">Sans engagement</span>
-  </p>
+  <ul class="reassurance qualif__reassurance">
+    <li>Réponse sous 48&nbsp;h</li>
+    <li>Évaluation gratuite</li>
+    <li>Sans engagement</li>
+  </ul>
 </form>"""
 
 
@@ -366,17 +366,17 @@ accueil = f"""<section class="section section--degrade">
     <h2>Ce sur quoi vous pouvez compter</h2>
     <div class="grille">
       <div class="carte">
-        <p class="badge">Intervenants formés</p>
+        <h3 class="carte__titre">Intervenants formés</h3>
         <p>Nos intervenants sont recrutés sur leur expérience et leurs
           références, puis accompagnés tout au long de la mission.</p>
       </div>
       <div class="carte">
-        <p class="badge">Continuité assurée</p>
+        <h3 class="carte__titre">Continuité assurée</h3>
         <p>En cas d'absence, nous organisons le remplacement. Vous n'avez pas à
           chercher une solution dans l'urgence.</p>
       </div>
       <div class="carte">
-        <p class="badge">Un référent joignable</p>
+        <h3 class="carte__titre">Un référent joignable</h3>
         <p>Une personne suit votre dossier et connaît votre situation. Vous
           n'expliquez pas tout depuis le début à chaque appel.</p>
       </div>
@@ -602,17 +602,17 @@ candidature = f"""{g.fil_ariane([("index.html", "Accueil"), (None, "Candidature"
     <h2>Travailler chez nous</h2>
     <div class="grille">
       <div class="carte">
-        <p class="badge">Secteur d'intervention limité</p>
+        <h3 class="carte__titre">Secteur d'intervention limité</h3>
         <p>Nous construisons les plannings par secteur pour réduire les trajets
           entre deux interventions.</p>
       </div>
       <div class="carte">
-        <p class="badge">Planning stable</p>
+        <h3 class="carte__titre">Planning stable</h3>
         <p>Des horaires fixes d'une semaine à l'autre autant que possible, et des
           bénéficiaires réguliers.</p>
       </div>
       <div class="carte">
-        <p class="badge">Une équipe joignable</p>
+        <h3 class="carte__titre">Une équipe joignable</h3>
         <p>Un référent que vous pouvez appeler pendant vos interventions en cas
           de difficulté.</p>
       </div>
@@ -977,6 +977,18 @@ charte = f"""{g.fil_ariane([("index.html", "Accueil"), (None, "Charte graphique"
       <div class="carte">
         <h3>Puces</h3>
         <ul class="liste-puces"><li>Devis gratuit</li><li>Sans engagement</li></ul>
+      </div>
+      <div class="carte">
+        <h3 class="carte__titre">Titre de carte</h3>
+        <p>Un badge n'est pas un titre&nbsp;: employé ainsi, il occupe toute la
+          largeur de la carte et se lit comme un bouton.</p>
+      </div>
+      <div class="carte">
+        <h3>Ligne de réassurance</h3>
+        <ul class="reassurance">
+          <li>Réponse sous 48&nbsp;h</li>
+          <li>Sans engagement</li>
+        </ul>
       </div>
       <div class="carte">
         <h3>Surlignage</h3>
