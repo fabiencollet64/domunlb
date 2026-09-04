@@ -120,7 +120,12 @@ def entete(page_active, prof=0):
       </ul>
     </nav>
     <div class="entete__actions">
-      {lien_tel(classes="tel")}
+      <a class="bouton bouton--inverse entete__cta" href="{p}contact.html"
+         aria-label="Contactez-nous"
+         {'aria-current="page"' if page_active == "contact.html" else ""}>
+        <span class="entete__cta-long">Contactez-nous</span>
+        <span class="entete__cta-court">Contact</span>
+      </a>
       <button class="bouton-menu" type="button" data-bouton-menu hidden
               aria-label="Menu" aria-expanded="false"
               aria-controls="navigation-principale">
@@ -188,6 +193,7 @@ def pied(prof=0):
       <div>
         <h2>Informations</h2>
         <ul>
+          <li><a href="{p}contact.html">Nous contacter</a></li>
           <li><a href="{p}tarifs.html">Tarifs</a></li>
           <li><a href="{p}blog.html">Blog</a></li>
           <li><a href="{p}candidature.html">Candidature</a></li>

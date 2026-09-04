@@ -1036,3 +1036,159 @@ ecrire("charte.html", g.page(
                 "typographie, composants et règles d'accessibilité.",
     corps=charte, page_active="charte.html", prof=0,
 ))
+
+
+# ---------------------------------------------------------------------------
+# Contact
+# ---------------------------------------------------------------------------
+OBJETS = [
+    "Une demande d'aide à domicile",
+    "Une question sur les tarifs ou les aides",
+    "Une candidature",
+    "Autre sujet",
+]
+options_objet = "".join(
+    f'<div class="choix"><input type="radio" id="objet-{i}" name="objet" value="{o}">'
+    f'<label for="objet-{i}">{o}</label></div>'
+    for i, o in enumerate(OBJETS)
+)
+
+contact = f"""{g.fil_ariane([("index.html", "Accueil"), (None, "Nous contacter")])}
+
+<section class="section section--serree">
+  <div class="conteneur entete-page">
+    <h1>Nous contacter</h1>
+    <p class="chapo">Le plus simple reste le téléphone&nbsp;: nous répondons
+      nous-mêmes, sans serveur vocal. Si vous préférez écrire, le formulaire
+      ci-dessous nous parvient directement.</p>
+  </div>
+</section>
+
+<section class="section section--serree">
+  <div class="conteneur">
+    <div class="duo">
+      <div class="carte carte--clair">
+        <h2>Par téléphone</h2>
+        <p>Du lundi au samedi, de 8h à 19h.</p>
+        {g.lien_tel(classes="tel tel--bouton", prefixe_libelle="Nous appeler au ")}
+        <p>C'est le moyen le plus rapide, en particulier pour une situation
+          urgente ou une sortie d'hospitalisation.</p>
+      </div>
+      <div class="carte">
+        <h2>Ce qui se passe ensuite</h2>
+        <ul class="liste-puces">
+          <li>Nous vous rappelons sous 48&nbsp;heures ouvrées</li>
+          <li>Nous convenons d'une visite d'évaluation à domicile, gratuite
+            et sans engagement</li>
+          <li>Vous recevez un devis clair, avec le reste à charge estimé après
+            crédit d'impôt</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <h2>Nous écrire</h2>
+    <p>Les champs suivis de <span class="champ__obligatoire">(obligatoire)</span>
+      doivent être remplis.</p>
+
+    <form class="formulaire" action="#" method="post" novalidate>
+      <fieldset>
+        <legend>Vos coordonnées</legend>
+        <div class="champ">
+          <label class="champ__libelle" for="contact-nom">
+            Nom et prénom <span class="champ__obligatoire">(obligatoire)</span>
+          </label>
+          <input type="text" id="contact-nom" name="nom" required autocomplete="name">
+        </div>
+        <div class="champ">
+          <label class="champ__libelle" for="contact-tel">
+            Téléphone <span class="champ__obligatoire">(obligatoire)</span>
+          </label>
+          <span class="champ__aide" id="contact-aide-tel">
+            C'est par téléphone que nous vous répondons.
+            Exemple&nbsp;: 06 12 34 56 78
+          </span>
+          <input type="tel" id="contact-tel" name="telephone" required
+                 autocomplete="tel" aria-describedby="contact-aide-tel">
+        </div>
+        <div class="champ">
+          <label class="champ__libelle" for="contact-courriel">Adresse électronique</label>
+          <span class="champ__aide" id="contact-aide-courriel">
+            Facultatif. Nous vous répondons par téléphone si vous n'en avez pas.
+          </span>
+          <input type="email" id="contact-courriel" name="courriel"
+                 autocomplete="email" aria-describedby="contact-aide-courriel">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Votre demande</legend>
+        <div class="champ">
+          <p class="champ__libelle" id="libelle-objet">Quel est l'objet de votre message&nbsp;?</p>
+          <div role="radiogroup" aria-labelledby="libelle-objet">{options_objet}</div>
+        </div>
+        <div class="champ">
+          <label class="champ__libelle" for="contact-message">
+            Votre message <span class="champ__obligatoire">(obligatoire)</span>
+          </label>
+          <span class="champ__aide" id="contact-aide-message">
+            Décrivez la situation en quelques lignes&nbsp;: cela nous permet de
+            vous rappeler en connaissant déjà l'essentiel.
+          </span>
+          <textarea id="contact-message" name="message" rows="6" required
+                    aria-describedby="contact-aide-message"></textarea>
+        </div>
+        <div class="champ">
+          <div class="choix">
+            <input type="checkbox" id="contact-consentement" name="consentement"
+                   value="oui" required>
+            <label for="contact-consentement">
+              J'accepte d'être recontacté par Domun LB au sujet de ma demande
+              <span class="champ__obligatoire">(obligatoire)</span>
+            </label>
+          </div>
+        </div>
+      </fieldset>
+
+      <button class="bouton bouton--principal bouton--large" type="submit">
+        Envoyer mon message
+      </button>
+    </form>
+  </div>
+</section>
+
+<section class="section section--clair">
+  <div class="conteneur">
+    <h2>Vous cherchez autre chose&nbsp;?</h2>
+    <div class="grille">
+      <div class="carte">
+        <h3>Vous voulez postuler</h3>
+        <p>Nous recrutons toute l'année. La page dédiée recueille votre
+          candidature en cinq minutes.</p>
+        <a class="bouton bouton--secondaire" href="candidature.html">Déposer ma candidature</a>
+      </div>
+      <div class="carte">
+        <h3>Vous voulez connaître les tarifs</h3>
+        <p>Les tarifs horaires, le crédit d'impôt et les aides mobilisables
+          sont détaillés sur la page Tarifs.</p>
+        <a class="bouton bouton--secondaire" href="tarifs.html">Voir les tarifs</a>
+      </div>
+      <div class="carte">
+        <h3>Vous préférez qu'on vous rappelle</h3>
+        <p>Le formulaire de la page d'accueil qualifie votre besoin en deux
+          minutes et nous permet de vous rappeler préparés.</p>
+        <a class="bouton bouton--secondaire" href="index.html">Aller au formulaire</a>
+      </div>
+    </div>
+  </div>
+</section>"""
+
+ecrire("contact.html", g.page(
+    titre="Nous contacter",
+    description="Contacter Domun LB : par téléphone au " + g.TEL_AFFICHE +
+                " du lundi au samedi 8h–19h, ou par formulaire.",
+    corps=contact, page_active="contact.html", prof=0,
+))

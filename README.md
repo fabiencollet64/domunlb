@@ -18,6 +18,7 @@ typographie et composants — sur une seule page.
 
 ```
 index.html                          Accueil
+contact.html                        Page de contact (téléphone et formulaire)
 tarifs.html                         Tarifs et aides financières
 candidature.html                    Recrutement (formulaire)
 blog.html                           Liste des articles
@@ -92,10 +93,20 @@ de 620 px le libellé du bouton et l'icône du téléphone s'effacent, et le log
 se réduit pour absorber la contrainte. **Le numéro lui-même reste visible à
 toutes les largeurs**, jusqu'à 320 px.
 
-Le **numéro de téléphone reste visible en permanence** dans l'en-tête, comme
-l'exige la charte : c'est la raison pour laquelle l'en-tête entier est collant
-plutôt que la seule barre de navigation. `outils/verifier-pages.py` contrôle sa
-présence sur chaque page.
+L'en-tête porte un bouton **« Contactez-nous »** menant à `contact.html`, à la
+place du numéro de téléphone. C'est un écart demandé par Domun LB à une règle
+que la charte qualifiait de non négociable ; il est consigné dans
+`CHARTE.md` §8, avec ce qui a été mis en place pour en limiter le coût. Le
+numéro reste cliquable au pied de **chaque** page, et la page Contact ouvre
+dessus.
+
+`outils/verifier-pages.py` contrôle désormais que l'en-tête offre un chemin de
+contact en un clic, et que le numéro figure au pied de chaque page — la règle a
+été redéfinie, pas supprimée.
+
+Le bouton est **blanc plein et non rose** : il est présent sur toutes les
+pages, et le rose doit rester rare. Sur le violet de l'en-tête, le blanc lit
+comme une action principale (12,72:1).
 
 ## Assistant de discussion
 
@@ -179,9 +190,9 @@ réaliste à porter. Ils n'ont pas été fournis par Domun LB et **doivent être
 validés ou remplacés** avant toute publication — en particulier les montants et
 tout ce qui touche aux aides financières.
 
-**Les deux formulaires ne sont pas branchés.** Le formulaire de qualification
-de la page d'accueil et celui de la page Candidature ont un attribut `action`
-pointant sur `#`. Il reste à les relier à un traitement côté serveur, avec la
+**Les trois formulaires ne sont pas branchés.** Le formulaire de qualification
+de la page d'accueil, celui de la page Contact et celui de la page Candidature
+ont un attribut `action` pointant sur `#`. Il reste à les relier à un traitement côté serveur, avec la
 mention d'information sur les données personnelles qui convient. Les champs
 portent déjà des attributs `name` exploitables tels quels.
 

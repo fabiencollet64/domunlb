@@ -119,7 +119,8 @@ signaux dont deux non chromatiques.
 | Contraste 4,5:1 partout | `outils/verifier-contrastes.py` |
 | Libellés visibles au-dessus des champs | `.champ__libelle`, contrôlé par `outils/verifier-pages.py` |
 | Zones cliquables de 48 px minimum | `--cible-min` sur boutons, liens de nav, champs, puces |
-| Téléphone cliquable et visible en permanence | En-tête et pied de page, contrôlé par `outils/verifier-pages.py` |
+| Chemin de contact permanent en en-tête | Bouton « Contactez-nous », contrôlé par `outils/verifier-pages.py` (voir §8) |
+| Téléphone cliquable en pied de chaque page | Contrôlé par `outils/verifier-pages.py` |
 
 S'y ajoutent, parce que la cible le commande : lien d'évitement, focus visible
 non supprimé (et inversé en blanc sur les fonds foncés), repères sémantiques
@@ -135,3 +136,28 @@ entièrement utilisable sans JavaScript.
 - Une septième couleur, y compris un gris de remplissage ou un rouge d'erreur.
 - Un libellé de champ affiché uniquement en texte indicatif (`placeholder`).
 - Une zone cliquable de moins de 48 px, ou un texte de corps sous 18 px.
+
+## 8. Écart demandé par Domun LB
+
+La charte d'origine exigeait le numéro de téléphone « cliquable et visible en
+permanence en en-tête et en pied de page ». À la demande de Domun LB,
+**l'en-tête porte désormais un bouton « Contactez-nous »** menant à une page
+dédiée, à la place du numéro.
+
+C'est un écart assumé, pas un oubli. Il est consigné ici parce qu'il touche une
+règle qualifiée de non négociable, et parce qu'il a un coût réel : pour une
+personne âgée qui veut simplement appeler, un numéro affiché demande zéro clic,
+un bouton en demande un.
+
+Ce qui a été mis en place pour limiter ce coût :
+
+- le numéro reste **cliquable au pied de chaque page**, sans exception ;
+- la page Contact ouvre sur le numéro, en gros et en bouton d'appel ;
+- l'assistant de discussion propose le numéro à chaque étape ;
+- le bandeau d'appel à l'action en bas des pages porte le bouton d'appel.
+
+La règle contrôlée par `outils/verifier-pages.py` a été réécrite en
+conséquence&nbsp;: l'en-tête doit offrir **un chemin de contact en un clic** —
+le numéro lui-même ou le bouton vers la page dédiée — et le numéro cliquable
+doit rester présent au pied de chaque page ainsi que sur la page Contact. Le
+contrôle n'a pas été supprimé, il a été redéfini.

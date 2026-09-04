@@ -792,3 +792,14 @@ legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-i
 /* On réserve la place du lanceur sous le pied de page, pour qu'il ne
    recouvre jamais la dernière ligne. */
 .pied { padding-bottom: calc(var(--esp-5) + 4.5rem); }
+
+/* Bouton d'appel à l'action de l'en-tête. Blanc plein plutôt que rose : il est
+   présent sur toutes les pages, et le rose doit rester rare pour garder sa
+   valeur de signal. Sur le violet, le blanc lit comme une action principale. */
+.entete__cta { flex: none; padding-inline: var(--esp-4); }
+.entete__cta[aria-current="page"] { border-color: var(--jaune); }
+.entete__cta-court { display: none; }
+@media (max-width: 619px) {
+  .entete__cta-long { display: none; }
+  .entete__cta-court { display: inline; }
+}

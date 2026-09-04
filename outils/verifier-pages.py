@@ -53,14 +53,30 @@ def controler(chemin):
            "il faut exactement un <h1> par page (trouvé %d)"
            % len(re.findall(r"<h1[\s>]", html)))
 
-    # Téléphone : présent en en-tête ET en pied, cliquable.
-    liens_tel = html.count('href="tel:%s"' % TEL)
-    exiger(liens_tel >= 2,
-           "téléphone cliquable attendu en en-tête et en pied (trouvé %d)" % liens_tel)
+    # Chemin de contact permanent.
+    #
+    # La charte d'origine exigeait le numéro cliquable en en-tête ET en pied.
+    # À la demande de Domun LB, l'en-tête porte désormais un bouton
+    # « Contactez-nous » à la place du numéro. La règle contrôlée devient donc :
+    # l'en-tête offre un chemin de contact en un clic — le numéro lui-même ou
+    # le bouton vers la page dédiée — et le numéro cliquable reste présent au
+    # pied de CHAQUE page ainsi que sur la page Contact.
+    # C'est un assouplissement assumé, tracé ici et dans CHARTE.md, et non un
+    # relâchement silencieux du contrôle.
     avant_main = html.split("<main", 1)[0]
     apres_main = html.split("</main>", 1)[-1]
-    exiger('href="tel:%s"' % TEL in avant_main, "téléphone absent de l'en-tête")
+
+    tel_entete = 'href="tel:%s"' % TEL in avant_main
+    bouton_entete = 'href="contact.html"' in avant_main or \
+                    'href="../contact.html"' in avant_main
+    exiger(tel_entete or bouton_entete,
+           "l'en-tête n'offre aucun chemin de contact "
+           "(ni numéro cliquable, ni bouton vers la page Contact)")
     exiger('href="tel:%s"' % TEL in apres_main, "téléphone absent du pied de page")
+
+    if chemin == "contact.html":
+        exiger('href="tel:%s"' % TEL in html,
+               "la page Contact doit porter le numéro cliquable")
 
     # Chaque champ de saisie possède un libellé visible associé.
     libelles = set(re.findall(r'<label[^>]*\bfor="([^"]+)"', html))
