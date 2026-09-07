@@ -36,6 +36,7 @@ IMAGES = [
     ("mandataire.jpg",            "Mode mandataire"),
     ("credit-impot.jpg",          "Crédit d'impôt"),
     ("accompagnement.jpg",        "Accompagnement à domicile"),
+    ("contact.jpg",               "Nous écrire"),
 ]
 
 LARGEUR, HAUTEUR = 1366, 768

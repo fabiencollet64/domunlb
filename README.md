@@ -187,16 +187,27 @@ modification de code n'est nécessaire.
 | Fichier | Page | Sujet attendu |
 |---------|------|---------------|
 | `equipe-domunlb.jpg` | Notre équipe | La photographie de groupe de l'équipe |
-| `auxiliaire-de-vie.jpg` | Auxiliaire de vie | Une intervenante à l'écoute d'une dame âgée |
-| `aide-soignante.jpg` | Aide-soignante | Une aide-soignante auprès d'une dame âgée |
-| `aide-menagere.jpg` | Aide ménagère | **manquante** — l'entretien d'un logement |
-| `mandataire.jpg` | Mode mandataire | **manquante** — un dossier examiné avec une famille |
-| `credit-impot.jpg` | Tarifs | Un couple devant un ordinateur portable |
-| `accompagnement.jpg` | Accueil | Une intervenante veillant au confort d'une dame âgée |
+| `auxiliaire-de-vie.jpg` | Auxiliaire de vie | Une intervenante tenant les mains d'une dame âgée |
+| `aide-soignante.jpg` | Aide-soignante | L'aide-soignante au stéthoscope auprès d'une dame âgée |
+| `aide-menagere.jpg` | Aide ménagère | L'intervenante ouvrant les rideaux d'une pièce rangée |
+| `mandataire.jpg` | Mode mandataire | La signature d'un document administratif |
+| `credit-impot.jpg` | Tarifs | Le calcul à la calculatrice, feuillets et ordinateur |
+| `accompagnement.jpg` | Accueil | Le plaid remonté sur les épaules d'une dame âgée |
+| `contact.jpg` | Contact | Le couple devant un ordinateur portable |
 
 Le **texte alternatif de chaque image décrit déjà la photographie définitive**,
-non le pavé : il n'y a rien à reprendre après le remplacement. Deux sujets
-restent à fournir, signalés ci-dessus.
+non le pavé : il n'y a rien à reprendre après le remplacement.
+
+### Déposer les photographies
+
+Depuis l'interface web de GitHub, sur la branche de travail : ouvrir le dossier
+`assets/img/`, bouton **Add file › Upload files**, puis glisser les huit
+fichiers **renommés selon la première colonne du tableau ci-dessus**. GitHub
+remplace les fichiers de même nom. Rien d'autre n'est à modifier.
+
+Deux points de vigilance : conserver l'extension `.jpg` en minuscules, et
+cadrer les photographies en 16/9 avant de les déposer si le sujet risque
+d'être coupé — le recadrage automatique se fait par le centre.
 
 Le format est imposé à 16/9 (21/9 pour le bandeau de la page Équipe), avec
 recadrage par le centre : les photographies n'ont pas toutes le même format et,

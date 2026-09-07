@@ -132,7 +132,7 @@ SERVICES = [
     {
         "fichier": "services/aide-menagere.html",
         "image": "aide-menagere.jpg",
-        "alt": "Une intervenante remet en ordre le salon d'un logement.",
+        "alt": "Une intervenante en tenue professionnelle ouvre les rideaux d'une pièce lumineuse et rangée.",
         "titre": "Aide ménagère",
         "icone": "maison",
         "resume": "Un logement propre et ordonné, sans effort et sans risque de "
@@ -154,7 +154,7 @@ SERVICES = [
     {
         "fichier": "services/mandataire.html",
         "image": "mandataire.jpg",
-        "alt": "Une conseillère et une famille examinent ensemble un dossier administratif.",
+        "alt": "Deux personnes signent un document administratif, l'une désignant un passage du contrat.",
         "titre": "Mode mandataire",
         "icone": "dossier",
         "resume": "Vous êtes l'employeur de votre intervenant, nous prenons en "
@@ -603,8 +603,8 @@ tarifs = f"""{g.fil_ariane([("index.html", "Accueil"), (None, "Tarifs")])}
         {g.lien_tel(classes="tel tel--bouton", prefixe_libelle="Nous appeler au ")}
       </div>
       {g.media("credit-impot.jpg",
-               "Un couple consulte un ordinateur portable dans sa cuisine, "
-               "en souriant.")}
+               "Une personne calcule un montant à la calculatrice, feuillets "
+               "et ordinateur portable posés sur le bureau.")}
     </div>
   </div>
 </section>
@@ -1173,6 +1173,9 @@ contact = f"""{g.fil_ariane([("index.html", "Accueil"), (None, "Nous contacter")
 <section class="section">
   <div class="conteneur">
     <h2>Nous écrire</h2>
+    {g.media("contact.jpg",
+             "Un couple consulte un ordinateur portable dans sa cuisine, "
+             "en souriant.", classes="media media--bandeau")}
     <p>Les champs suivis de <span class="champ__obligatoire">(obligatoire)</span>
       doivent être remplis.</p>
 
