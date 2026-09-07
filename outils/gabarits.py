@@ -142,6 +142,18 @@ def entete(page_active, prof=0):
 </header>"""
 
 
+def media(fichier, texte_alt, prof=0, classes="media", chargement="lazy"):
+    """Figure image. Le texte alternatif décrit la photographie définitive :
+    les fichiers actuellement en place sont des pavés provisoires (voir
+    outils/images-provisoires.py)."""
+    p = prefixe(prof)
+    priorite = ' fetchpriority="high"' if chargement == "eager" else ""
+    return (f'<figure class="{classes}">'
+            f'<img src="{p}assets/img/{fichier}" alt="{texte_alt}"'
+            f' width="1366" height="768" loading="{chargement}"'
+            f' decoding="async"{priorite}></figure>')
+
+
 def fil_ariane(chemin, prof=0):
     """chemin : liste de (href|None, libellé). Le dernier est la page courante."""
     p = prefixe(prof)
@@ -183,7 +195,7 @@ def pied(prof=0):
   <div class="conteneur">
     <div class="grille grille--4">
       <div>
-        <span class="pied__logo"><img src="{LOGO}" alt="Domun LB" width="330" height="90"></span>
+        <span class="pied__logo"><img src="{url_logo(prof)}" alt="Domun LB" width="330" height="90"></span>
         <p>Services d'aide et d'accompagnement à domicile.</p>
       </div>
       <div>

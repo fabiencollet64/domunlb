@@ -87,6 +87,8 @@ print("css    assets/css/domun.css (version %s)" % g.VERSION)
 SERVICES = [
     {
         "fichier": "services/auxiliaire-de-vie.html",
+        "image": "auxiliaire-de-vie.jpg",
+        "alt": "Une intervenante tient les mains d'une dame âgée et l'écoute, assises face à face.",
         "titre": "Auxiliaire de vie",
         "icone": "coeur",
         "resume": "Un accompagnement quotidien pour rester chez soi en sécurité, "
@@ -107,6 +109,8 @@ SERVICES = [
     },
     {
         "fichier": "services/aide-soignante.html",
+        "image": "aide-soignante.jpg",
+        "alt": "Une aide-soignante, stéthoscope autour du cou, enlace une dame âgée souriante.",
         "titre": "Aide-soignante",
         "icone": "soin",
         "resume": "Des soins d'hygiène et de confort réalisés par un personnel "
@@ -127,6 +131,8 @@ SERVICES = [
     },
     {
         "fichier": "services/aide-menagere.html",
+        "image": "aide-menagere.jpg",
+        "alt": "Une intervenante remet en ordre le salon d'un logement.",
         "titre": "Aide ménagère",
         "icone": "maison",
         "resume": "Un logement propre et ordonné, sans effort et sans risque de "
@@ -147,6 +153,8 @@ SERVICES = [
     },
     {
         "fichier": "services/mandataire.html",
+        "image": "mandataire.jpg",
+        "alt": "Une conseillère et une famille examinent ensemble un dossier administratif.",
         "titre": "Mode mandataire",
         "icone": "dossier",
         "resume": "Vous êtes l'employeur de votre intervenant, nous prenons en "
@@ -182,13 +190,18 @@ def page_service(s):
     corps = f"""{g.fil_ariane([("index.html", "Accueil"), (None, s['titre'])], prof=1)}
 
 <section class="section section--serree">
-  <div class="conteneur entete-page">
-    <p class="badge">Service d'aide à domicile</p>
-    <h1>{s['titre']}</h1>
-    <p class="chapo">{s['resume']}</p>
-    <div class="groupe-boutons">
-      {g.lien_tel(classes="tel tel--bouton", prefixe_libelle="Nous appeler au ")}
-      <a class="bouton bouton--secondaire" href="../tarifs.html">Voir les tarifs</a>
+  <div class="conteneur">
+    <div class="duo">
+      <div class="entete-page">
+        <p class="badge">Service d'aide à domicile</p>
+        <h1>{s['titre']}</h1>
+        <p class="chapo">{s['resume']}</p>
+        <div class="groupe-boutons">
+          {g.lien_tel(classes="tel tel--bouton", prefixe_libelle="Nous appeler au ")}
+          <a class="bouton bouton--secondaire" href="../tarifs.html">Voir les tarifs</a>
+        </div>
+      </div>
+      {g.media(s['image'], s['alt'], prof=1, chargement="eager")}
     </div>
   </div>
 </section>
@@ -432,7 +445,9 @@ accueil = f"""<section class="section section--degrade">
 <section class="section">
   <div class="conteneur">
     <h2>Comment démarrer</h2>
-    <ol class="etapes">
+    <div class="duo">
+      <div>
+      <ol class="etapes">
       <li><strong>Vous nous appelez au {g.TEL_AFFICHE}.</strong> Nous écoutons la
         situation et répondons à vos premières questions.</li>
       <li><strong>Nous venons chez vous.</strong> La visite d'évaluation est
@@ -441,7 +456,12 @@ accueil = f"""<section class="section section--degrade">
         reste à charge estimé après crédit d'impôt y figurent.</li>
       <li><strong>La mission commence.</strong> Vous rencontrez l'intervenant
         avant son premier jour.</li>
-    </ol>
+      </ol>
+      </div>
+      {g.media("accompagnement.jpg",
+               "Une intervenante remonte un plaid sur les épaules d'une dame "
+               "âgée installée dans son canapé.")}
+    </div>
   </div>
 </section>
 
@@ -575,11 +595,16 @@ tarifs = f"""{g.fil_ariane([("index.html", "Accueil"), (None, "Tarifs")])}
           cas de perte d'autonomie.</p>
       </div>
     </div>
-    <div class="encadre">
-      <h3>Nous montons le dossier avec vous</h3>
-      <p>Savoir à quoi on a droit prend du temps. Appelez-nous&nbsp;: nous
-        regardons ensemble ce qui s'applique à votre situation.</p>
-      {g.lien_tel(classes="tel tel--bouton", prefixe_libelle="Nous appeler au ")}
+    <div class="duo">
+      <div class="encadre">
+        <h3>Nous montons le dossier avec vous</h3>
+        <p>Savoir à quoi on a droit prend du temps. Appelez-nous&nbsp;: nous
+          regardons ensemble ce qui s'applique à votre situation.</p>
+        {g.lien_tel(classes="tel tel--bouton", prefixe_libelle="Nous appeler au ")}
+      </div>
+      {g.media("credit-impot.jpg",
+               "Un couple consulte un ordinateur portable dans sa cuisine, "
+               "en souriant.")}
     </div>
   </div>
 </section>
@@ -1298,6 +1323,14 @@ equipe = f"""{g.fil_ariane([("index.html", "Accueil"), (None, "Notre équipe")])
       c'est quelqu'un qui entre chez vous. Vous rencontrez votre intervenant
       avant le début de la mission, et nous faisons en sorte que ce soit
       toujours la même personne.</p>
+  </div>
+</section>
+
+<section class="section section--serree">
+  <div class="conteneur">
+    {g.media("equipe-domunlb.jpg",
+             "L'équipe Domun LB réunie dans ses locaux.",
+             classes="media media--bandeau", chargement="eager")}
   </div>
 </section>
 

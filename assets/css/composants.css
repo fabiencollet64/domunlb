@@ -912,3 +912,35 @@ legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-i
 @media (max-width: 559px) {
   .portrait--large { flex-direction: column; align-items: center; text-align: center; }
 }
+
+/* --------------------------------------------------------------------------
+   IMAGES
+   Rapport 16/9 imposé et recadrage par le centre : les photographies fournies
+   n'ont pas toutes le même format, et sans cela la mise en page bougerait
+   d'une page à l'autre. La hauteur étant réservée par aspect-ratio, le texte
+   ne saute pas au chargement de l'image.
+   ------------------------------------------------------------------------ */
+.media { margin: 0; }
+.media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--rayon-m);
+  box-shadow: var(--ombre-carte);
+}
+.media figcaption {
+  margin-top: var(--esp-3);
+  font-size: var(--texte-s);
+}
+.section--marque .media figcaption,
+.section--degrade .media figcaption { color: var(--texte-sur-marque); }
+
+/* Bandeau pleine largeur, pour une photographie qui ouvre une page. */
+.media--bandeau img {
+  aspect-ratio: 21 / 9;
+  border-radius: var(--rayon-l);
+}
+@media (max-width: 699px) {
+  .media--bandeau img { aspect-ratio: 3 / 2; }
+}

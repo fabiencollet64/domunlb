@@ -94,6 +94,18 @@ def controler(chemin):
         if 'datetime=""' in balise or "datetime=" not in balise:
             anomalies.append("élément <time> sans attribut datetime : %s" % balise[:70])
 
+    # Chaque ressource locale doit exister, à la profondeur de la page.
+    # Un chemin sans préfixe « ../ » se résout à la racine et fonctionne donc
+    # depuis index.html tout en étant cassé depuis services/ : sans ce
+    # contrôle, l'erreur ne se voit que sur les pages imbriquées.
+    dossier = os.path.dirname(os.path.join(RACINE, chemin))
+    for ressource in re.findall(r'(?:src|href)="([^"#:]+\.(?:css|js|svg|png|jpe?g|webp|ico))(?:\?[^"]*)?"',
+                                html):
+        if ressource.startswith(("http://", "https://", "//", "data:")):
+            continue
+        if not os.path.exists(os.path.normpath(os.path.join(dossier, ressource))):
+            anomalies.append("ressource introuvable depuis cette page : %s" % ressource)
+
     # Texte alternatif des images.
     for balise in re.findall(r"<img\b[^>]*>", html):
         if not re.search(r'\balt="', balise):

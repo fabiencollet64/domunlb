@@ -39,8 +39,10 @@ assets/js/
   navigation.js                     Menu en petit écran, en-tête collant
   qualification.js                  Découpe en étapes du formulaire d'accueil
   chat.js                           Assistant guidé (réponses écrites à l'avance)
+assets/img/                         Logo et photographies
 outils/
   gabarits.py                       En-tête, navigation et pied partagés
+  images-provisoires.py             Fabrique les pavés d'attente des photos
   generer.py                        Génère les pages HTML
   verifier-contrastes.py            Contrôle WCAG des associations de couleurs
   verifier-pages.py                 Contrôle des règles non négociables
@@ -170,6 +172,36 @@ Les quatre feuilles étaient auparavant assemblées par des `@import` dans
 fichier importé est mis en cache séparément. Elles sont donc concaténées à la
 génération — ce qui supprime aussi la cascade de requêtes qui retardait le
 premier rendu. La page ne charge plus qu'une feuille au lieu de cinq.
+
+## Photographies
+
+Les fichiers présents dans `assets/img/` sont des **pavés provisoires** : des
+aplats aux couleurs de la charte, au bon format, portant leur propre nom de
+fichier. Ils existent pour qu'aucune page n'affiche d'image cassée en
+attendant les vraies, et pour que personne ne les mette en ligne par
+inadvertance. Ils sont refabriqués par `python3 outils/images-provisoires.py`.
+
+**Pour intégrer une photographie : écraser le fichier du même nom.** Aucune
+modification de code n'est nécessaire.
+
+| Fichier | Page | Sujet attendu |
+|---------|------|---------------|
+| `equipe-domunlb.jpg` | Notre équipe | La photographie de groupe de l'équipe |
+| `auxiliaire-de-vie.jpg` | Auxiliaire de vie | Une intervenante à l'écoute d'une dame âgée |
+| `aide-soignante.jpg` | Aide-soignante | Une aide-soignante auprès d'une dame âgée |
+| `aide-menagere.jpg` | Aide ménagère | **manquante** — l'entretien d'un logement |
+| `mandataire.jpg` | Mode mandataire | **manquante** — un dossier examiné avec une famille |
+| `credit-impot.jpg` | Tarifs | Un couple devant un ordinateur portable |
+| `accompagnement.jpg` | Accueil | Une intervenante veillant au confort d'une dame âgée |
+
+Le **texte alternatif de chaque image décrit déjà la photographie définitive**,
+non le pavé : il n'y a rien à reprendre après le remplacement. Deux sujets
+restent à fournir, signalés ci-dessus.
+
+Le format est imposé à 16/9 (21/9 pour le bandeau de la page Équipe), avec
+recadrage par le centre : les photographies n'ont pas toutes le même format et,
+sans cela, la mise en page bougerait d'une page à l'autre. La hauteur étant
+réservée par `aspect-ratio`, le texte ne saute pas au chargement.
 
 ## Vérifications
 
