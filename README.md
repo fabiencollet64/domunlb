@@ -19,6 +19,7 @@ typographie et composants — sur une seule page.
 ```
 index.html                          Accueil
 contact.html                        Page de contact (téléphone et formulaire)
+equipe.html                         Notre équipe (portraits des intervenants)
 tarifs.html                         Tarifs et aides financières
 candidature.html                    Recrutement (formulaire)
 blog.html                           Liste des articles
@@ -214,6 +215,18 @@ faudra soit une version horizontale pour l'en-tête, soit accepter un en-tête
 plus haut. Le tracé est en blanc sur fond transparent, ce qui lui permet de se
 poser sur le violet de l'en-tête comme sur le navy du pied de page sans former
 de rectangle.
+
+**Les portraits de la page Équipe sont fictifs, et leur publication demande
+un accord.** Les six intervenants d'`equipe.html` — prénoms, parcours,
+citations — ont été inventés pour donner sa forme à la page. La pastille
+d'initiales tient lieu de photographie : elle reste dans la palette, se charge
+sans requête et ne laisse aucune image cassée en attendant les vraies.
+
+Avant publication, deux points : remplacer ces portraits par de vrais
+intervenants, et **recueillir leur accord écrit** — publier le nom et la
+photographie d'un salarié relève de son consentement, qu'il peut retirer. Une
+alternative si l'accord n'est pas obtenu de tous : conserver les prénoms suivis
+d'une initiale, comme ici, et s'en tenir aux pastilles.
 
 **Le contenu rédactionnel est un contenu d'amorçage.** Les textes, les tarifs
 du tableau, l'exemple de calcul du crédit d'impôt, les témoignages et les

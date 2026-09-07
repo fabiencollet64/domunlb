@@ -41,6 +41,7 @@ GROUPE_SERVICES = "__services__"
 NAV = [
     ("index.html",       "Accueil"),
     (GROUPE_SERVICES,    "Nos services"),
+    ("equipe.html",      "Notre équipe"),
     ("tarifs.html",      "Tarifs"),
     ("blog.html",        "Blog"),
     ("candidature.html", "Candidature"),
@@ -197,6 +198,7 @@ def pied(prof=0):
       <div>
         <h2>Informations</h2>
         <ul>
+          <li><a href="{p}equipe.html">Notre équipe</a></li>
           <li><a href="{p}contact.html">Nous contacter</a></li>
           <li><a href="{p}tarifs.html">Tarifs</a></li>
           <li><a href="{p}blog.html">Blog</a></li>

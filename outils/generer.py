@@ -1249,3 +1249,152 @@ ecrire("contact.html", g.page(
                 " du lundi au samedi 8h–19h, ou par formulaire.",
     corps=contact, page_active="contact.html", prof=0,
 ))
+
+
+# ---------------------------------------------------------------------------
+# Notre équipe
+# ---------------------------------------------------------------------------
+# CONTENU D'AMORÇAGE. Ces portraits sont fictifs : ni les prénoms, ni les
+# parcours, ni les citations ne viennent de Domun LB. Ils sont là pour que la
+# page ait sa forme définitive, et doivent être remplacés par de vrais
+# portraits — après accord écrit des personnes concernées, la publication d'un
+# nom et d'une photographie relevant de leur consentement.
+EQUIPE = [
+    ("SM", "Sylvie M.", "Auxiliaire de vie", "14 ans d'expérience",
+     "Ce qui compte, c'est de garder les habitudes de la personne. "
+     "C'est chez elle, pas chez moi."),
+    ("KB", "Karim B.", "Aide-soignant", "9 ans d'expérience",
+     "Je note tout ce que j'observe. La famille et le médecin savent "
+     "exactement où on en est."),
+    ("NF", "Nadia F.", "Aide ménagère", "6 ans d'expérience",
+     "Un logement en ordre, c'est moins de chutes. On ne le dit pas assez."),
+    ("PL", "Patrick L.", "Auxiliaire de vie", "11 ans d'expérience",
+     "J'interviens chez le même monsieur depuis trois ans. On a nos "
+     "habitudes, et ça change tout."),
+    ("AD", "Amina D.", "Aide-soignante", "17 ans d'expérience",
+     "Les retours d'hospitalisation demandent de la vigilance. "
+     "Les premiers jours se préparent."),
+    ("TR", "Thomas R.", "Auxiliaire de vie", "5 ans d'expérience",
+     "Le plus utile, souvent, c'est de prendre le temps de discuter."),
+]
+
+portraits = "".join(
+    f"""<article class="carte portrait">
+      <p class="portrait__avatar" aria-hidden="true">{initiales}</p>
+      <h3 class="portrait__nom">{nom}</h3>
+      <p class="portrait__role">{role}</p>
+      <p><span class="badge">{anciennete}</span></p>
+      <blockquote><p>«&nbsp;{citation}&nbsp;»</p></blockquote>
+    </article>"""
+    for initiales, nom, role, anciennete, citation in EQUIPE
+)
+
+equipe = f"""{g.fil_ariane([("index.html", "Accueil"), (None, "Notre équipe")])}
+
+<section class="section section--serree">
+  <div class="conteneur entete-page">
+    <h1>Celles et ceux qui interviennent chez vous</h1>
+    <p class="chapo">Une aide à domicile, ce n'est pas une prestation&nbsp;:
+      c'est quelqu'un qui entre chez vous. Vous rencontrez votre intervenant
+      avant le début de la mission, et nous faisons en sorte que ce soit
+      toujours la même personne.</p>
+  </div>
+</section>
+
+<section class="section section--clair">
+  <div class="conteneur">
+    <h2>Comment nous les choisissons</h2>
+    <div class="grille">
+      <div class="carte">
+        <h3 class="carte__titre">Diplôme et expérience</h3>
+        <p>Nous recrutons des personnes diplômées ou justifiant d'une
+          expérience significative auprès de personnes âgées ou en situation
+          de handicap.</p>
+      </div>
+      <div class="carte">
+        <h3 class="carte__titre">Références vérifiées</h3>
+        <p>Nous appelons les anciens employeurs. Ce que dit une famille qui a
+          travaillé avec quelqu'un vaut mieux qu'un curriculum vitae.</p>
+      </div>
+      <div class="carte">
+        <h3 class="carte__titre">Rencontre avant la mission</h3>
+        <p>Vous rencontrez l'intervenant avant son premier jour. Si le courant
+          ne passe pas, nous vous en proposons un autre.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <h2>Faire connaissance</h2>
+    <p>Quelques-uns des intervenants qui composent nos équipes.</p>
+    <div class="grille">{portraits}</div>
+  </div>
+</section>
+
+<section class="section section--clair">
+  <div class="conteneur">
+    <h2>Ce que nous leur apportons</h2>
+    <div class="duo">
+      <div>
+        <ul class="liste-puces">
+          <li><strong>Un secteur d'intervention limité</strong>, pour réduire
+            les trajets entre deux domiciles et arriver à l'heure.</li>
+          <li><strong>Un planning stable</strong>, avec les mêmes
+            bénéficiaires d'une semaine à l'autre autant que possible.</li>
+          <li><strong>Un référent joignable</strong> pendant les
+            interventions, en cas de difficulté ou de doute.</li>
+          <li><strong>De la formation continue</strong>&nbsp;: gestes et
+            postures, maladie d'Alzheimer, prévention des chutes.</li>
+        </ul>
+      </div>
+      <div class="carte">
+        <h3>Pourquoi cela vous concerne</h3>
+        <p>Un intervenant qui n'est pas épuisé par les trajets, qui connaît
+          votre situation et qui reste en poste, c'est une aide de meilleure
+          qualité et une continuité réelle.</p>
+        <p>C'est aussi ce qui explique que nous ne soyons pas les moins chers
+          du marché.</p>
+        <a class="bouton bouton--secondaire" href="tarifs.html">Voir nos tarifs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <h2>Rejoindre l'équipe</h2>
+    <div class="duo">
+      <div>
+        <p>Nous recrutons toute l'année des auxiliaires de vie, des
+          aides-soignantes et des aides ménagères. Si vous vous reconnaissez
+          dans ce que vous venez de lire, écrivez-nous.</p>
+        <div class="groupe-boutons">
+          <a class="bouton bouton--principal" href="candidature.html">Déposer ma candidature</a>
+          <a class="bouton bouton--secondaire" href="contact.html">Poser une question</a>
+        </div>
+      </div>
+      <div class="carte carte--clair">
+        <h3>Ce que nous demandons</h3>
+        <ul class="liste-puces">
+          <li>Un diplôme ou une expérience auprès de personnes âgées</li>
+          <li>De la ponctualité et de la constance</li>
+          <li>Le sens du respect de l'intimité et du domicile</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{g.rappel_action(
+    titre="Vous voulez rencontrer votre intervenant&nbsp;?",
+    texte="Appelez-nous&nbsp;: nous organisons la rencontre avant tout "
+          "engagement de votre part.")}"""
+
+ecrire("equipe.html", g.page(
+    titre="Notre équipe",
+    description="Les intervenants Domun LB : comment nous les recrutons, ce que "
+                "nous leur apportons, et pourquoi cela change la qualité de l'aide.",
+    corps=equipe, page_active="equipe.html", prof=0,
+))

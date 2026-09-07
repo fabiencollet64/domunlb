@@ -876,3 +876,39 @@ legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-i
    logo absorbe la contrainte — donc la bascule n'avait pas lieu d'être. */
 .entete__cta { flex: none; padding-inline: var(--esp-4); white-space: nowrap; }
 .entete__cta[aria-current="page"] { border-color: var(--jaune); }
+
+/* --------------------------------------------------------------------------
+   PORTRAITS DE L'ÉQUIPE
+   La pastille d'initiales tient lieu de photographie tant que les vraies
+   images ne sont pas fournies : elle reste dans la palette, se charge sans
+   requête et ne laisse aucune image cassée.
+   ------------------------------------------------------------------------ */
+.portrait { align-items: center; text-align: center; gap: var(--esp-3); }
+
+.portrait__avatar {
+  display: grid; place-items: center;
+  width: 6rem; height: 6rem;
+  margin: 0 0 var(--esp-2);
+  background: var(--violet);
+  color: var(--blanc);                 /* blanc sur violet : 12,72:1 */
+  border-radius: 50%;
+  font-size: var(--texte-xl);
+  font-weight: var(--graisse-forte);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+.portrait__nom { margin: 0; font-size: var(--texte-l); }
+.portrait__role { margin: 0; font-weight: var(--graisse-forte); }
+.portrait blockquote { margin: 0; }
+.portrait blockquote p { margin: 0; font-style: italic; }
+.portrait .badge { align-self: center; }
+
+/* Portrait d'une personne de l'encadrement : présentation en ligne */
+.portrait--large {
+  flex-direction: row; align-items: flex-start; text-align: left;
+  gap: var(--esp-5);
+}
+.portrait--large .portrait__avatar { flex: none; margin-bottom: 0; }
+@media (max-width: 559px) {
+  .portrait--large { flex-direction: column; align-items: center; text-align: center; }
+}
