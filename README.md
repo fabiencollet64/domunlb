@@ -161,8 +161,14 @@ Ce qui est tenu à chaque étape :
 
 ## Cache des ressources
 
-Les URL du CSS et des scripts portent une empreinte du contenu
-(`domun.css?v=c7c0f2ed…`), recalculée à chaque génération. Sans elle, un
+Les URL du CSS, des scripts **et des images** portent une empreinte du contenu
+(`domun.css?v=c7c0f2ed…`, `equipe-domunlb.jpg?v=1dacfc53…`), recalculée à
+chaque génération. Pour les images, l'empreinte est calculée **par fichier** :
+changer une photographie n'invalide pas les autres.
+
+Elle est indispensable ici : une photographie déposée prend le nom du pavé
+qu'elle remplace, donc la même URL. Sans empreinte, un navigateur qui a gardé
+l'ancienne image continue de l'afficher, et le remplacement passe inaperçu. Sans elle, un
 navigateur qui a gardé l'ancien CSS l'applique au nouveau HTML : la page
 s'affiche cassée, sans que rien ne le signale, et il faut penser à vider le
 cache à chaque mise en ligne.

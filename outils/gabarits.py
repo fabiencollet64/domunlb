@@ -5,6 +5,9 @@ Source unique de vérité pour l'en-tête, la navigation et le pied de page :
 c'est ce qui garantit que le téléphone reste visible et cliquable partout,
 et que la navigation ne dérive pas d'une page à l'autre.
 """
+import hashlib
+import os
+
 
 # Pour héberger le logo avec le site : déposer le fichier dans assets/img/ et
 # écrire ici un chemin relatif (« assets/img/logo-domunlb.png »). Un chemin
@@ -15,13 +18,35 @@ et que la navigation ne dérive pas d'une page à l'autre.
 # cassée sans que rien ne le signale.
 VERSION = "0"
 
+
 LOGO = "assets/img/logo-domunlb-provisoire.svg"
+
+RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_empreintes = {}
+
+
+def empreinte(chemin_relatif):
+    """Empreinte du contenu d'une ressource, ajoutée à son URL.
+
+    Une photographie déposée prend le nom du pavé qu'elle remplace, donc la
+    même URL. Sans empreinte, un navigateur qui a gardé l'ancienne image
+    continue de l'afficher, et le remplacement passe inaperçu. L'empreinte
+    est calculée par fichier : changer une photographie n'invalide pas les
+    autres.
+    """
+    if chemin_relatif not in _empreintes:
+        try:
+            with open(os.path.join(RACINE, chemin_relatif), "rb") as f:
+                _empreintes[chemin_relatif] = hashlib.sha256(f.read()).hexdigest()[:10]
+        except OSError:
+            _empreintes[chemin_relatif] = "0"
+    return _empreintes[chemin_relatif]
 
 
 def url_logo(prof=0):
     if LOGO.startswith("http://") or LOGO.startswith("https://"):
         return LOGO
-    return prefixe(prof) + LOGO
+    return f"{prefixe(prof)}{LOGO}?v={empreinte(LOGO)}"
 TEL_AFFICHE = "01 82 64 20 33"
 TEL_LIEN = "+33182642033"
 
@@ -143,13 +168,16 @@ def entete(page_active, prof=0):
 
 
 def media(fichier, texte_alt, prof=0, classes="media", chargement="lazy"):
-    """Figure image. Le texte alternatif décrit la photographie définitive :
-    les fichiers actuellement en place sont des pavés provisoires (voir
-    outils/images-provisoires.py)."""
+    """Figure image, dont l'URL porte l'empreinte du fichier.
+
+    Une photographie remplacée garde son nom, donc son URL : sans empreinte,
+    un navigateur qui a gardé l'ancienne image continuerait de l'afficher.
+    """
     p = prefixe(prof)
     priorite = ' fetchpriority="high"' if chargement == "eager" else ""
+    v = empreinte("assets/img/" + fichier)
     return (f'<figure class="{classes}">'
-            f'<img src="{p}assets/img/{fichier}" alt="{texte_alt}"'
+            f'<img src="{p}assets/img/{fichier}?v={v}" alt="{texte_alt}"'
             f' width="1366" height="768" loading="{chargement}"'
             f' decoding="async"{priorite}></figure>')
 
