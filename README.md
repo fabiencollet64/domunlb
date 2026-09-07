@@ -175,13 +175,15 @@ premier rendu. La page ne charge plus qu'une feuille au lieu de cinq.
 
 ## Photographies
 
-Les fichiers présents dans `assets/img/` sont des **pavés provisoires** : des
-aplats aux couleurs de la charte, au bon format, portant leur propre nom de
-fichier. Ils existent pour qu'aucune page n'affiche d'image cassée en
-attendant les vraies, et pour que personne ne les mette en ligne par
-inadvertance. Ils sont refabriqués par `python3 outils/images-provisoires.py`.
+Les huit photographies sont en place dans `assets/img/`, en 1366×768 (16/9).
 
-**Pour intégrer une photographie : écraser le fichier du même nom.** Aucune
+`python3 outils/images-provisoires.py` fabrique un pavé d'attente pour tout
+emplacement encore vide — un aplat aux couleurs de la charte portant son propre
+nom de fichier, de sorte qu'aucune page n'affiche d'image cassée et que
+personne ne le mette en ligne par inadvertance. **Le script ne remplace jamais
+une photographie déjà déposée.**
+
+**Pour changer une photographie : écraser le fichier du même nom.** Aucune
 modification de code n'est nécessaire.
 
 | Fichier | Page | Sujet attendu |
@@ -197,6 +199,12 @@ modification de code n'est nécessaire.
 
 Le **texte alternatif de chaque image décrit déjà la photographie définitive**,
 non le pavé : il n'y a rien à reprendre après le remplacement.
+
+Trois photographies supplémentaires sont conservées sans emplacement attribué,
+préfixées `reserve-` : `reserve-couple-document.jpg` (un couple examinant un
+document), `reserve-homme-jardin.jpg` (un homme souriant en extérieur) et
+`reserve-couple-complice.jpg` (un couple enlacé). Elles pourraient servir sur
+les pages Blog, Candidature ou Équipe, qui n'ont pas d'image.
 
 ### Déposer les photographies
 

@@ -53,6 +53,12 @@ def police(taille):
 
 
 def fabriquer(nom, legende):
+    # Ne jamais écraser une photographie déposée : le script ne comble que
+    # les emplacements encore vides.
+    chemin_existant = os.path.join(DOSSIER, nom)
+    if os.path.exists(chemin_existant):
+        print("gardé  assets/img/%s (photographie en place)" % nom)
+        return
     image = Image.new("RGB", (LARGEUR, HAUTEUR), VIOLET)
     dessin = ImageDraw.Draw(image)
 

@@ -936,11 +936,8 @@ legend { font-weight: var(--graisse-forte); font-size: var(--texte-m); padding-i
 .section--marque .media figcaption,
 .section--degrade .media figcaption { color: var(--texte-sur-marque); }
 
-/* Bandeau pleine largeur, pour une photographie qui ouvre une page. */
-.media--bandeau img {
-  aspect-ratio: 21 / 9;
-  border-radius: var(--rayon-l);
-}
-@media (max-width: 699px) {
-  .media--bandeau img { aspect-ratio: 3 / 2; }
-}
+/* Bandeau pleine largeur, pour une photographie qui ouvre une page.
+   Le rapport reste 16/9, celui des photographies fournies : un cadrage plus
+   large recouperait dans l'image et, sur la photographie d'équipe, coupait
+   les têtes des personnes debout et les torses de celles assises. */
+.media--bandeau img { border-radius: var(--rayon-l); }

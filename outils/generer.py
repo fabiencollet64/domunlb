@@ -1173,11 +1173,18 @@ contact = f"""{g.fil_ariane([("index.html", "Accueil"), (None, "Nous contacter")
 <section class="section">
   <div class="conteneur">
     <h2>Nous écrire</h2>
-    {g.media("contact.jpg",
-             "Un couple consulte un ordinateur portable dans sa cuisine, "
-             "en souriant.", classes="media media--bandeau")}
-    <p>Les champs suivis de <span class="champ__obligatoire">(obligatoire)</span>
-      doivent être remplis.</p>
+    <div class="duo">
+      <div>
+        <p>Décrivez votre situation en quelques lignes&nbsp;: nous vous
+          rappelons en connaissant déjà l'essentiel.</p>
+        <p>Les champs suivis de
+          <span class="champ__obligatoire">(obligatoire)</span> doivent être
+          remplis.</p>
+      </div>
+      {g.media("contact.jpg",
+               "Un couple consulte un ordinateur portable dans sa cuisine, "
+               "en souriant.")}
+    </div>
 
     <form class="formulaire" action="#" method="post" novalidate>
       <fieldset>
